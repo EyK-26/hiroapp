@@ -26,7 +26,7 @@ class UserFactory extends Factory
             'email' => preg_replace(
                 '/@example\..*/',
                 '@hiroapp.com',
-                fake()->unique()->safeEmail()
+                fake()->unique()->safeEmail(),
             ),
             'email_verified_at' => now(),
             'role_id' => fake()->numberBetween(1, 3),
