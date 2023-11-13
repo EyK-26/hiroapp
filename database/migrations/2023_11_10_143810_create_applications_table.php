@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('position_id');
+            $table->foreignId('position_id')->nullable();
             $table->foreignId('status_id');
-            $table->string('attachment_text')->nullable();
+            $table->text('attachment_text')->nullable();
             $table->string('attachment_file')->nullable();
             $table->timestamps();
             $table->unique(['user_id', 'position_id']);
