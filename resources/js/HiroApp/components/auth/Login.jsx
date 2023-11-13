@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Context from "../../context/Context";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
     const { state, dispatch } = useContext(Context);
@@ -8,18 +9,18 @@ export default function Login() {
         email: "",
         password: "",
     });
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             const response = await axios.post("/login", values);
             const response_data = response.data;
-            console.log(response);
-
             dispatch({
                 type: "success/add",
                 payload: response.statusText,
             });
+            navigate("/");
         } catch (error) {
             switch (error.response) {
                 case 422:
