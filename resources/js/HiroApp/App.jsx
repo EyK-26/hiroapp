@@ -9,8 +9,8 @@ const App = () => {
         theme: "light",
         user: null,
         messages: {
-            messages: [],
-            errors: [],
+            success: {},
+            errors: {},
         },
     });
 

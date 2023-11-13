@@ -16,7 +16,7 @@ export default function reducer(state, action) {
                 ...state,
                 messages: {
                     ...state.messages,
-                    errors: [...state.messages.errors, action.payload],
+                    errors: action.payload,
                 },
             };
         case "success/add":
@@ -24,7 +24,7 @@ export default function reducer(state, action) {
                 ...state,
                 messages: {
                     ...state.messages,
-                    messages: [...state.messages.messages, action.payload],
+                    success: action.payload,
                 },
             };
         default:

@@ -14,15 +14,12 @@ export default function Login() {
         try {
             const response = await axios.post("/login", values);
             const response_data = response.data;
-            console.log(response_data);
+            console.log(response);
+
             dispatch({
-                type: "user/set",
-                payload: response_data,
+                type: "success/add",
+                payload: response.statusText,
             });
-            // dispatch({
-            //     type: "success/add",
-            //     payload: response_data,
-            // });
         } catch (error) {
             switch (error.response) {
                 case 422:
@@ -37,7 +34,7 @@ export default function Login() {
             }
             dispatch({
                 type: "error/add",
-                payload: error.response,
+                payload: error.response.data.errors,
             });
         }
     };
@@ -59,6 +56,9 @@ export default function Login() {
                 value={values.email}
                 onChange={handleChange}
             />
+            {state.messages.errors?.email && (
+                <span>{state.messages.errors.email}</span>
+            )}
 
             <input
                 type="password"
@@ -66,6 +66,9 @@ export default function Login() {
                 value={values.password}
                 onChange={handleChange}
             />
+            {state.messages.errors?.password && (
+                <span>{state.messages.errors.password}</span>
+            )}
 
             <button>Login</button>
         </form>
