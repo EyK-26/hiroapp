@@ -7,6 +7,11 @@ import Router from "./router/Router";
 const App = () => {
     const [contextValue, setContextValue] = useReducer(reducer, {
         theme: "light",
+        user: null,
+        messages: {
+            messages: [],
+            errors: [],
+        },
     });
 
     return (
