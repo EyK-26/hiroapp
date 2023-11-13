@@ -10,7 +10,6 @@ export default function Logout() {
     const handleLogout = async (e) => {
         try {
             const response = await axios.post("/logout");
-            console.log(response);
             dispatch({
                 type: "user/set",
                 payload: null,

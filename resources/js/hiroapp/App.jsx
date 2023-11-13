@@ -12,13 +12,11 @@ const App = () => {
     const loadUserStatus = async () => {
         try {
             const response = await axios.get("/api/user");
-            console.log(response.data);
-            if (response.status == 200) {
+            if (Math.floor(response.status / 100) === 2) {
                 dispatch({
                     type: "user/set",
                     payload: response.data,
                 });
-                console.log(state);
             } else if (response.status == 401) {
                 dispatch({
                     type: "user/set",
@@ -40,7 +38,6 @@ const App = () => {
     };
 
     useEffect(() => {
-        console.log(state);
         if (state.user === null) {
             loadUserStatus();
         }

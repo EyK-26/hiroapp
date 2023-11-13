@@ -4,12 +4,14 @@ import Context from "../context/Context";
 
 const Header = () => {
     const { state } = useContext(Context);
-    console.log(state.user);
     return (
         <header>
             <nav>
-                <Link to="/login">Login</Link>
-                <Link to="/logout">Logout</Link>
+                {!state.user ? (
+                    <Link to="/login">Login</Link>
+                ) : (
+                    <Link to="/logout">Logout</Link>
+                )}
             </nav>
             {state.user ? (
                 <span>Welcome {state.user.first_name}</span>
