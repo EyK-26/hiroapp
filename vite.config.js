@@ -1,5 +1,5 @@
 import { defineConfig, loadEnv } from "vite";
-// import reactRefresh from "@vitejs/plugin-react-refresh";
+//import reactRefresh from "@vitejs/plugin-react-refresh";
 import laravel from "laravel-vite-plugin";
 
 export default ({ mode }) => {
@@ -12,7 +12,7 @@ export default ({ mode }) => {
 
                 refresh: true,
             }),
-            // reactRefresh(),
+            //reactRefresh(),
             {
                 // fixes URLs that start with / in CSS files
 
