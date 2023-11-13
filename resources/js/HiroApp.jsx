@@ -8,4 +8,8 @@ export default function HiroApp() {
 
 const container = document.getElementById("root");
 const root = createRoot(container);
-root.render(<HiroApp />);
+root.render(
+    <React.StrictMode>
+        <HiroApp />
+    </React.StrictMode>
+);
