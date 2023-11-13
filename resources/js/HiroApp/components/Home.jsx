@@ -1,10 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Context from "../context/Context";
 
 const Home = () => {
-    const { state, dispatch } = useContext(Context);
+    const { state } = useContext(Context);
+    const [user, setUser] = useState("");
 
-    return <>{state.user?.first_name}</>;
+    useEffect(() => {
+        if (state.user !== null) {
+            setUser(state.user.first_name);
+        }
+    }, [state.user]);
+
+    return <>{user}</>;
 };
 
 export default Home;

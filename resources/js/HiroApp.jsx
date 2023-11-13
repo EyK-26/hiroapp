@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./HiroApp/App";
+import { BrowserRouter } from "react-router-dom";
+import reducer from "./hiroapp/store/Reducer";
+import Context from "./hiroapp/context/Context";
 
 export default function HiroApp() {
-    return <App />;
+    const [contextValue, setContextValue] = useReducer(reducer, {
+        theme: "light",
+        user: null,
+        messages: {
+            success: {},
+            errors: {},
+        },
+    });
+
+    return (
+        <BrowserRouter>
+            <Context.Provider
+                value={{ state: contextValue, dispatch: setContextValue }}
+            >
+                <App />
+            </Context.Provider>
+        </BrowserRouter>
+    );
 }
 
 const container = document.getElementById("root");
