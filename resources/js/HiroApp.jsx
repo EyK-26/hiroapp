@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./HiroApp/App";
+import App from "./hiroapp/App";
 import { BrowserRouter } from "react-router-dom";
 import reducer from "./hiroapp/store/Reducer";
 import Context from "./hiroapp/context/Context";
