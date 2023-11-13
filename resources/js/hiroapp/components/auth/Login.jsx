@@ -3,7 +3,7 @@ import Context from "../../context/Context";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Login({ loadUserStatus }) {
     const { state, dispatch } = useContext(Context);
     const [values, setValues] = useState({
         email: "",
@@ -20,6 +20,7 @@ export default function Login() {
                 type: "success/add",
                 payload: response.statusText,
             });
+            loadUserStatus();
             navigate("/");
         } catch (error) {
             switch (error.response) {

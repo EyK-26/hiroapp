@@ -1,10 +1,10 @@
 export default function reducer(state, action) {
-    console.log(
-        "action type: ",
-        action.type,
-        "action_payload: ",
-        action.payload
-    );
+    // console.log(
+    //     "action type: ",
+    //     action.type,
+    //     "action_payload: ",
+    //     action.payload
+    // );
     switch (action.type) {
         case "theme/set":
             return {
