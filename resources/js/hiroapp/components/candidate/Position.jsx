@@ -33,7 +33,7 @@ const Position = () => {
                             </div>
                             <p>{position.description}</p>
                         </div>
-                        <Link to="#">
+                        <Link to={'/apply/' + id}>
                             <button>Apply</button>
                         </Link>
                     </>
