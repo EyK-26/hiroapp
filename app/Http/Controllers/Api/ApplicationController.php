@@ -17,7 +17,10 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = Auth::id();
+        $applications = Application::query()->with(['position', 'status'])->where('user_id', $user_id)->get();
+
+        return $applications;
     }
 
     /**
