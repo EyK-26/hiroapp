@@ -1,13 +1,34 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Context from "../../context/Context";
 
 const Positions = () => {
     const [positions, setPositions] = useState([]);
+    const { state } = useContext(Context);
 
     const loadPositions = async () => {
-        const response = await axios.get("/api/applications");
-        setPositions(response.data);
+        const response = await axios.get("/api/positions");
+        const data = response.data;
+        const new_data = []
+
+        // filters duplicate data from response
+        data.forEach(position => {
+            if (position.applications.length !== 0) {
+                let isApplied = false
+                for (let i = 0; i < position.applications.length; i++) {
+                    if (state.user.id === position.applications[i].user_id) {
+                        isApplied = true
+                    }
+                }
+                if (!isApplied) {
+                    new_data.push(position)
+                }
+            } else {
+                new_data.push(position)
+            }
+        });
+        setPositions(new_data);
     };
 
     useEffect(() => {
@@ -24,8 +45,7 @@ const Positions = () => {
                     positions.map((position) => (
                         <Link to={'/positions/' + position.id} key={position.id}>
                             <div >
-                                <span>{position.position.name}</span>
-                                <span>{position.position.description}</span>
+                                <span>{position.name}</span>
                             </div>
                         </Link>
                     ))
