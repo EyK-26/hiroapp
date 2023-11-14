@@ -1,7 +1,12 @@
 import React from "react";
+import Applications from "./Applications";
 
 const Home = () => {
-    return <div>Welcome Candidate</div>;
+    return (
+        <>
+            <Applications />
+        </>
+    )
 };
 
 export default Home;
