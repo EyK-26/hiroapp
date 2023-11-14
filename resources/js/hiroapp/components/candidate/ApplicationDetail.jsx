@@ -35,7 +35,10 @@ const ApplicationDetail = () => {
                         }}
                     />
                     <ApplicationDetailStatus
-                        applicationStatus={applicationData.status}
+                        applicationStatus={{
+                            allStatuses: applicationData.all_statuses,
+                            currentStatus: applicationData.status,
+                        }}
                     />
                 </>
             )}
