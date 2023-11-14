@@ -39,5 +39,3 @@ Route::post('/applications', [ApplicationController::class, 'store'])->name('app
 Route::get('/applications/{application}', [ApplicationController::class, 'show'])->whereNumber('application')->name('applications.show');
 Route::post('/applications/{application}/edit', [ApplicationController::class, 'update'])->whereNumber('application')->name('applications.update');
 Route::post('/applications/{application}/delete', [ApplicationController::class, 'destroy'])->whereNumber('application')->name('applications.destroy');
-
-Route::get('/statuses/{status}', [StatusController::class, 'show'])->name('statuses.show');

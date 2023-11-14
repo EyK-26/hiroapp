@@ -8,10 +8,8 @@ const ApplicantList = ({ applicants }) => {
             {applicants
                 ? applicants.map((application) => (
                       <ul key={application.user_id}>
-                          <Applicant user_id={application.user_id} />
-                          <CurrentStatus
-                              currentStatus_id={application.status_id}
-                          />
+                          <Applicant user={application.user} />
+                          <CurrentStatus status={application.status} />
                       </ul>
                   ))
                 : "Loading Applicants"}

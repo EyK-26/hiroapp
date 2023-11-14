@@ -4,7 +4,6 @@ import React, { useState } from "react";
 const ApplicationDetailStatus = ({
     applicationStatus,
     setIsEndedByCandidate,
-    isEndedByCandidate,
 }) => {
     const { allStatuses, currentStatus, applicationId } = applicationStatus;
     const [isPopupOpen, setIsPopupOpen] = useState(false);

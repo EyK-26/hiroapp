@@ -14,6 +14,7 @@ const ApplicationDetail = () => {
         try {
             const response = await axios.get(`/api/applications/${id}`);
             setApplicationData(response.data);
+            console.log(response.data);
         } catch (err) {
             console.log(err.response);
         }
@@ -26,7 +27,7 @@ const ApplicationDetail = () => {
     return (
         <>
             {applicationData && (
-                <>
+                <div>
                     <ApplicationDetailHeader applicant={applicationData.user} />
                     <ApplicationDetailDetails
                         application={{
@@ -43,7 +44,7 @@ const ApplicationDetail = () => {
                         setIsEndedByCandidate={setIsEndedByCandidate}
                         isEndedByCandidate={isEndedByCandidate}
                     />
-                </>
+                </div>
             )}
         </>
     );
