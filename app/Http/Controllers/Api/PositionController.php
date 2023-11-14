@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Position;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PositionController extends Controller
 {
@@ -12,7 +14,11 @@ class PositionController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = Auth::user()->id;
+        $user_position = Position::where("user_id", $user_id)->get();
+        $department_id = $user_position[0]->department_id;
+        $positions = Position::query()->where('department_id', $department_id)->where('hiring', 1)->get();
+        return $positions;
     }
 
     /**
