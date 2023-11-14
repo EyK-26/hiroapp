@@ -35,7 +35,7 @@ const Router = ({ loadUserStatus }) => {
 				);
 			case 3:
 				role = "recruiter";
-				return <Route index element={<RecruiterHome />}></Route>;
+				return <Route index element={<RecruiterHome />} />;
 			default:
 				break;
 		}

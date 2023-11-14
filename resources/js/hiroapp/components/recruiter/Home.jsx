@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
 	const [hirings, setHirings] = useState([]);
@@ -25,7 +26,9 @@ const Home = () => {
 			<ul>
 				{hirings.map((hiring) => (
 					<li key={hiring.id}>
-						<h5>{hiring.name}</h5>
+						<Link to={"/positions/" + hiring.id}>
+							<h5>{hiring.name}</h5>
+						</Link>
 						<p>()</p>
 						<p>Due: {hiring.start_date}</p>
 					</li>
