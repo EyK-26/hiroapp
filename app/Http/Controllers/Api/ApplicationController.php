@@ -85,4 +85,10 @@ class ApplicationController extends Controller
     {
         //
     }
+
+    public function getAmountOfApplications($position_id)
+    {
+        $applications = Application::query()->where('position_id', $position_id)->get();
+        return $applications;
+    }
 }
