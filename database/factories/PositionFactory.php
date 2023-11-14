@@ -20,7 +20,7 @@ class PositionFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fake()->boolean(70) ? fake()->unique()->numberBetween(1, 200) : null,
+            'user_id' => fake()->boolean(70) ? fake()->unique()->numberBetween(1, 450) : null,
             'department_id' => fake()->numberBetween(1, 20),
             'grade_id' => fake()->numberBetween(1, 3),
             'name' => fake()->jobTitle(),
