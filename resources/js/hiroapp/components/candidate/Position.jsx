@@ -1,15 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const Position = () => {
     const [position, setPosition] = useState(null);
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const loadPosition = async () => {
         try {
             const response = await axios.get(`/api/positions/${id}`);
             setPosition(response.data);
+            if (response.data.hiring !== 1) {
+                navigate('/')
+            }
         } catch (error) {
             console.log(error.response.data)
         }
