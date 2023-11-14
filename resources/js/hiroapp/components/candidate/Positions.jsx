@@ -8,12 +8,10 @@ const Positions = () => {
     const loadPositions = async () => {
         const response = await axios.get("/api/applications");
         setPositions(response.data);
-        console.log(response.data);
     };
 
     useEffect(() => {
         loadPositions();
-        console.log("EFF");
     }, []);
 
     return (

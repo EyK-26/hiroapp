@@ -8,12 +8,10 @@ const Applications = () => {
     const loadApplications = async () => {
         const response = await axios.get("/api/applications");
         setApplications(response.data);
-        console.log(response.data);
     };
 
     useEffect(() => {
         loadApplications();
-        console.log("EFF");
     }, []);
 
     return (
