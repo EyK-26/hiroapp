@@ -7,6 +7,7 @@ import ApplicationDetailStatus from "./ApplicationDetailStatus";
 
 const ApplicationDetail = () => {
     const [applicationData, setApplicationData] = useState(null);
+    const [isEndedByCandidate, setIsEndedByCandidate] = useState(false);
     const { id } = useParams();
 
     const fetchApplicationData = async () => {
@@ -21,7 +22,7 @@ const ApplicationDetail = () => {
 
     useEffect(() => {
         fetchApplicationData();
-    }, []);
+    }, [isEndedByCandidate]);
 
     return (
         <>
@@ -36,9 +37,12 @@ const ApplicationDetail = () => {
                     />
                     <ApplicationDetailStatus
                         applicationStatus={{
+                            applicationId: applicationData.application.id,
                             allStatuses: applicationData.all_statuses,
                             currentStatus: applicationData.status,
                         }}
+                        setIsEndedByCandidate={setIsEndedByCandidate}
+                        isEndedByCandidate={isEndedByCandidate}
                     />
                 </>
             )}

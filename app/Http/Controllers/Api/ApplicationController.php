@@ -53,7 +53,7 @@ class ApplicationController extends Controller
         return $authenticated_user_id === $user->id ? [
             'application' => $application, 'user' => $user, 'position' => $position, 'status' => $status,
             'all_statuses' => $all_statuses,
-        ] : ['message' => 'not authorized'];
+        ] : ['message' => '404 not authorized'];
     }
 
     /**
@@ -67,9 +67,15 @@ class ApplicationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(string $id)
     {
-        //
+        $application = Application::findOrFail($id);
+        if ($application->status_id !== 6) {
+            $application->status_id = 6;
+            $application->save();
+        } else {
+            return ['message' => '404 not authorized'];
+        }
     }
 
     /**
