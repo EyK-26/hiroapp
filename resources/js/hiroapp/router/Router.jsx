@@ -12,6 +12,7 @@ import ApplicationDetail from "../components/candidate/ApplicationDetail";
 import Applications from "../components/candidate/Applications";
 import Positions from "../components/candidate/Positions";
 import Position from "../components/candidate/Position";
+import CreateApplication from "../components/candidate/CreateApplication";
 
 const Router = ({ loadUserStatus }) => {
 	const { state } = useContext(Context);
@@ -29,6 +30,7 @@ const Router = ({ loadUserStatus }) => {
 						<Route index element={<CandidateHome />} />
 						<Route path="/applications" element={<Applications />} />
 						<Route path="/positions" element={<Positions />} />
+						<Route path="/apply/:id" element={<CreateApplication />} />
 						<Route path="/positions/:id" element={<Position />} />
 						<Route path="/applications/:id" element={<ApplicationDetail />} />
 					</>
