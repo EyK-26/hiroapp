@@ -49,8 +49,10 @@ class ApplicationController extends Controller
         $user = User::findOrFail($application->user_id);
         $position = Position::findOrFail($application->position_id);
         $status = Status::findOrFail($application->status_id);
+        $all_statuses = Status::all();
         return $authenticated_user_id === $user->id ? [
-            'application' => $application, 'user' => $user, 'position' => $position, 'status' => $status
+            'application' => $application, 'user' => $user, 'position' => $position, 'status' => $status,
+            'all_statuses' => $all_statuses,
         ] : ['message' => 'not authorized'];
     }
 

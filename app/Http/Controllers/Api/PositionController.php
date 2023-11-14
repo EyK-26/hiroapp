@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Position;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PositionController extends Controller
 {
@@ -20,7 +22,6 @@ class PositionController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
