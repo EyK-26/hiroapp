@@ -13,7 +13,6 @@ const PositionDetail = () => {
         try {
             const response = await axios.get(`/api/positions/${id}`);
             setPositionData(response.data);
-            console.log(response.data);
         } catch (err) {
             console.log(err.response);
         }
