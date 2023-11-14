@@ -30,7 +30,9 @@ const Home = () => {
 							<h5>{hiring.name}</h5>
 						</Link>
 						<p>()</p>
-						<p>Due: {hiring.start_date}</p>
+						<p>
+							Due: {hiring.start_date ? hiring.start_date : "Not determined"}
+						</p>
 					</li>
 				))}
 			</ul>
