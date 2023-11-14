@@ -19,7 +19,7 @@ class PositionController extends Controller
             $user_id = Auth::user()->id;
             $user_position = Position::where("user_id", $user_id)->get();
             $department_id = $user_position[0]->department_id;
-            $positions = Position::query()->where('department_id', $department_id)->where('hiring', 1)->get();
+            $positions = Position::query()->where('department_id', $department_id)->where('hiring', 1)->with('applications')->get();
             return $positions;
         } else if ($user_role_id == 2) {
             $positions = Position::query()
