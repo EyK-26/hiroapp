@@ -1,8 +1,10 @@
 import React from "react";
 import Applicant from "./Applicant";
 import CurrentStatus from "./CurrentStatus";
+import { Link } from "react-router-dom";
 
 const ApplicantList = ({ applicants }) => {
+    console.log(applicants);
     return (
         <>
             {applicants
@@ -10,6 +12,9 @@ const ApplicantList = ({ applicants }) => {
                       <ul key={application.user_id}>
                           <Applicant user={application.user} />
                           <CurrentStatus status={application.status} />
+                          <Link to={`/applications/${application.id}`}>
+                              Manage Application
+                          </Link>
                       </ul>
                   ))
                 : "Loading Applicants"}

@@ -18,13 +18,10 @@ import CreateApplication from "../components/candidate/CreateApplication";
 const Router = ({ loadUserStatus }) => {
     const { state } = useContext(Context);
     const roleRoutes = () => {
-        let role = "";
         switch (state.user?.role_id) {
             case 1:
-                role = "admin";
                 return <Route index element={<AdminHome />}></Route>;
             case 2:
-                role = "candidate";
                 return (
                     <>
                         <Route index element={<CandidateHome />} />
@@ -45,13 +42,16 @@ const Router = ({ loadUserStatus }) => {
                     </>
                 );
             case 3:
-                role = "recruiter";
                 return (
                     <>
-                        <Route index element={<RecruiterHome />}></Route>;
+                        <Route index element={<RecruiterHome />} />
                         <Route
                             path="/positions/:id"
                             element={<PositionDetail />}
+                        />
+                        <Route
+                            path="/applications/:id"
+                            element={<ApplicationDetail />}
                         />
                     </>
                 );
