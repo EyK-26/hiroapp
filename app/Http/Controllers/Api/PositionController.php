@@ -14,11 +14,21 @@ class PositionController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::user()->id;
-        $user_position = Position::where("user_id", $user_id)->get();
-        $department_id = $user_position[0]->department_id;
-        $positions = Position::query()->where('department_id', $department_id)->where('hiring', 1)->with('applications')->get();
-        return $positions;
+        $user_role_id = Auth::user()->role_id;
+        if ($user_role_id == 1 || $user_role_id == 3) {
+            $user_id = Auth::user()->id;
+            $user_position = Position::where("user_id", $user_id)->get();
+            $department_id = $user_position[0]->department_id;
+            $positions = Position::query()->where('department_id', $department_id)->where('hiring', 1)->with('applications')->get();
+            return $positions;
+        } else if ($user_role_id == 2) {
+            $positions = Position::query()
+                ->with('applications')
+                ->where('hiring', 1)
+                ->get();
+
+            return $positions;
+        }
     }
 
     /**
