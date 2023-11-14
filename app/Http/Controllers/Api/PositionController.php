@@ -83,4 +83,11 @@ class PositionController extends Controller
     {
         //
     }
+
+    public function getAllPositions()
+    {
+        $positions = Position::select('name')->distinct()->orderBy('name')->get();
+
+        return $positions;
+    }
 }

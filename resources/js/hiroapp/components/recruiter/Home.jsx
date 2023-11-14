@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import CreatePosition from "./CreatePosition";
 
 const Home = () => {
 	const [hirings, setHirings] = useState([]);
@@ -41,55 +42,7 @@ const Home = () => {
 					</div>
 				</div>
 				<div>
-					<h2>Create new position</h2>
-					<form
-						action="/login"
-						method="post"
-						// onSubmit={handleSubmit}
-					>
-						<br />
-						Name:
-						<br />
-						<input
-							type="text"
-							name="name"
-							// value={values.attachment_text}
-							// onChange={handleChange}
-						/>
-						<br />
-						Description: <br />
-						<textarea
-							name="description"
-							// value={values.attachment_file}
-							// onChange={handleChange}
-						/>
-						<br />
-						Start date: <br />
-						<input
-							type="date"
-							name="start_date"
-							// value={values.attachment_file}
-							// onChange={handleChange}
-						/>
-						<br />
-						End date: <br />
-						<input
-							type="date"
-							name="end_date"
-							// value={values.attachment_file}
-							// onChange={handleChange}
-						/>
-						<br />
-						Pay grade: <br />
-						<input
-							type="number"
-							name="pay_grade"
-							// value={values.attachment_file}
-							// onChange={handleChange}
-						/>
-						<br />
-						<button>Create</button>
-					</form>
+					<CreatePosition />
 				</div>
 			</div>
 		</>
