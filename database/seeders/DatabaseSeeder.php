@@ -42,21 +42,21 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::factory()->count(200)->create();
+        User::factory()->count(450)->create();
     }
 }
 class PositionSeeder extends Seeder
 {
     public function run(): void
     {
-        Position::factory()->count(275)->create();
+        Position::factory()->count(550)->create();
     }
 }
 class ApplicationSeeder extends Seeder
 {
     public function run(): void
     {
-        Application::factory()->count(35)->create();
+        Application::factory()->count(225)->create();
     }
 }
 class DepartmentSeeder extends Seeder
