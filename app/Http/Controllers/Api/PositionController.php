@@ -22,9 +22,6 @@ class PositionController extends Controller
      */
     public function create()
     {
-        $user_id = Auth::user()->id;
-        $department_ids = Position::query()->get();
-        dd($user_id, $department_ids);
     }
 
     /**
