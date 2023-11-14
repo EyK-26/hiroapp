@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApplicationController extends Controller
 {
@@ -12,7 +14,10 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = Auth::id();
+        $applications = Application::query()->with(['position', 'status'])->where('user_id', $user_id)->get();
+
+        return $applications;
     }
 
     /**
