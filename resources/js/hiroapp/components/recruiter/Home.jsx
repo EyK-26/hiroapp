@@ -8,7 +8,6 @@ const Home = () => {
 		try {
 			const response = await axios.get("/api/positions");
 			setHirings(response.data);
-			console.log(response.data);
 		} catch (error) {
 			console.log("UNKNOWN ERROR", error.response.data);
 		}

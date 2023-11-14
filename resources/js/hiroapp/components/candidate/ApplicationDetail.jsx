@@ -14,7 +14,6 @@ const ApplicationDetail = () => {
         try {
             const response = await axios.get(`/api/applications/${id}`);
             setApplicationData(response.data);
-            console.log(response.data);
         } catch (err) {
             console.log(err.response);
         }

@@ -33,7 +33,6 @@ const ApplicationDetailStatus = ({
                 `/api/applications/${applicationId}/edit`
             );
             setIsEndedByCandidate(true);
-            console.log(response.data);
             setIsPopupOpen(false);
         } catch (err) {
             console.log(err.response);

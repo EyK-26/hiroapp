@@ -41,8 +41,13 @@ class PositionController extends Controller
      */
     public function show(string $id)
     {
-        $position = Position::query()->where('id', $id)->with(['department','grade'])->get();
-        return $position[0];
+        if (Auth::user()->role_id === 2) {
+            $position = Position::query()->where('id', $id)->with(['department', 'grade'])->get();
+            return $position[0];
+        } else if (Auth::user()->role_id === 3) {
+            $position = Position::findOrfail($id);
+            return $position->load('applications');
+        }
     }
 
     /**
