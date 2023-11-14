@@ -60,7 +60,7 @@ const ApplicationDetailStatus = ({
     return (
         <div>
             {currentStatus.id !== 6 && (
-                <button onClick={handleClick}>Retrieve Your Application</button>
+                <button onClick={handleClick}>Retrieve</button>
             )}
             {isPopupOpen && (
                 <div className="warning_retrieve">
