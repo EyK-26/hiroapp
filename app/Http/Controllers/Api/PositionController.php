@@ -26,7 +26,6 @@ class PositionController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -42,7 +41,8 @@ class PositionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $position = Position::query()->where('id', $id)->with(['department','grade'])->get();
+        return $position[0];
     }
 
     /**

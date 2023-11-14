@@ -8,6 +8,10 @@ import CandidateHome from "../components/candidate/Home";
 import AdminHome from "../components/admin/Home";
 import Context from "../context/Context";
 import Unauthorized from "../components/Unauthorized";
+import ApplicationDetail from "../components/candidate/ApplicationDetail";
+import Applications from "../components/candidate/Applications";
+import Positions from "../components/candidate/Positions";
+import Position from "../components/candidate/Position";
 
 const Router = ({ loadUserStatus }) => {
 	const { state } = useContext(Context);
@@ -20,10 +24,18 @@ const Router = ({ loadUserStatus }) => {
 				return <Route index element={<AdminHome />}></Route>;
 			case 2:
 				role = "candidate";
-				return <Route index element={<CandidateHome />}></Route>;
+				return (
+					<>
+						<Route index element={<CandidateHome />} />
+						<Route path="/applications" element={<Applications />} />
+						<Route path="/positions" element={<Positions />} />
+						<Route path="/positions/:id" element={<Position />} />
+						<Route path="/applications/:id" element={<ApplicationDetail />} />
+					</>
+				);
 			case 3:
 				role = "recruiter";
-				return <Route index element={<RecruiterHome />} />;
+				return <Route index element={<RecruiterHome />}></Route>;
 			default:
 				break;
 		}

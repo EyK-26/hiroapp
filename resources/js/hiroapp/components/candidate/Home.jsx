@@ -1,7 +1,14 @@
 import React from "react";
+import Applications from "./Applications";
+import Positions from "./Positions";
 
 const Home = () => {
-    return <div>Welcome Candidate</div>;
+    return (
+        <>
+            <Applications />
+            <Positions />
+        </>
+    )
 };
 
 export default Home;
