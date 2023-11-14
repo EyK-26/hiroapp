@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import Context from "../../context/Context";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,6 @@ export default function Login({ loadUserStatus }) {
         event.preventDefault();
         try {
             const response = await axios.post("/login", values);
-            const response_data = response.data;
             dispatch({
                 type: "success/add",
                 payload: response.statusText,
