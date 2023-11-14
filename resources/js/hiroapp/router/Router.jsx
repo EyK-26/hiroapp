@@ -9,6 +9,8 @@ import AdminHome from "../components/admin/Home";
 import Context from "../context/Context";
 import Unauthorized from "../components/Unauthorized";
 import ApplicationDetail from "../components/candidate/ApplicationDetail";
+import Applications from "../components/candidate/Applications";
+import Positions from "../components/candidate/Positions";
 
 const Router = ({ loadUserStatus }) => {
     const { state } = useContext(Context);
@@ -24,6 +26,8 @@ const Router = ({ loadUserStatus }) => {
                 return (
                     <>
                         <Route index element={<CandidateHome />} />
+                        <Route path="/applications" element={<Applications />} />
+                        <Route path="/positions" element={<Positions />} />
                         <Route
                             path="/applications/:id"
                             element={<ApplicationDetail />}
