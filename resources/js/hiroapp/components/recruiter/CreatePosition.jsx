@@ -50,7 +50,7 @@ const CreatePosition = () => {
 		<>
 			<h2>Create new position</h2>
 
-			<form action="/login" method="post" onSubmit={handleSubmit}>
+			<form action="/" method="post" onSubmit={handleSubmit}>
 				<br />
 				<label>
 					Name:
