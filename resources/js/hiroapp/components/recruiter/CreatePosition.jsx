@@ -1,7 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CreatePosition = () => {
+	const navigate = useNavigate;
+
 	const [positions, setPositions] = useState(null);
 	const [values, setValues] = useState({
 		name: "",
@@ -29,6 +32,16 @@ const CreatePosition = () => {
 		});
 	};
 
+	const handleSubmit = async (ev) => {
+		ev.preventDefault();
+		try {
+			const response = await axios.post("/api/positions", values);
+			navigate("/");
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	useEffect(() => {
 		fetchPositions();
 	}, []);
@@ -36,19 +49,23 @@ const CreatePosition = () => {
 	return (
 		<>
 			<h2>Create new position</h2>
-			<form
-				action="/login"
-				method="post"
-				// onSubmit={handleSubmit}
-			>
+			<form action="/login" method="post" onSubmit={handleSubmit}>
 				<br />
 				<label>
 					Name:
 					<br />
-					<select name="name" onChange={handleChange}>
+					<select
+						name="name"
+						onChange={handleChange}
+						value={values.name}
+						required
+					>
+						<option value="" disabled>
+							Select the position
+						</option>
 						{positions
-							? positions.map((position) => (
-									<option key={position.name} value={values.name}>
+							? positions.map((position, index) => (
+									<option key={position.name} value={position.name}>
 										{position.name}
 									</option>
 							  ))
@@ -81,10 +98,18 @@ const CreatePosition = () => {
 				<br />
 				<label>
 					Pay grade: <br />
-					<select name="pay_grade" onChange={handleChange}>
-						<option value={values.pay_grade}>1</option>
-						<option value={values.pay_grade}>2</option>
-						<option value={values.pay_grade}>3</option>
+					<select
+						name="pay_grade"
+						onChange={handleChange}
+						value={values.pay_grade}
+						required
+					>
+						<option value="" disabled>
+							Select the pay grade
+						</option>
+						<option value={1}>1</option>
+						<option value={2}>2</option>
+						<option value={3}>3</option>
 					</select>
 				</label>
 				<br />
