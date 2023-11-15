@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const CreatePosition = () => {
-	const navigate = useNavigate;
+	const navigate = useNavigate();
 
 	const [positions, setPositions] = useState(null);
 	const [values, setValues] = useState({
@@ -36,7 +36,7 @@ const CreatePosition = () => {
 		ev.preventDefault();
 		try {
 			const response = await axios.post("/api/positions", values);
-			navigate("/");
+			navigate("/positions/" + response.data.id);
 		} catch (error) {
 			console.log(error);
 		}
@@ -74,28 +74,34 @@ const CreatePosition = () => {
 					</select>
 				</label>
 				<br />
-				Description: <br />
-				<textarea
-					name="description"
-					value={values.description}
-					onChange={handleChange}
-				/>
+				<label>
+					Description: <br />
+					<textarea
+						name="description"
+						value={values.description}
+						onChange={handleChange}
+					/>
+				</label>
 				<br />
-				Start date: <br />
-				<input
-					type="date"
-					name="start_date"
-					value={values.start_date}
-					onChange={handleChange}
-				/>
+				<label>
+					Start date: <br />
+					<input
+						type="date"
+						name="start_date"
+						value={values.start_date}
+						onChange={handleChange}
+					/>
+				</label>
 				<br />
-				End date: <br />
-				<input
-					type="date"
-					name="end_date"
-					value={values.end_date}
-					onChange={handleChange}
-				/>
+				<label>
+					End date: <br />
+					<input
+						type="date"
+						name="end_date"
+						value={values.end_date}
+						onChange={handleChange}
+					/>
+				</label>
 				<br />
 				<label>
 					Pay grade: <br />

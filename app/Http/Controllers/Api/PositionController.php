@@ -60,7 +60,8 @@ class PositionController extends Controller
 
         return
             [
-                'message' => 'succes'
+                'message' => 'succes',
+                'id' => $position->id,
             ];
     }
 
