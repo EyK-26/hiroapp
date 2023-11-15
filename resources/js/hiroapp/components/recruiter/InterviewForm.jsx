@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import Context from "../../context/Context";
+import axios from "axios";
 
 const InterviewForm = ({
     applicant,
@@ -8,10 +9,28 @@ const InterviewForm = ({
     setIsInterviewSet,
 }) => {
     const { state } = useContext(Context);
+
+    const defaultText = `Dear ${applicant.first_name}, 
+
+        We would like to invite you to the position of ${position.name}. 
+        Kindly find the time and the place of the interview below. 
+        If you cannot join the interview or would like to change the date, please notify me via Slack or Email.
+        Regards ${state.user.first_name} ${state.user.last_name}`;
+
+    const getCurrentDateTime = () => {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+        const day = String(now.getDate()).padStart(2, "0");
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+    };
+
     const [values, setValues] = useState({
-        text: "",
+        text: defaultText,
         place: "",
-        datetime: "",
+        datetime: getCurrentDateTime(),
     });
 
     const handleChange = (ev) => {
@@ -21,27 +40,27 @@ const InterviewForm = ({
         }));
     };
 
-    const confirmInterview = () => {
+    const sendInvitation = async () => {
         setIsInterviewSet(true);
         setIsInterviewPopupOpen(false);
+        try {
+            const response = axios.post("/api/applications/notify", {
+                ...values,
+                applicant_id: applicant.id,
+            });
+            console.log(response.data);
+        } catch (error) {
+            console.log(error.response.data);
+        }
     };
-    const cancelInterview = () => {
+
+    const cancelInvitation = () => {
         setIsInterviewPopupOpen(false);
     };
-
-    const handleSubmit = () => {
-        console.log("triggered");
-    };
-
-    const defaultText = `Dear ${applicant.first_name}, 
-        We would like to invite you to the position of ${position.name}. 
-        Kindly find the time and the place of the interview below. 
-        If you cannot join the interview or would like to change the date, please notify me via Slack or Email.
-        Regards ${state.user.first_name} ${state.user.last_name}`;
 
     return (
         <>
-            <form action="" method="post" onSubmit={handleSubmit}>
+            <form action="/applications/notify" method="post">
                 <label htmlFor="text">Your invitation text goes here:</label>
                 <textarea
                     name="text"
@@ -71,10 +90,10 @@ const InterviewForm = ({
                     <option value="Red Rum">Red Rum</option>
                     <option value="Dark Room">Dark Room</option>
                 </select>
-                <div className="warning_invitation">
-                    <button onClick={confirmInterview}>Confirm</button>
-                    <button onClick={cancelInterview}>Cancel</button>
-                </div>
+                <button type="submit" onClick={sendInvitation}>
+                    Confirm
+                </button>
+                <button onClick={cancelInvitation}>Cancel</button>
             </form>
         </>
     );

@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/positions', [PositionController::class, 'index'])->name('positions.index');
+Route::get('/positions/all', [PositionController::class, 'getAllPositions'])->name('positions.all');
 Route::post('/positions', [PositionController::class, 'store'])->name('positions.store');
 Route::get('/positions/{position}', [PositionController::class, 'show'])->whereNumber('position')->name('positions.show');
 Route::post('/positions/{position}/edit', [PositionController::class, 'update'])->whereNumber('position')->name('positions.update');
@@ -40,3 +41,4 @@ Route::get('/applications/{application}', [ApplicationController::class, 'show']
 Route::post('/applications/{application}/end', [ApplicationController::class, 'end'])->whereNumber('application')->name('applications.end');
 Route::post('/applications/{application}/move', [ApplicationController::class, 'move'])->whereNumber('application')->name('applications.move');
 Route::post('/applications/{application}/delete', [ApplicationController::class, 'destroy'])->whereNumber('application')->name('applications.destroy');
+Route::post('/applications/notify', [ApplicationController::class, 'notify'])->name('applications.notify');

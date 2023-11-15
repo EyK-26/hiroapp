@@ -7,8 +7,11 @@ use App\Models\Application;
 use App\Models\Position;
 use App\Models\Status;
 use App\Models\User;
+use App\Notifications\InterviewInvitation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
+
 
 class ApplicationController extends Controller
 {
@@ -106,5 +109,15 @@ class ApplicationController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function notify(Request $request): void
+    {
+        $text = $request->input('text');
+        $datetime = $request->input('datetime');
+        $place = $request->input('place');
+        $user_id = $request->input('applicant_id');
+        $user = User::findOrFail($user_id);
+        Notification::send($user, new InterviewInvitation($text, $datetime, $place));
     }
 }

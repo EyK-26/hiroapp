@@ -77,6 +77,11 @@ const CreateUser = () => {
 					<option value={3}>Recruiter</option>
 				</select>
 			</label>
+
+	return (
+		<>
+			<h2>Create new user</h2>
+			<form action=""></form>
 		</>
 	);
 };
