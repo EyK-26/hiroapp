@@ -1,14 +1,19 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Context from "../../context/Context";
+import InterviewForm from "../recruiter/InterviewForm";
 
 const ApplicationDetailStatus = ({
     applicationStatus,
     setIsEnded,
     setMoveCount,
+    applicant,
+    position,
 }) => {
     const { allStatuses, currentStatus, applicationId } = applicationStatus;
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [isInterviewPopupOpen, setIsInterviewPopupOpen] = useState(null);
+    const [isInterviewSet, setIsInterviewSet] = useState(false);
     const { state } = useContext(Context);
 
     const handleClick = () => {
@@ -20,17 +25,28 @@ const ApplicationDetailStatus = ({
     };
 
     const handleMove = async () => {
-        try {
-            const response = await axios.post(
-                `/api/applications/${applicationId}/move`
-            );
-            setMoveCount((prev) => prev + 1);
-        } catch (err) {
-            console.log(err.response);
+        console.log(1);
+        console.log(isInterviewSet);
+        if (currentStatus.id === 2 && !isInterviewSet) {
+            console.log(2);
+            setIsInterviewPopupOpen(true);
+            console.log(isInterviewSet);
+            return;
+        } else if (currentStatus.id !== 2 || isInterviewSet) {
+            console.log(3);
+            console.log(isInterviewSet);
+            try {
+                const response = await axios.post(
+                    `/api/applications/${applicationId}/move`
+                );
+                setMoveCount((prev) => prev + 1);
+            } catch (err) {
+                console.log(err.response);
+            }
         }
     };
 
-    const handleConfirm = async () => {
+    const handleEnd = async () => {
         try {
             const response = await axios.post(
                 `/api/applications/${applicationId}/end`
@@ -41,6 +57,12 @@ const ApplicationDetailStatus = ({
             console.log(err.response);
         }
     };
+
+    useEffect(() => {
+        if (isInterviewPopupOpen !== null) {
+            handleMove();
+        }
+    }, [isInterviewSet]);
 
     const temporaryStyle = { backgroundColor: "green" };
     const renderedAllStatuses = allStatuses.map((status) => (
@@ -60,7 +82,11 @@ const ApplicationDetailStatus = ({
     return (
         <div>
             {currentStatus.id !== 6 && (
-                <button onClick={handleClick}>Retrieve</button>
+                <button onClick={handleClick}>
+                    {state.user.role_id === 2
+                        ? "Retrieve Your Application"
+                        : "Reject"}
+                </button>
             )}
             {isPopupOpen && (
                 <div className="warning_retrieve">
@@ -69,8 +95,18 @@ const ApplicationDetailStatus = ({
                             ? "Are you sure you want to retrieve your application? Do not worry, retrieving does not prevent you from applying again."
                             : "Reject the candidate? Once rejected, you won't be able to revert it."}
                     </span>
-                    <button onClick={handleConfirm}>Confirm</button>
+                    <button onClick={handleEnd}>Confirm</button>
                     <button onClick={handleCancel}>Cancel</button>
+                </div>
+            )}
+            {currentStatus.id === 2 && isInterviewPopupOpen && (
+                <div className="invitation_interview">
+                    <InterviewForm
+                        applicant={applicant}
+                        position={position}
+                        setIsInterviewPopupOpen={setIsInterviewPopupOpen}
+                        setIsInterviewSet={setIsInterviewSet}
+                    />
                 </div>
             )}
             <ul>{renderedAllStatuses}</ul>
