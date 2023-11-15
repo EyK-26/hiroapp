@@ -29,7 +29,7 @@ const CreateApplication = () => {
             };
         });
     };
-
+    //login to remove from form action
     return (
         <>
             <form action="/login" method="post" onSubmit={handleSubmit}>
