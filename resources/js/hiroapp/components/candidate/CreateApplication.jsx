@@ -7,14 +7,13 @@ const CreateApplication = () => {
     const [values, setValues] = useState({
         attachment_text: "",
         attachment_file: "",
-        position_id: id
+        position_id: id,
     });
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            console.log(values)
             const response = await axios.post("/api/applications", values);
             navigate("/");
         } catch (error) {
@@ -51,7 +50,7 @@ const CreateApplication = () => {
                 <button>Apply</button>
             </form>
         </>
-    )
+    );
 };
 
 export default CreateApplication;

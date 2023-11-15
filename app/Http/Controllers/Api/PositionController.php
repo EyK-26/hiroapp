@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Application;
 use App\Models\Position;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +57,8 @@ class PositionController extends Controller
             return $position[0];
         } else if (Auth::user()->role_id === 3) {
             $position = Position::findOrfail($id);
-            return $position->load('applications');
+            $application = Application::where('position_id', $position->id)->with(['user', 'status'])->get();
+            return ['position' => $position->load(['grade', 'user']), 'applications' => $application];
         }
     }
 

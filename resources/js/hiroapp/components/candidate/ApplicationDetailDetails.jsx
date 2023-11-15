@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import Context from "../../context/Context";
 
 const ApplicationDetailDetails = ({ application }) => {
     const { position, applicationData } = application;
+    const { state } = useContext(Context);
     return (
         <>
-            <h3>Details of your application:</h3>
+            <h3>
+                {state.user.role_id === 2
+                    ? "Details of your application:"
+                    : "Manage Application"}
+            </h3>
             <div>
-                <h4>Applied Position name: {position.name}</h4>
+                <h4>Position name: {position.name}</h4>
                 <p>
                     Details of the Position:
                     {position.description}
                 </p>
-                <span>Submitted Documents</span>
+                <span>Submitted Information</span>
                 <ul>
                     <li>
                         <span>Your small motivation text:</span>
@@ -20,8 +26,7 @@ const ApplicationDetailDetails = ({ application }) => {
 
                     <li>
                         <span>
-                            click below to download the document you have
-                            submitted
+                            click below to download the submitted document
                         </span>
                         <a
                             href={applicationData.attachment_file}

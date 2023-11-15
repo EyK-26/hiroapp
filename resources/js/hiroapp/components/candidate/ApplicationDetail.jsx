@@ -7,7 +7,8 @@ import ApplicationDetailStatus from "./ApplicationDetailStatus";
 
 const ApplicationDetail = () => {
     const [applicationData, setApplicationData] = useState(null);
-    const [isEndedByCandidate, setIsEndedByCandidate] = useState(false);
+    const [isEnded, setIsEnded] = useState(false);
+    const [moveCount, setMoveCount] = useState(0);
     const { id } = useParams();
 
     const fetchApplicationData = async () => {
@@ -21,12 +22,12 @@ const ApplicationDetail = () => {
 
     useEffect(() => {
         fetchApplicationData();
-    }, [isEndedByCandidate]);
+    }, [isEnded, moveCount]);
 
     return (
         <>
             {applicationData && (
-                <>
+                <div>
                     <ApplicationDetailHeader applicant={applicationData.user} />
                     <ApplicationDetailDetails
                         application={{
@@ -40,10 +41,10 @@ const ApplicationDetail = () => {
                             allStatuses: applicationData.all_statuses,
                             currentStatus: applicationData.status,
                         }}
-                        setIsEndedByCandidate={setIsEndedByCandidate}
-                        isEndedByCandidate={isEndedByCandidate}
+                        setIsEnded={setIsEnded}
+                        setMoveCount={setMoveCount}
                     />
-                </>
+                </div>
             )}
         </>
     );

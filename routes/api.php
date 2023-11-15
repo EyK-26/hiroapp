@@ -37,7 +37,6 @@ Route::post('/users/{user}/delete', [UserController::class, 'destroy'])->whereNu
 Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');
 Route::post('/applications', [ApplicationController::class, 'store'])->name('applications.store');
 Route::get('/applications/{application}', [ApplicationController::class, 'show'])->whereNumber('application')->name('applications.show');
-Route::post('/applications/{application}/edit', [ApplicationController::class, 'update'])->whereNumber('application')->name('applications.update');
+Route::post('/applications/{application}/end', [ApplicationController::class, 'end'])->whereNumber('application')->name('applications.end');
+Route::post('/applications/{application}/move', [ApplicationController::class, 'move'])->whereNumber('application')->name('applications.move');
 Route::post('/applications/{application}/delete', [ApplicationController::class, 'destroy'])->whereNumber('application')->name('applications.destroy');
-
-Route::get('/statuses/{status}', [StatusController::class, 'show'])->name('statuses.show');
