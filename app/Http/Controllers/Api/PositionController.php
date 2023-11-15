@@ -44,7 +44,25 @@ class PositionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user_id = Auth::user()->id;
+        $user_position = Position::where("user_id", $user_id)->get();
+
+        $position = new Position();
+        $position->user_id = null;
+        $position->department_id = $user_position[0]->department_id;
+        $position->grade_id = $request->pay_grade;
+        $position->name = $request->name;
+        $position->description = $request->description;
+        $position->hiring = 1;
+        $position->start_date = $request->start_date;
+        $position->end_date = $request->end_date;
+        $position->save();
+
+        return
+            [
+                'message' => 'succes',
+                'id' => $position->id,
+            ];
     }
 
     /**
@@ -84,5 +102,12 @@ class PositionController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getAllPositions()
+    {
+        $positions = Position::select('name')->distinct()->orderBy('name')->get();
+
+        return $positions;
     }
 }
