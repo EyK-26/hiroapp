@@ -7,13 +7,15 @@ const UserProfile = () => {
 
     return (
         <div>
-            <span>{state.user.first_name} {state.user.last_name}</span>
+            <span>
+                {state.user?.first_name} {state.user?.last_name}
+            </span>
             <br />
-            <span>{state.user.email}</span>
+            <span>{state.user?.email}</span>
             <br />
-            <span>{'role'}</span>
+            <span>{"role"}</span>
             <br />
-            <span>{'position'}</span>
+            <span>{"position"}</span>
             <br />
             <Logout />
         </div>
