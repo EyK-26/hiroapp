@@ -1,23 +1,34 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
 import Context from "../context/Context";
+import UserProfile from "./UserProfile";
 
 const Header = () => {
     const { state } = useContext(Context);
+    const [showProfile, setShowProfile] = useState(false);
+
+    const toggleProfile = () => {
+        setShowProfile(!showProfile);
+    }
+
+    useEffect(() => {
+        setShowProfile(false)
+    }, [state.user])
+
     return (
         <header>
-            <nav>
-                {!state.user ? (
-                    <Link to="/login">Login</Link>
-                ) : (
-                    <Link to="/logout">Logout</Link>
-                )}
-            </nav>
-            {state.user ? (
-                <span>Welcome {state.user.first_name}</span>
-            ) : (
-                "Loading"
-            )}
+            <span>HiroApp</span>
+            <div>
+                {
+                    state.user
+                        ? <span onClick={toggleProfile}>{state.user.first_name}</span>
+                        : ''
+                }
+                {
+                    showProfile
+                        ? <UserProfile />
+                        : ''
+                }
+            </div>
         </header>
     );
 };

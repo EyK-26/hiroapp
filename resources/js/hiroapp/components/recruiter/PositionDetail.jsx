@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Applicant from "./Applicant";
 import ApplicantList from "./ApplicantList";
+import PositionDetailDetails from "./PositionDetailDetails";
 
 const PositionDetail = () => {
     const [positionData, setPositionData] = useState([]);
@@ -23,11 +24,20 @@ const PositionDetail = () => {
 
     return (
         <>
-            {positionData.applicants?.length === 0 ? (
-                "No applicants yet"
-            ) : (
-                <ApplicantList applicants={positionData.applications} />
-            )}
+            <div>
+                <h2>Position Details</h2>
+                <PositionDetailDetails position={positionData.position} />
+            </div>
+            <div>
+                <h3>Applicants</h3>
+                <div>
+                    {positionData.applications?.length === 0 ? (
+                        "No applicants yet"
+                    ) : (
+                        <ApplicantList applicants={positionData.applications} />
+                    )}
+                </div>
+            </div>
         </>
     );
 };
