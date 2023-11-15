@@ -49,6 +49,7 @@ const CreatePosition = () => {
 	return (
 		<>
 			<h2>Create new position</h2>
+
 			<form action="/login" method="post" onSubmit={handleSubmit}>
 				<br />
 				<label>
