@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useReducer } from "react";
-import reducer from "./store/Reducer";
-import { BrowserRouter, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Context from "./context/Context";
 import Router from "./router/Router";
 import axios from "axios";
