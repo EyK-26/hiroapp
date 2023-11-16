@@ -30,7 +30,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $emailRequested = strtolower($request->first_name) . "." . strtolower($request->last_name) . "@hiroapp.com";
+        $users = User::query()->where("email", $emailRequested)->get();
+        $users_length = count($users);
+        $emailFinal = "";
+        if ($users_length == 0) {
+            $emailFinal = $emailRequested;
+        } elseif ($users_length > 0) {
+            $emailFinal = strtolower($request->first_name) . "." . strtolower($request->last_name) . ($users_length) . "@hiroapp.com";
+        };
+
+        $user = new User();
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $emailFinal;
+        $user->password = 'password';
+        $user->role_id = $request->role_id;
+        $user->save();
+
+        return [
+            'message' => 'success',
+            'id' => $user->id,
+        ];
     }
 
     /**

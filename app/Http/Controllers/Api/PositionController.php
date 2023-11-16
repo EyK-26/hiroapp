@@ -110,4 +110,9 @@ class PositionController extends Controller
 
         return $positions;
     }
+    public function getPositionsByDepartment($department_id)
+    {
+        $positions = Position::select('name')->distinct()->orderBy('name')->where('department_id', $department_id)->get();
+        return $positions;
+    }
 }
