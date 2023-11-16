@@ -88,6 +88,13 @@ class ApplicationController extends Controller
         $application = Application::findOrFail($id);
         if ($application->status_id !== 6) {
             $application->status_id = 6;
+
+            // send notification
+            if (Auth::user()->role_id !== 2) {
+                $accepted_user = User::findOrFail($application->user_id);
+                $accepted_user->notify(new ApplicationEnded(Auth::user()->first_name, $application->position->name));
+            }
+
             $application->save();
         } else {
             return ['message' => '404 not authorized'];
