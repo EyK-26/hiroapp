@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Context from "../../context/Context";
 
 const ApplicationDetailDetails = ({ application }) => {
-    const { position, applicationData } = application;
+    const { position, applicationData, applicant } = application;
     const { state } = useContext(Context);
     return (
         <>
@@ -17,6 +17,11 @@ const ApplicationDetailDetails = ({ application }) => {
                     Details of the Position:
                     {position.description}
                 </p>
+                {state.user.role_id === 3 && (
+                    <h5>
+                        Applicant: {applicant.first_name} {applicant.last_name}
+                    </h5>
+                )}
                 <span>Submitted Information</span>
                 <ul>
                     <li>

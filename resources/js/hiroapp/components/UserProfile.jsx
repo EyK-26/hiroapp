@@ -13,10 +13,6 @@ const UserProfile = () => {
             <br />
             <span>{state.user?.email}</span>
             <br />
-            <span>{"role"}</span>
-            <br />
-            <span>{"position"}</span>
-            <br />
             <Logout />
         </div>
     );
