@@ -180,7 +180,8 @@ class ApplicationController extends Controller
         $datetime = $request->input('datetime');
         $place = $request->input('place');
         $user_id = $request->input('applicant_id');
+        $sender = $request->input('sender');
         $user = User::findOrFail($user_id);
-        Notification::send($user, new InterviewInvitation($text, $datetime, $place));
+        Notification::send($user, new InterviewInvitation($text, $datetime, $place, $sender));
     }
 }

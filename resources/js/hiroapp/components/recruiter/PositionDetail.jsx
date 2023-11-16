@@ -10,12 +10,9 @@ const PositionDetail = () => {
 
     const fetchPositionDetail = async () => {
         try {
-            console.log("try");
             const response = await axios.get(`/api/positions/${id}`);
             setPositionData(response.data);
-            console.log(response.data, `/api/positions/${id}`);
         } catch (err) {
-            console.log("catch");
             console.log(err.response);
         }
     };

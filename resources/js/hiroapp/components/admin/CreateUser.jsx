@@ -24,7 +24,6 @@ const CreateUser = () => {
             const response = await axios.get(
                 "/api/positions-dep/" + values.department_id
             );
-            console.log(response.data);
             setPositions(response.data);
         } catch (error) {
             console.log(error.response.data);

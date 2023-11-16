@@ -12,10 +12,10 @@ const Position = () => {
             const response = await axios.get(`/api/positions/${id}`);
             setPosition(response.data);
             if (response.data.hiring !== 1) {
-                navigate('/')
+                navigate("/");
             }
         } catch (error) {
-            console.log(error.response.data)
+            console.log(error.response.data);
         }
     };
 
@@ -25,26 +25,25 @@ const Position = () => {
 
     return (
         <div>
-            {
-                position
-                    ?
-                    <>
-                        <h2>{position.name}</h2>
+            {position ? (
+                <>
+                    <h2>{position.name}</h2>
+                    <div>
                         <div>
-                            <div>
-                                <span>Department: {position.department.name}</span>
-                                <span>Grade : {position.grade.name}</span>
-                            </div>
-                            <p>{position.description}</p>
+                            <span>Department: {position.department.name}</span>
+                            <span>Grade : {position.grade.name}</span>
                         </div>
-                        <Link to={'/apply/' + id}>
-                            <button>Apply</button>
-                        </Link>
-                    </>
-                    : <span>Position does not exist</span>
-            }
+                        <p>{position.description}</p>
+                    </div>
+                    <Link to={"/apply/" + id}>
+                        <button>Apply</button>
+                    </Link>
+                </>
+            ) : (
+                <span>Position does not exist</span>
+            )}
         </div>
-    )
+    );
 };
 
 export default Position;

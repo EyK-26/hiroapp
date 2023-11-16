@@ -40,15 +40,16 @@ const InterviewForm = ({
         }));
     };
 
-    const sendInvitation = async () => {
+    const sendInvitation = async (ev) => {
+        ev.preventDefault();
         setIsInterviewSet(true);
         setIsInterviewPopupOpen(false);
         try {
             const response = axios.post("/api/applications/notify", {
                 ...values,
                 applicant_id: applicant.id,
+                sender: state.user.email,
             });
-            console.log(response.data);
         } catch (error) {
             console.log(error.response.data);
         }

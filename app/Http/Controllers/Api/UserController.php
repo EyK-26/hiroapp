@@ -70,9 +70,10 @@ class UserController extends Controller
     {
         if (Auth::user()->role_id !== 2) {
             $user = User::findOrfail($id);
+            $notifications = $user->notifications;
             $position = Position::where('user_id', $user->id)->first();
             $department = Department::findOrFail($position->department_id);
-            return ['user' => $user, 'position_name' => $position->name, 'department_name' => $department->name];
+            return ['user' => $user, 'notifications' => $notifications, 'position_name' => $position->name, 'department_name' => $department->name];
         } else {
             return ['message', '404 not authorized'];
         }
