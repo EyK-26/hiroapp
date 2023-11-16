@@ -20,10 +20,18 @@ class ApplicationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user_id = Auth::id();
-        $applications = Application::query()->with(['position', 'status'])->where('user_id', $user_id)->get();
+        $search_quary = $request->search ?? null;
+
+        $applications = Application::query()
+            ->with(['position', 'status'])
+            ->where('user_id', $user_id)
+            ->whereHas('position', function ($query) use ($search_quary) {
+                $query->where('name', 'like', "%" . $search_quary . "%");
+            })
+            ->get();
 
         return $applications;
     }
