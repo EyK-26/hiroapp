@@ -78,6 +78,7 @@ class PositionController extends Controller
             $application = Application::where('position_id', $position->id)->with(['user', 'status'])->get();
             return ['position' => $position->load(['grade', 'user']), 'applications' => $application];
         }
+        return "success";
     }
 
     /**
@@ -107,12 +108,11 @@ class PositionController extends Controller
     public function getAllPositions()
     {
         $positions = Position::select('name')->distinct()->orderBy('name')->get();
-
         return $positions;
     }
     public function getPositionsByDepartment($department_id)
     {
-        $positions = Position::select('name')->distinct()->orderBy('name')->where('department_id', $department_id)->get();
+        $positions = Position::select('name', 'id')->distinct()->orderBy('name')->where('hiring', 1)->where('department_id', $department_id)->get();
         return $positions;
     }
 }

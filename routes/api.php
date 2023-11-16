@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/positions', [PositionController::class, 'index'])->name('positions.index');
 Route::get('/positions/all', [PositionController::class, 'getAllPositions'])->name('positions.all');
-Route::get('/positions/{department}', [PositionController::class, 'getPositionsByDepartment'])->name('positions.by_department');
+Route::get('/positions-dep/{department}', [PositionController::class, 'getPositionsByDepartment'])->name('positions.by_department');
 Route::post('/positions', [PositionController::class, 'store'])->name('positions.store');
 Route::get('/positions/{position}', [PositionController::class, 'show'])->whereNumber('position')->name('positions.show');
 Route::post('/positions/{position}/edit', [PositionController::class, 'update'])->whereNumber('position')->name('positions.update');

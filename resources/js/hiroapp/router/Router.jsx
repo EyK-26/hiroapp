@@ -27,6 +27,7 @@ const Router = ({ loadUserStatus }) => {
                     <>
                         <Route index element={<AdminHome />} />
                         <Route path="/users/create" element={<CreateUser />} />
+                        <Route path="/users/:id" element={<UserDetail />} />
                     </>
                 );
 
@@ -78,16 +79,14 @@ const Router = ({ loadUserStatus }) => {
         <Routes>
             <Route path="/" element={<Layout />}>
                 {roleRoutes()}
-                {
-                    !state.user
-                        ?
-                        <Route
-                            path="/login"
-                            element={<Login loadUserStatus={loadUserStatus} />}
-                        />
-                        : ''
-
-                }
+                {!state.user ? (
+                    <Route
+                        path="/login"
+                        element={<Login loadUserStatus={loadUserStatus} />}
+                    />
+                ) : (
+                    ""
+                )}
 
                 <Route path="/logout" element={<Logout />} />
                 <Route path="*" element={<Unauthorized />} />

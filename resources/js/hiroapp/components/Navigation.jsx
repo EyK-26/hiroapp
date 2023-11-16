@@ -7,18 +7,22 @@ const Navigation = () => {
     return (
         <>
             <nav>
-                <Link to="/">Home</Link>
                 {state.user?.role_id === 1 && (
-                    <Link to="/users/create">Create New User</Link>
+                    <>
+                        <Link to="/">Home</Link>
+                        <Link to="/users/create">Create New User</Link>
+                    </>
                 )}
                 {state.user?.role_id === 2 && (
                     <>
+                        <Link to="/">Home</Link>
                         <Link to="/applications">Your Applications</Link>
                         <Link to="/positions">Positions</Link>
                     </>
                 )}
                 {state.user?.role_id === 3 && (
                     <>
+                        <Link to="/">Home</Link>
                         <Link to="/position/create">Create New Position</Link>
                     </>
                 )}

@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import ContactUser from "./ContactUser";
 
 const UserDetail = () => {
     const [userData, setUserData] = useState(null);
+    const [isEmailPopupOpen, setIsEmailPopupOpen] = useState(false);
     const { id } = useParams();
 
     const fetchUserDetail = async () => {
@@ -28,7 +30,15 @@ const UserDetail = () => {
                         {userData.user.last_name}
                     </li>
                     <li>Email: {userData.user.email}</li>{" "}
-                    <button>Contact User</button>
+                    <button onClick={() => setIsEmailPopupOpen(true)}>
+                        Contact User
+                    </button>
+                    {isEmailPopupOpen && (
+                        <ContactUser
+                            userData={userData}
+                            setIsEmailPopupOpen={setIsEmailPopupOpen}
+                        />
+                    )}
                     <li>Position: {userData.position_name}</li>
                     <li>Department: {userData.department_name}</li>
                 </ul>

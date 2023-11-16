@@ -36,6 +36,7 @@ class UserController extends Controller
         $emailRequested = strtolower($request->first_name) . "." . strtolower($request->last_name) . "@hiroapp.com";
         $users = User::query()->where("email", $emailRequested)->get();
         $users_length = count($users);
+        //email creation algorithm
         $emailFinal = "";
         if ($users_length == 0) {
             $emailFinal = $emailRequested;
@@ -51,6 +52,11 @@ class UserController extends Controller
         $user->role_id = $request->role_id;
         $user->save();
 
+        $user_id = $user->id;
+        $position = Position::findOrFail($request->input('position_id'));
+        $position->user_id = $user_id;
+        $position->save();
+
         return [
             'message' => 'success',
             'id' => $user->id,
@@ -62,7 +68,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        if (Auth::user()->role_id === 3) {
+        if (Auth::user()->role_id !== 2) {
             $user = User::findOrfail($id);
             $position = Position::where('user_id', $user->id)->first();
             $department = Department::findOrFail($position->department_id);
