@@ -33,6 +33,7 @@ const ApplicationDetail = () => {
                         application={{
                             position: applicationData.position,
                             applicationData: applicationData.application,
+                            applicant: applicationData.user,
                         }}
                     />
                     <ApplicationDetailStatus
