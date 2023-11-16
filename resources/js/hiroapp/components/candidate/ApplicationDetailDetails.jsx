@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import Context from "../../context/Context";
+import { Link } from "react-router-dom";
 
 const ApplicationDetailDetails = ({ application }) => {
     const { position, applicationData, applicant } = application;
@@ -19,7 +20,10 @@ const ApplicationDetailDetails = ({ application }) => {
                 </p>
                 {state.user.role_id === 3 && (
                     <h5>
-                        Applicant: {applicant.first_name} {applicant.last_name}
+                        Applicant:
+                        <Link to={`/users/${applicant.id}`}>
+                            {applicant.first_name} {applicant.last_name}
+                        </Link>
                     </h5>
                 )}
                 <span>Submitted Information</span>
