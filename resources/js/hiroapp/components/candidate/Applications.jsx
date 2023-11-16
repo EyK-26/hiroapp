@@ -13,7 +13,6 @@ const Applications = () => {
 
     //calculate slice for serach results
     const startResults = 20 * (page - 1)
-    const endResults = 20 * page - 1
     const lastPage = Math.floor(applications.length / 20)
 
 
@@ -32,11 +31,11 @@ const Applications = () => {
             <Link to="/applications">
                 <h2>Applications</h2>
             </Link>
-            <SearchBar subject="a position" setSearch={setSearch} />
+            <SearchBar subject="an application" setSearch={setSearch} />
             {applications.length >= 20 && <Pagination page={page} setPage={setPage} lastPage={lastPage} />}
             <div>
                 {applications.length !== 0 ? (
-                    applications.slice(startResults, endResults).map((application) => (
+                    applications.slice(startResults, startResults + 20).map((application) => (
                         <Link to={'/applications/' + application.id} key={application.id}>
                             <div >
                                 <span>{application.position.name}</span>
