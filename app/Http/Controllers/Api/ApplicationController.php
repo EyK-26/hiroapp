@@ -91,12 +91,17 @@ class ApplicationController extends Controller
             return ['message' => '404 not authorized'];
         }
     }
+
     public function move(string $id)
     {
         $application = Application::findOrFail($id);
         $current_status = $application->status_id;
-        if ($current_status < 6) {
+        if ($current_status < 4) {
             $application->status_id = $current_status + 1;
+            $application->save();
+        } else if ($current_status === 5) {
+            $application->status_id = $current_status + 1;
+            $application->position->hiring = 0;
             $application->save();
         } else {
             return ['message' => '404 not authorized'];

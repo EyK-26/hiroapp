@@ -32,14 +32,18 @@ const ApplicationDetailStatus = ({
             setIsInterviewPopupOpen(true);
             console.log(isInterviewSet);
             return;
-        } else if (currentStatus.id !== 2 || isInterviewSet) {
-            console.log(3);
+        } else if (
+            currentStatus.id !== 2 ||
+            isInterviewSet ||
+            currentStatus.id < 5
+        ) {
             console.log(isInterviewSet);
             try {
                 const response = await axios.post(
                     `/api/applications/${applicationId}/move`
                 );
                 setMoveCount((prev) => prev + 1);
+                console.log(3);
             } catch (err) {
                 console.log(err.response);
             }
@@ -72,7 +76,7 @@ const ApplicationDetailStatus = ({
         >
             {status.name}
             {status.id === currentStatus.id &&
-                currentStatus.id !== 6 &&
+                currentStatus.id < 5 &&
                 state.user.role_id !== 2 && (
                     <button onClick={handleMove}>Move To Next Stage</button>
                 )}
@@ -81,7 +85,7 @@ const ApplicationDetailStatus = ({
 
     return (
         <div>
-            {currentStatus.id !== 6 && (
+            {currentStatus.id < 5 && (
                 <button onClick={handleClick}>
                     {state.user.role_id === 2
                         ? "Retrieve Your Application"
