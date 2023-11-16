@@ -100,43 +100,24 @@ class ApplicationController extends Controller
             $application->status_id = $current_status + 1;
             $application->save();
         } else if ($current_status == 4) {
-
-            // changes application status to hired
             $application->status_id = $current_status + 1;
             $application->position->hiring = 0;
-
-            $user_id = $application->user_id;
-
-            // removes user from his old position
-            $old_position = Position::query()->where('user_id', $user_id)->first();
-            if ($old_position) {
-                $old_position->user_id = null;
-                $old_position->save();
-            }
-
-            // moves user to new position
-            $new_position = Position::findOrFail($application->position_id);
-            $new_position->user_id = $user_id;
-            $new_position->save();
-
-            // ends other applications for this position
             $rejected_applications = Application::query()->where('position_id', $application->position_id)->get();
             foreach ($rejected_applications as $rejected_application) {
                 if ($rejected_application->id !== $application->id) {
-                    $this->end_application($rejected_application->id);
+                $this->end_application($rejected_application->id);
                 }
             }
-
             $application->save();
         } else {
             return ['message' => '404 not authorized'];
         }
     }
 
-    public function end_application($id): void
+    public function end_application($id) : void
     {
         $application = Application::findOrFail($id);
-        $application->status_id = 6;
+        $application->status_id === 6;
         $application->save();
     }
 

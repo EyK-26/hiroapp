@@ -25,25 +25,18 @@ const ApplicationDetailStatus = ({
     };
 
     const handleMove = async () => {
-        console.log(1);
-        console.log(isInterviewSet);
         if (currentStatus.id === 2 && !isInterviewSet) {
-            console.log(2);
             setIsInterviewPopupOpen(true);
-            console.log(isInterviewSet);
             return;
         } else if (
             currentStatus.id !== 2 ||
-            isInterviewSet ||
-            currentStatus.id < 5
+            isInterviewSet
         ) {
-            console.log(isInterviewSet);
             try {
                 const response = await axios.post(
                     `/api/applications/${applicationId}/move`
                 );
                 setMoveCount((prev) => prev + 1);
-                console.log(3);
             } catch (err) {
                 console.log(err.response);
             }
