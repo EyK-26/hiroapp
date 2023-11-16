@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -36,7 +37,7 @@ class UserController extends Controller
         $emailFinal = "";
         if ($users_length == 0) {
             $emailFinal = $emailRequested;
-        } elseif ($users_length > 0) {
+        } else {
             $emailFinal = strtolower($request->first_name) . "." . strtolower($request->last_name) . ($users_length) . "@hiroapp.com";
         };
 
@@ -44,7 +45,7 @@ class UserController extends Controller
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->email = $emailFinal;
-        $user->password = 'password';
+        $user->password = Hash::make('password');
         $user->role_id = $request->role_id;
         $user->save();
 
