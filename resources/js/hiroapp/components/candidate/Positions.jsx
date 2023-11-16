@@ -15,7 +15,6 @@ const Positions = () => {
 
     //calculate slice for serach results
     const startResults = 20 * (page - 1)
-    const endResults = 20 * page - 1
     const lastPage = Math.floor(positions.length / 20)
 
     const loadPositions = async () => {
@@ -59,7 +58,7 @@ const Positions = () => {
             {positions.length >= 20 && <Pagination page={page} setPage={setPage} lastPage={lastPage} />}
             <div>
                 {positions.length !== 0 ? (
-                    positions.slice(startResults, endResults).map((position) => (
+                    positions.slice(startResults, startResults + 20).map((position) => (
                         <Link to={'/positions/' + position.id} key={position.id}>
                             <div >
                                 <span>{position.name}</span>
