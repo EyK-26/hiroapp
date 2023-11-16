@@ -7,6 +7,8 @@ use App\Models\Application;
 use App\Models\Position;
 use App\Models\Status;
 use App\Models\User;
+use App\Notifications\AcceptedForPosition;
+use App\Notifications\ApplicationEnded;
 use App\Notifications\InterviewInvitation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
@@ -121,11 +123,20 @@ class ApplicationController extends Controller
 
             // ends other applications for this position
             $rejected_applications = Application::query()->where('position_id', $application->position_id)->get();
+            $rejected_users_ids = [];
             foreach ($rejected_applications as $rejected_application) {
                 if ($rejected_application->id !== $application->id) {
                     $this->end_application($rejected_application->id);
+                    $rejected_users_ids[] = $rejected_application->user_id;
                 }
             }
+
+            // notifications
+            $accepted_user = User::findOrFail($user_id);
+            $accepted_user->notify(new AcceptedForPosition(Auth::user()->first_name, $application->position->name));
+
+            $rejected_users = User::query()->whereIn('id', $rejected_users_ids)->get();
+            Notification::send($rejected_users, new ApplicationEnded(Auth::user()->first_name, $application->position->name));
 
             $application->save();
         } else {
