@@ -4,6 +4,7 @@ import CurrentStatus from "./CurrentStatus";
 import { Link } from "react-router-dom";
 
 const ApplicantList = ({ applicants }) => {
+    console.log(applicants);
     return (
         <>
             {applicants

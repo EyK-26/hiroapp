@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Applicant from "./Applicant";
 import ApplicantList from "./ApplicantList";
 import PositionDetailDetails from "./PositionDetailDetails";
 
@@ -11,9 +10,12 @@ const PositionDetail = () => {
 
     const fetchPositionDetail = async () => {
         try {
+            console.log("try");
             const response = await axios.get(`/api/positions/${id}`);
             setPositionData(response.data);
+            console.log(response.data, `/api/positions/${id}`);
         } catch (err) {
+            console.log("catch");
             console.log(err.response);
         }
     };
