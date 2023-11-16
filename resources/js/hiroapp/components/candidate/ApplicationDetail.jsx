@@ -41,9 +41,9 @@ const ApplicationDetail = () => {
                             applicationId: applicationData.application.id,
                             allStatuses: applicationData.all_statuses,
                             currentStatus: applicationData.status,
+                            position: applicationData.position,
+                            applicant: applicationData.user,
                         }}
-                        position={applicationData.position}
-                        applicant={applicationData.user}
                         setIsEnded={setIsEnded}
                         setMoveCount={setMoveCount}
                     />

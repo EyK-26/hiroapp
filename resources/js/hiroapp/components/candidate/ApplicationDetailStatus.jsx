@@ -7,10 +7,9 @@ const ApplicationDetailStatus = ({
     applicationStatus,
     setIsEnded,
     setMoveCount,
-    applicant,
-    position,
 }) => {
-    const { allStatuses, currentStatus, applicationId } = applicationStatus;
+    const { allStatuses, currentStatus, applicationId, position, applicant } =
+        applicationStatus;
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isInterviewPopupOpen, setIsInterviewPopupOpen] = useState(null);
     const [isInterviewSet, setIsInterviewSet] = useState(false);
@@ -28,10 +27,7 @@ const ApplicationDetailStatus = ({
         if (currentStatus.id === 2 && !isInterviewSet) {
             setIsInterviewPopupOpen(true);
             return;
-        } else if (
-            currentStatus.id !== 2 ||
-            isInterviewSet
-        ) {
+        } else if (currentStatus.id !== 2 || isInterviewSet) {
             try {
                 const response = await axios.post(
                     `/api/applications/${applicationId}/move`

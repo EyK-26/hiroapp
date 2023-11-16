@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
+use App\Models\Position;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +42,9 @@ class UserController extends Controller
     {
         if (Auth::user()->role_id === 3) {
             $user = User::findOrfail($id);
-            return $user;
+            $position = Position::where('user_id', $user->id)->first();
+            $department = Department::findOrFail($position->department_id);
+            return ['user' => $user, 'position_name' => $position->name, 'department_name' => $department->name];
         } else {
             return ['message', '404 not authorized'];
         }
