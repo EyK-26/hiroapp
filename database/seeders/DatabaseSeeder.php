@@ -56,7 +56,7 @@ class ApplicationSeeder extends Seeder
 {
     public function run(): void
     {
-        Application::factory()->count(225)->create();
+        Application::factory()->count(255)->create();
     }
 }
 class DepartmentSeeder extends Seeder
