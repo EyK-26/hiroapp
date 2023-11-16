@@ -15,6 +15,7 @@ class InterviewInvitation extends Notification
     protected $datetime;
     protected $place;
     protected $sender;
+    protected $subject = 'Your Interview Details...';
     /**
      * Create a new notification instance.
      */
@@ -60,6 +61,7 @@ class InterviewInvitation extends Notification
             'place' => $this->place,
             'text' => $this->text,
             'from' => $this->sender,
+            'subject' => $this->subject
         ];
     }
 }

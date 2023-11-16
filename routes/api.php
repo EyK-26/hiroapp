@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    return $request->user()->load(['notifications', 'position']);
 });
 
 Route::get('/positions', [PositionController::class, 'index'])->name('positions.index');

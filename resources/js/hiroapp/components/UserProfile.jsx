@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import Logout from "./auth/Logout";
 import Context from "../context/Context";
+import Inbox from "./Inbox";
 
 const UserProfile = () => {
     const { state } = useContext(Context);
@@ -13,6 +14,13 @@ const UserProfile = () => {
             <br />
             <span>{state.user?.email}</span>
             <br />
+            <span>{state.user?.position.name}</span>
+            <br />
+            {state.user?.notifications.length > 0 ? (
+                <Inbox notifications={state.user?.notifications} />
+            ) : (
+                "No Messages"
+            )}
             <Logout />
         </div>
     );

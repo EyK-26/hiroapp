@@ -53,7 +53,6 @@ const CreateUser = () => {
         if (ev.target.name === "department") {
             setChosenDepartmentId(ev.target.value);
         }
-        console.log(ev.target);
         setValues((previous_values) => {
             return {
                 ...previous_values,
