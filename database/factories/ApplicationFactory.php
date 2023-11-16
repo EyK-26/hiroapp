@@ -28,7 +28,7 @@ class ApplicationFactory extends Factory
         return [
             'user_id' => $user_id,
             'position_id' => $position_id,
-            'status_id' => fake()->numberBetween(1, 6),
+            'status_id' => fake()->numberBetween(1, 4),
             'attachment_text' => fake()->paragraph(),
             'attachment_file' => fake()->imageUrl(),
         ];
