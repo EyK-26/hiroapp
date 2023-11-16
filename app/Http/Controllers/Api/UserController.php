@@ -8,6 +8,7 @@ use App\Models\Position;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -32,7 +33,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $emailRequested = strtolower($request->first_name) . "." . strtolower($request->last_name) . "@hiroapp.com";
+        $users = User::query()->where("email", $emailRequested)->get();
+        $users_length = count($users);
+        $emailFinal = "";
+        if ($users_length == 0) {
+            $emailFinal = $emailRequested;
+        } else {
+            $emailFinal = strtolower($request->first_name) . "." . strtolower($request->last_name) . ($users_length) . "@hiroapp.com";
+        };
+
+        $user = new User();
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $emailFinal;
+        $user->password = Hash::make('password');
+        $user->role_id = $request->role_id;
+        $user->save();
+
+        return [
+            'message' => 'success',
+            'id' => $user->id,
+        ];
     }
 
     /**

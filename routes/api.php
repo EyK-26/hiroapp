@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApplicationController;
+use App\Http\Controllers\Api\DepartmentController;
 use App\Http\Controllers\Api\PositionController;
 use App\Http\Controllers\Api\StatusController;
 use App\Http\Controllers\Api\UserController;
@@ -24,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/positions', [PositionController::class, 'index'])->name('positions.index');
 Route::get('/positions/all', [PositionController::class, 'getAllPositions'])->name('positions.all');
+Route::get('/positions/{department}', [PositionController::class, 'getPositionsByDepartment'])->name('positions.by_department');
 Route::post('/positions', [PositionController::class, 'store'])->name('positions.store');
 Route::get('/positions/{position}', [PositionController::class, 'show'])->whereNumber('position')->name('positions.show');
 Route::post('/positions/{position}/edit', [PositionController::class, 'update'])->whereNumber('position')->name('positions.update');
@@ -42,3 +44,5 @@ Route::post('/applications/{application}/end', [ApplicationController::class, 'e
 Route::post('/applications/{application}/move', [ApplicationController::class, 'move'])->whereNumber('application')->name('applications.move');
 Route::post('/applications/{application}/delete', [ApplicationController::class, 'destroy'])->whereNumber('application')->name('applications.destroy');
 Route::post('/applications/notify', [ApplicationController::class, 'notify'])->name('applications.notify');
+
+Route::get('/departments', [DepartmentController::class, 'index'])->name('departments.index');
