@@ -11,14 +11,13 @@ class AcceptedForPosition extends Notification
 {
     use Queueable;
 
-    protected $recruter;
+    protected $recruiter;
     protected $position;
-    /**
-     * Create a new notification instance.
-     */
-    public function __construct(?string $recruter, ?string $position)
+    protected $subject = "We have good news for you!";
+
+    public function __construct(?object $recruiter, ?string $position)
     {
-        $this->recruter = $recruter;
+        $this->recruiter = $recruiter;
         $this->position = $position;
     }
 
@@ -32,15 +31,12 @@ class AcceptedForPosition extends Notification
         return ['mail', 'database'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     */
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
             ->subject("Hired for $this->position")
             ->line("Dear $notifiable->first_name,  You have been hired as a $this->position.")
-            ->salutation("Regards, $this->recruter");
+            ->salutation("Regards, {$this->recruiter->first_name} {$this->recruiter->last_name}");
     }
 
     /**
@@ -51,7 +47,9 @@ class AcceptedForPosition extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'text' => "Dear {$notifiable->first_name}, \n You have been hired as a {$this->position}. \n Regards, {$this->recruiter->first_name} {$this->recruiter->last_name}",
+            'from' => $this->recruiter->email,
+            'subject' => $this->subject
         ];
     }
 }
