@@ -12,10 +12,32 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        if (Auth::user()->role_id === 1) {
-            $users = User::with('role')->with('position')->orderBy('last_name')->get();
+        $user_role_id = Auth::user()->role_id;
+        if ($user_role_id === 1) {
+            $search_query = $request->search ?? null;
+            $department_id = $request->department ?? null;
+            if ($department_id != 0) {
+                $departments_users_ids = Position::query()
+                    ->where('department_id', $department_id)
+                    ->select('user_id')
+                    ->get();
+
+                $users = User::with('role')
+                    ->with('position')
+                    ->whereIn('id', $departments_users_ids)
+
+                    ->where('last_name', 'like', "%" . $search_query . "%")
+                    ->orderBy('last_name')
+                    ->get();
+            } else {
+                $users = User::with('role')
+                    ->with('position')
+                    ->where('last_name', 'like', "%" . $search_query . "%")
+                    ->orderBy('last_name')
+                    ->get();
+            }
             return $users;
         } else {
             return ['message', '404 not authorized'];
