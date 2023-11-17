@@ -14,10 +14,12 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('role')->with('position')->orderBy('last_name')->get();
-
-
-        return $users;
+        if (Auth::user()->role_id === 1) {
+            $users = User::with('role')->with('position')->orderBy('last_name')->get();
+            return $users;
+        } else {
+            return ['message', '404 not authorized'];
+        }
     }
 
     public function store(Request $request)
@@ -71,7 +73,7 @@ class UserController extends Controller
             $user = User::findOrfail($id);
             $user->delete();
 
-            return ['message', 'User has been deleted'];
+            return ['message' => 'User has been deleted'];
         } else {
             return ['message', '404 not authorized'];
         }
