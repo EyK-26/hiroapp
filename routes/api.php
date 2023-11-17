@@ -37,3 +37,5 @@ Route::post('/applications/notify', [ApplicationController::class, 'notify'])->n
 Route::get('/departments', [DepartmentController::class, 'index'])->name('departments.index');
 
 Route::post('/notify', [NotificationController::class, 'send'])->name('notifications.send');
+Route::get('/notify/get', [NotificationController::class, 'get_unread_count'])->name('notifications.getunreadcount');
+Route::post('/notify/markasread', [NotificationController::class, 'mark_as_read'])->name('notifications.markasread');
