@@ -1,7 +1,14 @@
 import React from "react";
+import OpenPositions from "./OpenPositions";
+import Users from "./Users";
 
 const Home = () => {
-    return <div>Welcome Admin</div>;
+    return (
+        <>
+            <OpenPositions />
+            <Users />
+        </>
+    );
 };
 
 export default Home;
