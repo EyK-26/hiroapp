@@ -15,7 +15,7 @@ const CreateApplication = () => {
         event.preventDefault();
         try {
             const response = await axios.post("/api/applications", values);
-            navigate("/");
+            navigate(`/applications/${response.data}`);
         } catch (error) {
             console.log(error.response.data);
         }
@@ -29,24 +29,22 @@ const CreateApplication = () => {
             };
         });
     };
-    //login to remove from form action
+
     return (
         <>
-            <form action="/login" method="post" onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <input
                     type="text"
                     name="attachment_text"
                     value={values.attachment_text}
                     onChange={handleChange}
                 />
-
                 <input
                     type="url"
                     name="attachment_file"
                     value={values.attachment_file}
                     onChange={handleChange}
                 />
-
                 <button>Apply</button>
             </form>
         </>

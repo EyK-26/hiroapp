@@ -11,12 +11,9 @@ const UserProfile = () => {
             <span>
                 {state.user?.first_name} {state.user?.last_name}
             </span>
-            <br />
             <span>{state.user?.email}</span>
-            <br />
-            <span>{state.user?.position.name}</span>
-            <br />
-            {state.user?.notifications.length > 0 ? (
+            <span>{state.user?.position?.name}</span>
+            {state.user?.notifications?.length > 0 ? (
                 <Inbox notifications={state.user?.notifications} />
             ) : (
                 "No Messages"

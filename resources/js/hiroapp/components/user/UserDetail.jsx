@@ -28,10 +28,10 @@ const UserDetail = () => {
                 <>
                     <ul>
                         <li>
-                            Name: {userData.user.first_name}{" "}
+                            Name: {userData.user.first_name}
                             {userData.user.last_name}
                         </li>
-                        <li>Email: {userData.user.email}</li>{" "}
+                        <li>Email: {userData.user.email}</li>
                         <button onClick={() => setIsEmailPopupOpen(true)}>
                             Contact User
                         </button>

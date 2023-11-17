@@ -1,7 +1,7 @@
 import React from "react";
 
 const Unauthorized = () => {
-    return <div>You are not authorized to see this page.</div>;
+    return <div>404 This page does not exist.</div>;
 };
 
 export default Unauthorized;
