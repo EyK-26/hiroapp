@@ -10,44 +10,26 @@ use Illuminate\Support\Facades\Auth;
 
 class PositionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $user_role_id = Auth::user()->role_id;
-        if ($user_role_id == 1 || $user_role_id == 3) {
+        if ($user_role_id !== 2) {
             $user_id = Auth::user()->id;
-            $user_position = Position::where("user_id", $user_id)->get();
-            $department_id = $user_position[0]->department_id;
+            $user_position = Position::where("user_id", $user_id)->first();
+            $department_id = $user_position->department_id;
             $positions = Position::query()->where('department_id', $department_id)->where('hiring', 1)->with('applications')->get();
             return $positions;
-        }
-
-        // positions avalabe for application for candinate
-        else if ($user_role_id == 2) {
+        } else if ($user_role_id == 2) {
             $search_quary = $request->search ?? null;
-
             $positions = Position::query()
                 ->with('applications')
                 ->where('hiring', 1)
                 ->where('name', 'like', "%" . $search_quary . "%")
                 ->get();
-
             return $positions;
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $user_id = Auth::user()->id;
@@ -71,9 +53,6 @@ class PositionController extends Controller
             ];
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         if (Auth::user()->role_id === 2) {
@@ -85,30 +64,6 @@ class PositionController extends Controller
             return ['position' => $position->load(['grade', 'user']), 'applications' => $application];
         }
         return "success";
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 
     public function getAllPositions()

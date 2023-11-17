@@ -4,16 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 const CreateUser = () => {
     const navigate = useNavigate();
-
     const [positions, setPositions] = useState(null);
     const [departments, setDepartments] = useState(null);
-    const [chosenDepartmentId, setChosenDepartmentId] = useState(null);
-
     const [values, setValues] = useState({
         first_name: "",
         last_name: "",
-        // email: "",
-        // password: "password",
         department_id: "",
         position_id: "",
         role_id: "",
@@ -50,9 +45,6 @@ const CreateUser = () => {
     };
 
     const handleChange = (ev) => {
-        if (ev.target.name === "department") {
-            setChosenDepartmentId(ev.target.value);
-        }
         setValues((previous_values) => {
             return {
                 ...previous_values,
@@ -75,9 +67,8 @@ const CreateUser = () => {
         <>
             <h2>Create new user</h2>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="first_name">
+                <label>
                     First name:
-                    <br />
                     <input
                         type="text"
                         name="first_name"
@@ -86,10 +77,9 @@ const CreateUser = () => {
                         required
                     />
                 </label>
-                <br />
-                <label htmlFor="last_name">
+
+                <label>
                     Last name:
-                    <br />
                     <input
                         type="text"
                         name="last_name"
@@ -98,10 +88,9 @@ const CreateUser = () => {
                         required
                     />
                 </label>
-                <br />
-                <label htmlFor="department_id">
+
+                <label>
                     Department:
-                    <br />
                     <select
                         name="department_id"
                         onChange={handleChange}
@@ -123,10 +112,9 @@ const CreateUser = () => {
                             : "Loading positions..."}
                     </select>
                 </label>
-                <br />
-                <label htmlFor="position">
+
+                <label>
                     Position:
-                    <br />
                     <select
                         name="position_id"
                         onChange={handleChange}
@@ -150,9 +138,9 @@ const CreateUser = () => {
                             : "Loading positions..."}
                     </select>
                 </label>
-                <br />
+
                 <label>
-                    Role: <br />
+                    Role:
                     <select
                         name="role_id"
                         onChange={handleChange}
@@ -167,7 +155,7 @@ const CreateUser = () => {
                         <option value={3}>Recruiter</option>
                     </select>
                 </label>
-                <br />
+
                 <button>Create</button>
             </form>
         </>

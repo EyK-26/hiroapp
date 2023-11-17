@@ -15,24 +15,9 @@ export default function Login({ loadUserStatus }) {
         event.preventDefault();
         try {
             const response = await axios.post("/login", values);
-            dispatch({
-                type: "success/add",
-                payload: response.statusText,
-            });
             loadUserStatus();
             navigate("/");
         } catch (error) {
-            switch (error.response) {
-                case 422:
-                    console.log(
-                        "VALIDATION FAILED:",
-                        error.response.data.errors
-                    );
-                    break;
-                case 500:
-                    console.log("UNKNOWN ERROR", error.response.data);
-                    break;
-            }
             dispatch({
                 type: "error/add",
                 payload: error.response.data.errors,
@@ -57,9 +42,7 @@ export default function Login({ loadUserStatus }) {
                 value={values.email}
                 onChange={handleChange}
             />
-            {state.messages.errors?.email && (
-                <span>{state.messages.errors.email}</span>
-            )}
+            {state.errors?.email && <span>{state.errors?.email}</span>}
 
             <input
                 type="password"
@@ -67,9 +50,7 @@ export default function Login({ loadUserStatus }) {
                 value={values.password}
                 onChange={handleChange}
             />
-            {state.messages.errors?.password && (
-                <span>{state.messages.errors.password}</span>
-            )}
+            {state.errors?.password && <span>{state.errors?.password}</span>}
 
             <button>Login</button>
         </form>

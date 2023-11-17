@@ -30,7 +30,6 @@ const Router = ({ loadUserStatus }) => {
                         <Route path="/users/:id" element={<UserDetail />} />
                     </>
                 );
-
             case 2:
                 return (
                     <>
@@ -79,15 +78,12 @@ const Router = ({ loadUserStatus }) => {
         <Routes>
             <Route path="/" element={<Layout />}>
                 {roleRoutes()}
-                {!state.user ? (
+                {!state.user && (
                     <Route
                         path="/login"
                         element={<Login loadUserStatus={loadUserStatus} />}
                     />
-                ) : (
-                    ""
                 )}
-
                 <Route path="/logout" element={<Logout />} />
                 <Route path="*" element={<Unauthorized />} />
             </Route>

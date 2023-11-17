@@ -17,9 +17,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ApplicationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $user_id = Auth::id();
@@ -36,17 +33,6 @@ class ApplicationController extends Controller
         return $applications;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $application = new Application();
@@ -57,14 +43,9 @@ class ApplicationController extends Controller
         $application->attachment_file = $request->input('position_id') ?? null;
         $application->save();
 
-        return [
-            'message' => 'succes'
-        ];
+        return $application->id;
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $authenticated_user_id = Auth::user()->id;
@@ -80,17 +61,6 @@ class ApplicationController extends Controller
         ] : ['message' => '404 not authorized'];
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function end(string $id)
     {
         $application = Application::findOrFail($id);
@@ -164,14 +134,6 @@ class ApplicationController extends Controller
         $application = Application::findOrFail($id);
         $application->status_id = 6;
         $application->save();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 
     public function notify(Request $request): void

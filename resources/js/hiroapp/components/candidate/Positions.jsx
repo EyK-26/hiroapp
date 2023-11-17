@@ -8,12 +8,8 @@ import Pagination from "../Pagination";
 const Positions = () => {
     const [positions, setPositions] = useState([]);
     const { state } = useContext(Context);
-
-    //for search nad pagination
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(1);
-
-    //calculate slice for serach results
     const startResults = 20 * (page - 1);
     const lastPage = Math.floor(positions.length / 20);
 
@@ -23,7 +19,6 @@ const Positions = () => {
         const new_data = [];
 
         // filters duplicate data from response
-        // Jakub !!!! Rewrite this !!!! use wherehas !!!!
         data.forEach((position) => {
             if (position.applications.length !== 0) {
                 let isApplied = false;
@@ -42,7 +37,6 @@ const Positions = () => {
         setPositions(new_data);
     };
 
-    // fetch Avaliable positions
     useEffect(() => {
         loadPositions();
         setPage(1);

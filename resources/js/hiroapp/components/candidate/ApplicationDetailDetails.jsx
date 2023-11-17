@@ -29,20 +29,17 @@ const ApplicationDetailDetails = ({ application }) => {
                 <span>Submitted Information</span>
                 <ul>
                     <li>
-                        <span>Your small motivation text:</span>
+                        <span>Your motivation text:</span>
                         <p>{applicationData.attachment_text}</p>
                     </li>
-
                     <li>
-                        <span>
-                            click below to download the submitted document
-                        </span>
+                        <span>submitted url</span>
                         <a
                             href={applicationData.attachment_file}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            Attachment
+                            URL
                         </a>
                     </li>
                 </ul>

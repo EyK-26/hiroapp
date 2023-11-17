@@ -16,7 +16,7 @@ const App = () => {
                     type: "user/set",
                     payload: response.data,
                 });
-            } else if (response.status == 401) {
+            } else if (response.status === 401) {
                 dispatch({
                     type: "user/set",
                     payload: false,
@@ -24,10 +24,6 @@ const App = () => {
                 navigate("/login");
             }
         } catch (error) {
-            dispatch({
-                type: "error/add",
-                payload: error.response?.data.errors,
-            });
             dispatch({
                 type: "user/set",
                 payload: null,

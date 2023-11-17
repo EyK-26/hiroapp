@@ -9,10 +9,7 @@ export default function HiroApp() {
     const [contextValue, setContextValue] = useReducer(reducer, {
         theme: "light",
         user: null,
-        messages: {
-            success: {},
-            errors: {},
-        },
+        errors: {},
     });
 
     return (

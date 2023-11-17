@@ -1,7 +1,6 @@
 import React from "react";
 
 const Pagination = ({ page, setPage, lastPage }) => {
-
     const nextPage = () => {
         if (page < lastPage) {
             setPage(page + 1);
@@ -17,9 +16,11 @@ const Pagination = ({ page, setPage, lastPage }) => {
     return (
         <div>
             <div>
-                <button onClick={prevPage}> Prev </button>
+                {page !== 1 && <button onClick={prevPage}> Prev </button>}
                 <span>{page}</span>
-                <button onClick={nextPage}> Next </button>
+                {page !== lastPage && (
+                    <button onClick={nextPage}> Next </button>
+                )}
             </div>
         </div>
     );
