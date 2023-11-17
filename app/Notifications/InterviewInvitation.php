@@ -16,10 +16,8 @@ class InterviewInvitation extends Notification
     protected $place;
     protected $sender;
     protected $subject = 'Your Interview Details...';
-    /**
-     * Create a new notification instance.
-     */
-    public function __construct(?string $text, ?string $datetime, ?string $place, ?string $sender)
+
+    public function __construct(?string $text, ?string $datetime, ?string $place, ?array $sender)
     {
         $this->text = $text;
         $this->datetime = $datetime;
@@ -46,7 +44,8 @@ class InterviewInvitation extends Notification
             ->subject('Invitation to Interview')
             ->line($this->text)
             ->line($this->datetime)
-            ->line($this->place);
+            ->line($this->place)
+            ->salutation("Regards, {$this->sender['first_name']} {$this->sender['last_name']}");
     }
 
     /**
@@ -59,8 +58,8 @@ class InterviewInvitation extends Notification
         return [
             'datetime' => $this->datetime,
             'place' => $this->place,
-            'text' => $this->text,
-            'from' => $this->sender,
+            'text' => "$this->text \n when: $this->datetime \n where: $this->place \n Regards, {$this->sender['first_name']} {$this->sender['last_name']}",
+            'from' => $this->sender['email'],
             'subject' => $this->subject
         ];
     }

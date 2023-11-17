@@ -14,8 +14,7 @@ const InterviewForm = ({
 
         We would like to invite you to the position of ${position.name}. 
         Kindly find the time and the place of the interview below. 
-        If you cannot join the interview or would like to change the date, please notify me via Slack or Email.
-        Regards ${state.user.first_name} ${state.user.last_name}`;
+        If you cannot join the interview or would like to change the date, please notify me via Slack or Email.`;
 
     const getCurrentDateTime = () => {
         const now = new Date();
@@ -48,7 +47,7 @@ const InterviewForm = ({
             const response = axios.post("/api/applications/notify", {
                 ...values,
                 applicant_id: applicant.id,
-                sender: state.user.email,
+                sender: state.user,
             });
         } catch (error) {
             console.log(error.response.data);
