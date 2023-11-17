@@ -30,6 +30,10 @@ const Router = ({ loadUserStatus }) => {
                         <Route path="/users/create" element={<CreateUser />} />
                         <Route path="/users/:id" element={<UserDetail />} />
                         <Route path="/positions" element={<OpenPositions />} />
+                        <Route
+                            path="/positions/:id"
+                            element={<PositionDetail />}
+                        />
                     </>
                 );
             case 2:

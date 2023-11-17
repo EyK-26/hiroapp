@@ -1,10 +1,13 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ApplicantList from "./ApplicantList";
 import PositionDetailDetails from "./PositionDetailDetails";
+import Context from "../../context/Context";
+import DeletePosition from "../admin/DeletePosition";
 
 const PositionDetail = () => {
+    const { state } = useContext(Context);
     const [positionData, setPositionData] = useState([]);
     const { id } = useParams();
 
@@ -25,6 +28,7 @@ const PositionDetail = () => {
         <>
             <div>
                 <h2>Position Details</h2>
+                {state.user.role_id == 1 && <DeletePosition />}
                 <PositionDetailDetails position={positionData.position} />
             </div>
             <div>
