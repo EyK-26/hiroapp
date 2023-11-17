@@ -15,9 +15,7 @@ class ContactUser extends Notification
     protected $from;
     protected $text;
     protected $subject;
-    /**
-     * Create a new notification instance.
-     */
+
     public function __construct(string $from, string $to, string $text, string $subject)
     {
         $this->from = $from;
@@ -36,9 +34,6 @@ class ContactUser extends Notification
         return ['mail', 'database'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     */
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)

@@ -11,14 +11,15 @@ class ApplicationEnded extends Notification
 {
     use Queueable;
 
-    protected $recruter;
+    protected $recruiter;
     protected $position;
+    protected $subject = "We have updates for you";
     /**
      * Create a new notification instance.
      */
-    public function __construct(?string $recruter, ?string $position)
+    public function __construct(?object $recruiter, ?string $position)
     {
-        $this->recruter = $recruter;
+        $this->recruiter = $recruiter;
         $this->position = $position;
     }
 
@@ -39,8 +40,8 @@ class ApplicationEnded extends Notification
     {
         return (new MailMessage)
             ->subject('Application Ended')
-            ->line("Dear $notifiable->first_name,  We are sorry to informe you that your application for $this->position has ended. Due to us finding different candinate,")
-            ->salutation("Regards, $this->recruter");
+            ->line("Dear {$notifiable->first_name}, We are sorry to inform you that for the position of {$this->position}, we decided to continue with other candidates whose profile match our requirements. Wishing you the best.")
+            ->salutation("Regards, {$this->recruiter->first_name} {$this->recruiter->last_name}");
     }
 
     /**
@@ -51,7 +52,9 @@ class ApplicationEnded extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'text' => "Dear {$notifiable->first_name}, \n We are sorry to inform you that for the position of {$this->position}, we decided to continue with other candidates whose profile match our requirements. \n Wishing you the best. \n Regards, {$this->recruiter->first_name} {$this->recruiter->last_name}",
+            'from' => $this->recruiter->email,
+            'subject' => $this->subject
         ];
     }
 }

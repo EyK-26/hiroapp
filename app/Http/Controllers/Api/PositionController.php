@@ -13,11 +13,23 @@ class PositionController extends Controller
     public function index(Request $request)
     {
         $user_role_id = Auth::user()->role_id;
-        if ($user_role_id !== 2) {
-            $user_id = Auth::user()->id;
-            $user_position = Position::where("user_id", $user_id)->first();
-            $department_id = $user_position->department_id;
-            $positions = Position::query()->where('department_id', $department_id)->where('hiring', 1)->with('applications')->get();
+        if ($user_role_id == 1) {
+            $search_quary = $request->search ?? null;
+            $department_id = $request->department ?? null;
+            if ($department_id != 0) {
+                $positions = Position::query()
+                    ->with('applications')
+                    ->where('hiring', 1)
+                    ->where('department_id', $department_id)
+                    ->where('name', 'like', "%" . $search_quary . "%")
+                    ->get();
+            } else {
+                $positions = Position::query()
+                    ->with('applications')
+                    ->where('hiring', 1)
+                    ->where('name', 'like', "%" . $search_quary . "%")
+                    ->get();
+            }
             return $positions;
         } else if ($user_role_id == 2) {
             $search_quary = $request->search ?? null;
@@ -25,6 +37,16 @@ class PositionController extends Controller
                 ->with('applications')
                 ->where('hiring', 1)
                 ->where('name', 'like', "%" . $search_quary . "%")
+                ->get();
+            return $positions;
+        } else if ($user_role_id == 3) {
+            $user_id = Auth::user()->id;
+            $user_position = Position::where("user_id", $user_id)->first();
+            $department_id = $user_position->department_id;
+            $positions = Position::query()
+                ->where('department_id', $department_id)
+                ->where('hiring', 1)
+                ->with('applications')
                 ->get();
             return $positions;
         }
@@ -58,7 +80,7 @@ class PositionController extends Controller
         if (Auth::user()->role_id === 2) {
             $position = Position::query()->where('id', $id)->with(['department', 'grade'])->get();
             return $position[0];
-        } else if (Auth::user()->role_id === 3) {
+        } else if (Auth::user()->role_id !== 2) {
             $position = Position::findOrfail($id);
             $application = Application::where('position_id', $position->id)->with(['user', 'status'])->get();
             return ['position' => $position->load(['grade', 'user']), 'applications' => $application];
@@ -75,5 +97,13 @@ class PositionController extends Controller
     {
         $positions = Position::select('name', 'id')->distinct()->orderBy('name')->where('hiring', 1)->where('department_id', $department_id)->get();
         return $positions;
+    }
+
+    public function destroy($id)
+    {
+        // Have to add notification
+        Application::query()->where('position_id', $id)->delete();
+        Position::query()->where('id', $id)->delete();
+        return "success";
     }
 }

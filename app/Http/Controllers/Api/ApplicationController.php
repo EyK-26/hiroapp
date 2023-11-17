@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
 
-
 class ApplicationController extends Controller
 {
     public function index(Request $request)
@@ -70,7 +69,7 @@ class ApplicationController extends Controller
             // send notification
             if (Auth::user()->role_id !== 2) {
                 $accepted_user = User::findOrFail($application->user_id);
-                $accepted_user->notify(new ApplicationEnded(Auth::user()->first_name, $application->position->name));
+                $accepted_user->notify(new ApplicationEnded(Auth::user(), $application->position->name));
             }
 
             $application->save();
@@ -118,10 +117,10 @@ class ApplicationController extends Controller
 
             // notifications
             $accepted_user = User::findOrFail($user_id);
-            $accepted_user->notify(new AcceptedForPosition(Auth::user()->first_name, $application->position->name));
+            $accepted_user->notify(new AcceptedForPosition(Auth::user(), $application->position->name));
 
             $rejected_users = User::query()->whereIn('id', $rejected_users_ids)->get();
-            Notification::send($rejected_users, new ApplicationEnded(Auth::user()->first_name, $application->position->name));
+            Notification::send($rejected_users, new ApplicationEnded(Auth::user(), $application->position->name));
 
             $application->save();
         } else {
