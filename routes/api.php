@@ -3,8 +3,8 @@
 use App\Http\Controllers\Api\ApplicationController;
 use App\Http\Controllers\Api\DepartmentController;
 use App\Http\Controllers\Api\PositionController;
-use App\Http\Controllers\Api\StatusController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    return $request->user()->load(['notifications', 'position']);
 });
 
 Route::get('/positions', [PositionController::class, 'index'])->name('positions.index');
@@ -46,3 +46,5 @@ Route::post('/applications/{application}/delete', [ApplicationController::class,
 Route::post('/applications/notify', [ApplicationController::class, 'notify'])->name('applications.notify');
 
 Route::get('/departments', [DepartmentController::class, 'index'])->name('departments.index');
+
+Route::post('/notify', [NotificationController::class, 'send'])->name('notifications.send');

@@ -24,7 +24,6 @@ const CreateUser = () => {
             const response = await axios.get(
                 "/api/positions-dep/" + values.department_id
             );
-            console.log(response.data);
             setPositions(response.data);
         } catch (error) {
             console.log(error.response.data);
@@ -54,7 +53,6 @@ const CreateUser = () => {
         if (ev.target.name === "department") {
             setChosenDepartmentId(ev.target.value);
         }
-        console.log(ev.target);
         setValues((previous_values) => {
             return {
                 ...previous_values,

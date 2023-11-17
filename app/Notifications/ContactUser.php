@@ -7,24 +7,23 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class InterviewInvitation extends Notification
+class ContactUser extends Notification
 {
     use Queueable;
 
+    protected $to;
+    protected $from;
     protected $text;
-    protected $datetime;
-    protected $place;
-    protected $sender;
-    protected $subject = 'Your Interview Details...';
+    protected $subject;
     /**
      * Create a new notification instance.
      */
-    public function __construct(?string $text, ?string $datetime, ?string $place, ?string $sender)
+    public function __construct(string $from, string $to, string $text, string $subject)
     {
+        $this->from = $from;
+        $this->to = $to;
         $this->text = $text;
-        $this->datetime = $datetime;
-        $this->place = $place;
-        $this->sender = $sender;
+        $this->subject = $subject;
     }
 
     /**
@@ -43,10 +42,8 @@ class InterviewInvitation extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Invitation to Interview')
-            ->line($this->text)
-            ->line($this->datetime)
-            ->line($this->place);
+            ->subject("You have a new message from {$this->from}: {$this->subject}")
+            ->line($this->text);
     }
 
     /**
@@ -57,11 +54,10 @@ class InterviewInvitation extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'datetime' => $this->datetime,
-            'place' => $this->place,
+            'from' => $this->from,
+            'to' => $this->to,
+            'subject' => $this->subject,
             'text' => $this->text,
-            'from' => $this->sender,
-            'subject' => $this->subject
         ];
     }
 }
