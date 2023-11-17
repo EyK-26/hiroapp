@@ -17,6 +17,7 @@ import CreateApplication from "../components/candidate/CreateApplication";
 import CreateUser from "../components/admin/CreateUser";
 import CreatePosition from "../components/recruiter/CreatePosition";
 import UserDetail from "../components/user/UserDetail";
+import OpenPositions from "../components/admin/OpenPositions";
 
 const Router = ({ loadUserStatus }) => {
     const { state } = useContext(Context);
@@ -28,6 +29,7 @@ const Router = ({ loadUserStatus }) => {
                         <Route index element={<AdminHome />} />
                         <Route path="/users/create" element={<CreateUser />} />
                         <Route path="/users/:id" element={<UserDetail />} />
+                        <Route path="/positions" element={<OpenPositions />} />
                     </>
                 );
             case 2:
