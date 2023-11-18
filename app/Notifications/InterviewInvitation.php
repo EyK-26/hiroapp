@@ -2,8 +2,8 @@
 
 namespace App\Notifications;
 
+use DateTime;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -35,15 +35,18 @@ class InterviewInvitation extends Notification
         return ['mail', 'database'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     */
+    public function convertDate($dateTimeString): string
+    {
+        $dateTimeObject = new DateTime($dateTimeString);
+        return $dateTimeObject->format('Y-m-d H:i');
+    }
+
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
             ->subject('Invitation to Interview')
             ->line($this->text)
-            ->line($this->datetime)
+            ->line($this->convertDate($this->datetime))
             ->line($this->place)
             ->salutation("Regards, {$this->sender['first_name']} {$this->sender['last_name']}");
     }
@@ -58,7 +61,7 @@ class InterviewInvitation extends Notification
         return [
             'datetime' => $this->datetime,
             'place' => $this->place,
-            'text' => "$this->text \n when: $this->datetime \n where: $this->place \n Regards, {$this->sender['first_name']} {$this->sender['last_name']}",
+            'text' => "{$this->text} \n when: {$this->convertDate($this->datetime)} \n where: {$this->place} \n Regards, {$this->sender['first_name']} {$this->sender['last_name']}",
             'from' => $this->sender['email'],
             'subject' => $this->subject
         ];

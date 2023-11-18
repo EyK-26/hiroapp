@@ -16,7 +16,7 @@ const UserProfile = () => {
             {state.user?.notifications?.length > 0 ? (
                 <Inbox notifications={state.user?.notifications} />
             ) : (
-                "No Messages"
+                "Your Inbox is Empty"
             )}
             <Logout />
         </div>
