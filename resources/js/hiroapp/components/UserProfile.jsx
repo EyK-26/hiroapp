@@ -13,6 +13,7 @@ const UserProfile = () => {
             </span>
             <span>{state.user?.email}</span>
             <span>{state.user?.position?.name}</span>
+            <span>{state.user?.position?.department?.name}</span>
             {state.user?.notifications?.length > 0 ? (
                 <Inbox notifications={state.user?.notifications} />
             ) : (
