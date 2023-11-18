@@ -1,10 +1,11 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Context from "../../context/Context";
 
 const CreatePosition = () => {
     const navigate = useNavigate();
-
+    const { state } = useContext(Context);
     const [positions, setPositions] = useState(null);
     const [values, setValues] = useState({
         name: "",
@@ -12,6 +13,7 @@ const CreatePosition = () => {
         start_date: "",
         end_date: "",
         pay_grade: "",
+        department_id: state.user?.position?.department.id,
     });
 
     const fetchPositions = async () => {

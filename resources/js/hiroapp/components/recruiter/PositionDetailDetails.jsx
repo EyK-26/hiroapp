@@ -4,6 +4,7 @@ const PositionDetailDetails = ({ position }) => {
     return (
         <ul>
             <li>Position Title: {position?.name}</li>
+            <li>Department: {position?.department.name}</li>
             <li>Details: {position?.description}</li>
             <li>Fixed End Date: {position?.end_date ?? "No Fixed End Date"}</li>
             <li>

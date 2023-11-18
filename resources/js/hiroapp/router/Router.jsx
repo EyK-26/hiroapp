@@ -19,6 +19,7 @@ import CreatePosition from "../components/recruiter/CreatePosition";
 import UserDetail from "../components/user/UserDetail";
 import OpenPositions from "../components/admin/OpenPositions";
 import Users from "../components/admin/Users";
+import YourHirings from "../components/recruiter/YourHirings";
 
 const Router = ({ loadUserStatus }) => {
     const { state } = useContext(Context);
@@ -74,6 +75,7 @@ const Router = ({ loadUserStatus }) => {
                             path="/position/create"
                             element={<CreatePosition />}
                         />
+                        <Route path="/hirings" element={<YourHirings />} />
                         <Route path="/users/:id" element={<UserDetail />} />
                     </>
                 );

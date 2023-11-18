@@ -10,13 +10,14 @@ use App\Models\User;
 use App\Notifications\AcceptedForPosition;
 use App\Notifications\ApplicationEnded;
 use App\Notifications\InterviewInvitation;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
 
 class ApplicationController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): Collection
     {
         $user_id = Auth::id();
         $search_quary = $request->search ?? null;
@@ -32,7 +33,7 @@ class ApplicationController extends Controller
         return $applications;
     }
 
-    public function store(Request $request)
+    public function store(Request $request): int
     {
         $application = new Application();
         $application->user_id = Auth::id();
@@ -45,7 +46,7 @@ class ApplicationController extends Controller
         return $application->id;
     }
 
-    public function show(string $id)
+    public function show(string $id): array
     {
         $authenticated_user_id = Auth::user()->id;
         $authenticated_user_role_id = Auth::user()->role_id;
@@ -54,13 +55,18 @@ class ApplicationController extends Controller
         $position = Position::findOrFail($application->position_id);
         $status = Status::findOrFail($application->status_id);
         $all_statuses = Status::all();
-        return $authenticated_user_id === $user->id || $authenticated_user_role_id === 3 ? [
-            'application' => $application, 'user' => $user, 'position' => $position, 'status' => $status,
-            'all_statuses' => $all_statuses,
-        ] : ['message' => '404 not authorized'];
+        return $authenticated_user_id === $user->id || $authenticated_user_role_id === 3 ?
+            compact(
+                'application',
+                'user',
+                'position',
+                'status',
+                'all_statuses'
+            )
+            : ['message' => '404 not authorized'];
     }
 
-    public function end(string $id)
+    public function end(string $id): mixed
     {
         $application = Application::findOrFail($id);
         if ($application->status_id !== 6) {
@@ -78,7 +84,7 @@ class ApplicationController extends Controller
         }
     }
 
-    public function move(string $id)
+    public function move(string $id): mixed
     {
         $application = Application::findOrFail($id);
         $current_status = $application->status_id;
