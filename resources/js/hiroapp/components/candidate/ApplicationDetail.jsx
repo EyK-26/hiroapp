@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import ApplicationDetailHeader from "./ApplicationDetailHeader";
 import ApplicationDetailDetails from "./ApplicationDetailDetails";
 import ApplicationDetailStatus from "./ApplicationDetailStatus";
@@ -10,6 +10,8 @@ const ApplicationDetail = () => {
     const [isEnded, setIsEnded] = useState(false);
     const [moveCount, setMoveCount] = useState(0);
     const { id } = useParams();
+    const location = useLocation();
+    const { applied } = location.state || false;
 
     const fetchApplicationData = async () => {
         try {
@@ -28,6 +30,7 @@ const ApplicationDetail = () => {
         <>
             {applicationData && (
                 <div>
+                    {applied && <p>Application Submitted!</p>}
                     <ApplicationDetailHeader applicant={applicationData.user} />
                     <ApplicationDetailDetails
                         application={{

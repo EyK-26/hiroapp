@@ -15,7 +15,11 @@ const CreateApplication = () => {
         event.preventDefault();
         try {
             const response = await axios.post("/api/applications", values);
-            navigate(`/applications/${response.data}`);
+            if (Math.floor(response.status / 100) === 2) {
+                navigate(`/applications/${response.data}`, {
+                    state: { applied: true },
+                });
+            }
         } catch (error) {
             console.log(error.response.data);
         }
