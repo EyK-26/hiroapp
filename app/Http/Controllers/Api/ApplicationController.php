@@ -68,8 +68,8 @@ class ApplicationController extends Controller
 
             // send notification
             if (Auth::user()->role_id !== 2) {
-                $accepted_user = User::findOrFail($application->user_id);
-                $accepted_user->notify(new ApplicationEnded(Auth::user(), $application->position->name));
+                $rejected_user = User::findOrFail($application->user_id);
+                $rejected_user->notify(new ApplicationEnded(Auth::user(), $application->position->name));
             }
 
             $application->save();
@@ -143,6 +143,6 @@ class ApplicationController extends Controller
         $user_id = $request->input('applicant_id');
         $sender = $request->input('sender');
         $user = User::findOrFail($user_id);
-        Notification::send($user, new InterviewInvitation($text, $datetime, $place, $sender));
+        $user->notify(new InterviewInvitation($text, $datetime, $place, $sender));
     }
 }
