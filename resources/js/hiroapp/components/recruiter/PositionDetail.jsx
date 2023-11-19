@@ -28,7 +28,7 @@ const PositionDetail = () => {
         <>
             <div>
                 <h2>Position Details</h2>
-                {state.user.role_id == 1 && <DeletePosition />}
+                {state.user.role_id === 1 && <DeletePosition />}
                 <PositionDetailDetails position={positionData.position} />
             </div>
             <div>

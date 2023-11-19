@@ -20,6 +20,7 @@ const Users = () => {
             const response = await axios.get(
                 "/api/users?search=" + search + "&department=" + department
             );
+            console.log(response.data);
             setUsers(response.data);
         } catch (error) {
             console.log(error.response.data);
