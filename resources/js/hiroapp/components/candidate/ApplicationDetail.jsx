@@ -6,47 +6,40 @@ import ApplicationDetailDetails from "./ApplicationDetailDetails";
 import ApplicationDetailStatus from "./ApplicationDetailStatus";
 
 const ApplicationDetail = () => {
-    const [applicationData, setApplicationData] = useState(null);
+    const [appData, setAppData] = useState(null);
     const [isEnded, setIsEnded] = useState(false);
     const [moveCount, setMoveCount] = useState(0);
     const { id } = useParams();
     const location = useLocation();
     const { applied } = location.state || false;
 
-    const fetchApplicationData = async () => {
+    const fetchAppData = async () => {
         try {
             const response = await axios.get(`/api/applications/${id}`);
-            setApplicationData(response.data);
+            setAppData(response.data);
         } catch (err) {
             console.log(err.response);
         }
     };
 
     useEffect(() => {
-        fetchApplicationData();
+        fetchAppData();
     }, [isEnded, moveCount]);
 
     return (
         <>
-            {applicationData && (
+            {appData && (
                 <div>
                     {applied && <p>Application Submitted!</p>}
-                    <ApplicationDetailHeader applicant={applicationData.user} />
+                    <ApplicationDetailHeader
+                        applicant={appData.application.user}
+                    />
                     <ApplicationDetailDetails
-                        application={{
-                            position: applicationData.position,
-                            applicationData: applicationData.application,
-                            applicant: applicationData.user,
-                        }}
+                        application={appData.application}
                     />
                     <ApplicationDetailStatus
-                        applicationStatus={{
-                            applicationId: applicationData.application.id,
-                            allStatuses: applicationData.all_statuses,
-                            currentStatus: applicationData.status,
-                            position: applicationData.position,
-                            applicant: applicationData.user,
-                        }}
+                        allStatuses={appData.all_statuses}
+                        application={appData.application}
                         setIsEnded={setIsEnded}
                         setMoveCount={setMoveCount}
                     />

@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const TotalApplicantsDetail = ({ detailData }) => {
-    console.log(detailData);
     const renderedDetailData = detailData.map((data) => (
         <div key={data.id}>
             <ul>

@@ -4,35 +4,28 @@ import Context from "../../context/Context";
 import InterviewForm from "../recruiter/InterviewForm";
 
 const ApplicationDetailStatus = ({
-    applicationStatus,
+    allStatuses,
+    application,
     setIsEnded,
     setMoveCount,
 }) => {
-    const { allStatuses, currentStatus, applicationId, position, applicant } =
-        applicationStatus;
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [isRejectPopupOpen, setIsRejectPopupOpen] = useState(false);
     const [isInterviewPopupOpen, setIsInterviewPopupOpen] = useState(null);
+    const [isHirePopupOpen, setIsHirePopupOpen] = useState(false);
     const [isInterviewSet, setIsInterviewSet] = useState(false);
     const { state } = useContext(Context);
 
-    const handleClick = () => {
-        setIsPopupOpen(true);
-    };
-
-    const handleCancel = () => {
-        setIsPopupOpen(false);
-    };
-
     const handleMove = async () => {
-        if (currentStatus.id === 2 && !isInterviewSet) {
+        if (application.status.id === 2 && !isInterviewSet) {
             setIsInterviewPopupOpen(true);
             return;
-        } else if (currentStatus.id !== 2 || isInterviewSet) {
+        } else if (application.status.id !== 2 || isInterviewSet) {
             try {
                 const response = await axios.post(
-                    `/api/applications/${applicationId}/move`
+                    `/api/applications/${application.id}/move`
                 );
                 setMoveCount((prev) => prev + 1);
+                setIsHirePopupOpen(false);
             } catch (err) {
                 console.log(err.response);
             }
@@ -42,10 +35,10 @@ const ApplicationDetailStatus = ({
     const handleEnd = async () => {
         try {
             const response = await axios.post(
-                `/api/applications/${applicationId}/end`
+                `/api/applications/${application.id}/end`
             );
             setIsEnded(true);
-            setIsPopupOpen(false);
+            setIsRejectPopupOpen(false);
         } catch (err) {
             console.log(err.response);
         }
@@ -58,30 +51,44 @@ const ApplicationDetailStatus = ({
     }, [isInterviewSet]);
 
     const temporaryStyle = { backgroundColor: "green" };
-    const renderedAllStatuses = allStatuses.map((status) => (
-        <li
-            key={status.id}
-            style={status.id === currentStatus.id ? temporaryStyle : null}
-        >
-            {status.name}
-            {status.id === currentStatus.id &&
-                currentStatus.id < 5 &&
-                state.user.role_id !== 2 && (
-                    <button onClick={handleMove}>Move To Next Stage</button>
-                )}
-        </li>
-    ));
+    const renderedAllStatuses = allStatuses.map((status) => {
+        const isCurrent =
+            status.id === application.status.id && state.user.role_id !== 2;
+        const renderMoveBtn = isCurrent && application.status.id < 4;
+        const renderHireBtn = isCurrent && application.status.id === 4;
+
+        return (
+            <li
+                key={status.id}
+                style={
+                    status.id === application.status.id ? temporaryStyle : null
+                }
+            >
+                {status.name}
+                {isCurrent &&
+                    (renderMoveBtn ? (
+                        <button onClick={handleMove}>Move To Next Stage</button>
+                    ) : (
+                        renderHireBtn && (
+                            <button onClick={() => setIsHirePopupOpen(true)}>
+                                Hire
+                            </button>
+                        )
+                    ))}
+            </li>
+        );
+    });
 
     return (
         <div>
-            {currentStatus.id < 5 && (
-                <button onClick={handleClick}>
+            {application.status.id < 5 && (
+                <button onClick={() => setIsRejectPopupOpen(true)}>
                     {state.user.role_id === 2
                         ? "Retrieve Your Application"
                         : "Reject"}
                 </button>
             )}
-            {isPopupOpen && (
+            {isRejectPopupOpen && (
                 <div className="warning_retrieve">
                     <span>
                         {state.user.role_id === 2
@@ -89,14 +96,28 @@ const ApplicationDetailStatus = ({
                             : "Reject the candidate? Once rejected, you won't be able to revert it."}
                     </span>
                     <button onClick={handleEnd}>Confirm</button>
-                    <button onClick={handleCancel}>Cancel</button>
+                    <button onClick={() => setIsRejectPopupOpen(false)}>
+                        Cancel
+                    </button>
                 </div>
             )}
-            {currentStatus.id === 2 && isInterviewPopupOpen && (
+            {isHirePopupOpen && (
+                <div className="warning_hire">
+                    <span>
+                        {`Dear ${state.user.first_name}, You are about to hire ${application.user.first_name} ${application.user.last_name} for the position of ${application.position.name}.
+                        By clicking confirm a hiring confirmation email will be sent to applicant.`}
+                    </span>
+                    <button onClick={handleMove}>Confirm</button>
+                    <button onClick={() => setIsHirePopupOpen(false)}>
+                        Cancel
+                    </button>
+                </div>
+            )}
+            {application.status.id === 2 && isInterviewPopupOpen && (
                 <div className="invitation_interview">
                     <InterviewForm
-                        applicant={applicant}
-                        position={position}
+                        applicant={application.user}
+                        position={application.position}
                         setIsInterviewPopupOpen={setIsInterviewPopupOpen}
                         setIsInterviewSet={setIsInterviewSet}
                     />
