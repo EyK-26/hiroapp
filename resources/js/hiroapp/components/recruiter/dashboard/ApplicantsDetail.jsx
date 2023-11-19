@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const TotalApplicantsDetail = ({ detailData }) => {
+const ApplicantsDetail = ({ detailData }) => {
     const renderedDetailData = detailData.map((data) => (
         <div key={data.id}>
             <ul>
@@ -29,4 +29,4 @@ const TotalApplicantsDetail = ({ detailData }) => {
     return <div>{renderedDetailData}</div>;
 };
 
-export default TotalApplicantsDetail;
+export default ApplicantsDetail;

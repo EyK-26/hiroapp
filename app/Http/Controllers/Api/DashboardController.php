@@ -21,6 +21,14 @@ class DashboardController extends Controller
             if ($req->input('isMonthRestricted')) {
                 $currentMonthStart = Carbon::now()->startOfMonth();
                 return Application::whereIn('position_id', $position_ids)->where('created_at', '>=', $currentMonthStart);
+            } else if ($req->input('isFeedbackRestricted')) {
+                return Application::whereIn('position_id', $position_ids)->where('status_id', 4);
+            } else if ($req->input('isHiredRestricted')) {
+                return Application::whereIn('position_id', $position_ids)->where('status_id', 5);
+            } else if ($req->input('isRejectedRestricted')) {
+                return Application::whereIn('position_id', $position_ids)->where('status_id', 6);
+            } else if ($req->input('isInterviewRestricted')) {
+                return Application::whereIn('position_id', $position_ids)->where('status_id', 3);
             } else {
                 return Application::whereIn('position_id', $position_ids);
             }

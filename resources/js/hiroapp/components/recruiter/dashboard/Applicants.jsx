@@ -1,20 +1,27 @@
 import React, { useContext, useEffect, useState } from "react";
 import Context from "../../../context/Context";
-import TotalApplicantsDetail from "./TotalApplicantsDetail";
+import ApplicantsDetail from "./ApplicantsDetail";
 import axios from "axios";
 
-const TotalApplicants = ({ isMonthRestricted }) => {
+const Applicants = (props) => {
     const { state } = useContext(Context);
     const [data, setData] = useState(0);
     const [detailData, setDetailData] = useState([]);
     const [isDetailDataExpanded, setIsDetailDataExpanded] = useState(false);
+    const params = {
+        department_id: state.user?.position?.department.id,
+        isMonthRestricted: props.isMonthRestricted,
+        isFeedbackRestricted: props.isFeedbackRestricted,
+        isHiredRestricted: props.isHiredRestricted,
+        isRejectedRestricted: props.isRejectedRestricted,
+        isInterviewRestricted: props.isInterviewRestricted,
+    };
 
     const fetchTotalApplicants = async () => {
         try {
-            const response = await axios.get("/api/dashboard/totalapplicants", {
+            const response = await axios.get("/api/dashboard/count", {
                 params: {
-                    department_id: state.user?.position?.department.id,
-                    isMonthRestricted: isMonthRestricted ? 1 : 0,
+                    ...params,
                 },
             });
             setData(response.data);
@@ -25,15 +32,11 @@ const TotalApplicants = ({ isMonthRestricted }) => {
 
     const fetchTotalApplicantsDetail = async () => {
         try {
-            const response = await axios.get(
-                "/api/dashboard/totalapplicantsdetail",
-                {
-                    params: {
-                        department_id: state.user?.position?.department.id,
-                        isMonthRestricted: isMonthRestricted ? 1 : 0,
-                    },
-                }
-            );
+            const response = await axios.get("/api/dashboard/data", {
+                params: {
+                    ...params,
+                },
+            });
             setDetailData(response.data);
         } catch (err) {
             console.log(err.response);
@@ -53,9 +56,17 @@ const TotalApplicants = ({ isMonthRestricted }) => {
     return (
         <div>
             <h3>
-                {isMonthRestricted
+                {props.isMonthRestricted
                     ? "Candidates Applied This Month"
-                    : "Total Number of Candidate"}
+                    : props.isFeedbackRestricted
+                    ? "Candidates Awating Feedback"
+                    : props.isHiredRestricted
+                    ? "Candidates Hired"
+                    : props.isRejectedRestricted
+                    ? "Candidates Declined"
+                    : props.isInterviewRestricted
+                    ? "Candidates with scheduled interviews"
+                    : "Total Number of Candidates"}
             </h3>
             {data && (
                 <div>
@@ -68,10 +79,10 @@ const TotalApplicants = ({ isMonthRestricted }) => {
                 </div>
             )}
             {detailData && isDetailDataExpanded && (
-                <TotalApplicantsDetail detailData={detailData} />
+                <ApplicantsDetail detailData={detailData} />
             )}
         </div>
     );
 };
 
-export default TotalApplicants;
+export default Applicants;

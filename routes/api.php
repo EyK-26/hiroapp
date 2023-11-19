@@ -41,5 +41,5 @@ Route::post('/notify', [NotificationController::class, 'send'])->name('notificat
 Route::get('/notify/get', [NotificationController::class, 'get_unread_count'])->name('notifications.getunreadcount');
 Route::post('/notify/markasread', [NotificationController::class, 'mark_as_read'])->name('notifications.markasread');
 
-Route::get('/dashboard/totalapplicants', [DashboardController::class, 'getTotalNumberOfApplications'])->name('dashboard.totalapplicants');
-Route::get('/dashboard/totalapplicantsdetail', [DashboardController::class, 'getTotalApplicantsDetail'])->name('dashboard.totalapplicantsdetail');
+Route::get('/dashboard/count', [DashboardController::class, 'getTotalNumberOfApplications'])->name('dashboard.totalapplicants');
+Route::get('/dashboard/data', [DashboardController::class, 'getTotalApplicantsDetail'])->name('dashboard.totalapplicantsdetail');
