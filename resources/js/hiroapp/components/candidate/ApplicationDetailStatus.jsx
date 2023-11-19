@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import Context from "../../context/Context";
 import InterviewForm from "../recruiter/InterviewForm";
+import Hire from "./popups/Hire";
+import Reject from "./popups/Reject";
 
 const ApplicationDetailStatus = ({
     allStatuses,
@@ -13,6 +15,7 @@ const ApplicationDetailStatus = ({
     const [isInterviewPopupOpen, setIsInterviewPopupOpen] = useState(null);
     const [isHirePopupOpen, setIsHirePopupOpen] = useState(false);
     const [isInterviewSet, setIsInterviewSet] = useState(false);
+    const [isProcessingQuery, setIsProcessingQuery] = useState(false);
     const { state } = useContext(Context);
 
     const handleMove = async () => {
@@ -26,6 +29,7 @@ const ApplicationDetailStatus = ({
                 );
                 setMoveCount((prev) => prev + 1);
                 setIsHirePopupOpen(false);
+                setIsProcessingQuery(false);
             } catch (err) {
                 console.log(err.response);
             }
@@ -39,6 +43,7 @@ const ApplicationDetailStatus = ({
             );
             setIsEnded(true);
             setIsRejectPopupOpen(false);
+            setIsProcessingQuery(false);
         } catch (err) {
             console.log(err.response);
         }
@@ -88,30 +93,23 @@ const ApplicationDetailStatus = ({
                         : "Reject"}
                 </button>
             )}
+            {isProcessingQuery && (
+                <span className="processing">"Processing..."</span>
+            )}
             {isRejectPopupOpen && (
-                <div className="warning_retrieve">
-                    <span>
-                        {state.user.role_id === 2
-                            ? "Are you sure you want to retrieve your application? Do not worry, retrieving does not prevent you from applying again."
-                            : "Reject the candidate? Once rejected, you won't be able to revert it."}
-                    </span>
-                    <button onClick={handleEnd}>Confirm</button>
-                    <button onClick={() => setIsRejectPopupOpen(false)}>
-                        Cancel
-                    </button>
-                </div>
+                <Reject
+                    setIsProcessingQuery={setIsProcessingQuery}
+                    setIsRejectPopupOpen={setIsRejectPopupOpen}
+                    handleEnd={handleEnd}
+                />
             )}
             {isHirePopupOpen && (
-                <div className="warning_hire">
-                    <span>
-                        {`Dear ${state.user.first_name}, You are about to hire ${application.user.first_name} ${application.user.last_name} for the position of ${application.position.name}.
-                        By clicking confirm a hiring confirmation email will be sent to applicant.`}
-                    </span>
-                    <button onClick={handleMove}>Confirm</button>
-                    <button onClick={() => setIsHirePopupOpen(false)}>
-                        Cancel
-                    </button>
-                </div>
+                <Hire
+                    setIsProcessingQuery={setIsProcessingQuery}
+                    setIsHirePopupOpen={setIsHirePopupOpen}
+                    handleMove={handleMove}
+                    application={application}
+                />
             )}
             {application.status.id === 2 && isInterviewPopupOpen && (
                 <div className="invitation_interview">
@@ -120,6 +118,7 @@ const ApplicationDetailStatus = ({
                         position={application.position}
                         setIsInterviewPopupOpen={setIsInterviewPopupOpen}
                         setIsInterviewSet={setIsInterviewSet}
+                        setIsProcessingQuery={setIsProcessingQuery}
                     />
                 </div>
             )}

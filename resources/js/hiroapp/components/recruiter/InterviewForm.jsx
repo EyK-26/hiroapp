@@ -7,6 +7,7 @@ const InterviewForm = ({
     position,
     setIsInterviewPopupOpen,
     setIsInterviewSet,
+    setIsProcessingQuery,
 }) => {
     const { state } = useContext(Context);
 
@@ -41,14 +42,15 @@ const InterviewForm = ({
 
     const sendInvitation = async (ev) => {
         ev.preventDefault();
-        setIsInterviewSet(true);
-        setIsInterviewPopupOpen(false);
         try {
             const response = axios.post("/api/applications/notify", {
                 ...values,
                 applicant_id: applicant.id,
                 sender: state.user,
             });
+            setIsInterviewSet(true);
+            setIsInterviewPopupOpen(false);
+            setIsProcessingQuery(false);
         } catch (error) {
             console.log(error.response.data);
         }
@@ -90,7 +92,13 @@ const InterviewForm = ({
                     <option value="Red Rum">Red Rum</option>
                     <option value="Dark Room">Dark Room</option>
                 </select>
-                <button type="submit" onClick={sendInvitation}>
+                <button
+                    type="submit"
+                    onClick={(e) => {
+                        setIsProcessingQuery(true);
+                        sendInvitation(e);
+                    }}
+                >
                     Confirm
                 </button>
                 <button onClick={cancelInvitation}>Cancel</button>
