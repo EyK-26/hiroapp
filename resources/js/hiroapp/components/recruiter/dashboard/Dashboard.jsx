@@ -1,16 +1,15 @@
 import React from "react";
 import MostPopularPosition from "./MostPopularPosition";
-import TotalApplicantsInDepartment from "./TotalApplicantsInDepartment";
 import CandidatesHired from "./CandidatesHired";
-import ApplicantsThisMonth from "./ApplicantsThisMonth";
 import CandidatesInProgress from "./CandidatesInProgress";
 import CandidatesWaitingForFeedback from "./CandidatesWaitingForFeedback";
+import TotalApplicants from "./TotalApplicants";
 
 const Dashboard = () => {
     return (
         <div>
-            <TotalApplicantsInDepartment />
-            <ApplicantsThisMonth />
+            <TotalApplicants isMonthRestricted={false} />
+            <TotalApplicants isMonthRestricted={true} />
             <MostPopularPosition />
             <CandidatesHired />
             <CandidatesInProgress />

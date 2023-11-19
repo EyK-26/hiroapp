@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const TotalApplicantsInDepartmentDetail = ({ detailData }) => {
+const TotalApplicantsDetail = ({ detailData }) => {
     console.log(detailData);
     const renderedDetailData = detailData.map((data) => (
         <div key={data.id}>
@@ -10,7 +10,8 @@ const TotalApplicantsInDepartmentDetail = ({ detailData }) => {
                     Candidate:{" "}
                     <Link to={`/users/${data.user?.id}`}>
                         {data.user?.first_name} {data.user?.last_name}
-                    </Link>
+                    </Link>{" "}
+                    Status: {data.status?.name}
                 </li>
                 <li>
                     Applied To:{" "}
@@ -29,4 +30,4 @@ const TotalApplicantsInDepartmentDetail = ({ detailData }) => {
     return <div>{renderedDetailData}</div>;
 };
 
-export default TotalApplicantsInDepartmentDetail;
+export default TotalApplicantsDetail;

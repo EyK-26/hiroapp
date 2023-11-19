@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import Context from "../../../context/Context";
-import TotalApplicantsInDepartmentDetail from "./TotalApplicantsInDepartmentDetail";
+import TotalApplicantsDetail from "./TotalApplicantsDetail";
 import axios from "axios";
 
-const TotalApplicantsInDepartment = () => {
+const TotalApplicants = ({ isMonthRestricted }) => {
     const { state } = useContext(Context);
     const [data, setData] = useState(0);
     const [detailData, setDetailData] = useState([]);
@@ -14,6 +14,7 @@ const TotalApplicantsInDepartment = () => {
             const response = await axios.get("/api/dashboard/totalapplicants", {
                 params: {
                     department_id: state.user?.position?.department.id,
+                    isMonthRestricted: isMonthRestricted ? 1 : 0,
                 },
             });
             setData(response.data);
@@ -29,6 +30,7 @@ const TotalApplicantsInDepartment = () => {
                 {
                     params: {
                         department_id: state.user?.position?.department.id,
+                        isMonthRestricted: isMonthRestricted ? 1 : 0,
                     },
                 }
             );
@@ -50,16 +52,26 @@ const TotalApplicantsInDepartment = () => {
 
     return (
         <div>
+            <h3>
+                {isMonthRestricted
+                    ? "Candidates Applied This Month"
+                    : "Total Number of Candidate"}
+            </h3>
             {data && (
-                <span onClick={() => setIsDetailDataExpanded((prev) => !prev)}>
-                    {data}
-                </span>
+                <div>
+                    {data}{" "}
+                    <span
+                        onClick={() => setIsDetailDataExpanded((prev) => !prev)}
+                    >
+                        click to expand
+                    </span>
+                </div>
             )}
             {detailData && isDetailDataExpanded && (
-                <TotalApplicantsInDepartmentDetail detailData={detailData} />
+                <TotalApplicantsDetail detailData={detailData} />
             )}
         </div>
     );
 };
 
-export default TotalApplicantsInDepartment;
+export default TotalApplicants;
