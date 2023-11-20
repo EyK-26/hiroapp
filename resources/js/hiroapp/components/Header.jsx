@@ -16,15 +16,15 @@ const Header = () => {
     }, [state.user]);
 
     return (
-        <header>
-            <span>HiroApp</span>
-            <div>
-                {state.user && (
-                    <span onClick={toggleProfile}>{state.user.first_name}</span>
-                )}
-                {showProfile && <UserProfile />}
-                <Navigation />
-            </div>
+        <header className="Header">
+            <span className="page_titlex">HiroApp</span>
+            <Navigation />
+            {state.user && (
+                <a className="profile" onClick={toggleProfile}>
+                    Profile
+                </a>
+            )}
+            {showProfile && <UserProfile />}
         </header>
     );
 };
