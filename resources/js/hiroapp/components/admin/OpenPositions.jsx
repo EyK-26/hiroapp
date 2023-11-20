@@ -12,7 +12,7 @@ const OpenPositions = () => {
     const [department, setDepartment] = useState(0);
     const [page, setPage] = useState(1);
     const startResults = 20 * (page - 1);
-    const lastPage = Math.floor(positions.length / 20);
+    const lastPage = Math.floor(positions.length / 20) + 1;
 
     const loadPositions = async () => {
         try {
@@ -37,7 +37,7 @@ const OpenPositions = () => {
                 <SearchBar subject="a position" setSearch={setSearch} />
                 <SelectDepartment department={department} setDepartment={setDepartment} />
             </div>
-            {positions.length >= 20 && (
+            {positions.length > 20 && (
                 <Pagination page={page} setPage={setPage} lastPage={lastPage} />
             )}
             <div>

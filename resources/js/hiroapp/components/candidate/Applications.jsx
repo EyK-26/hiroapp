@@ -9,7 +9,7 @@ const Applications = () => {
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(1);
     const startResults = 20 * (page - 1);
-    const lastPage = Math.floor(applications.length / 20);
+    const lastPage = Math.floor(applications.length / 20) + 1;
 
     const loadApplications = async () => {
         const response = await axios.get(`/api/applications?search=${search}`);
@@ -27,7 +27,7 @@ const Applications = () => {
                 <h2>Applications</h2>
             </Link>
             <SearchBar subject="an application" setSearch={setSearch} />
-            {applications.length >= 20 && (
+            {applications.length > 20 && (
                 <Pagination page={page} setPage={setPage} lastPage={lastPage} />
             )}
             <div>
