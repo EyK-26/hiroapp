@@ -6,6 +6,7 @@ $button-text-color: #e5e7eb;
 $button-hover-color: #155f90;
 $links: #e5e7eb;
 $span-color: #111827;
+$background-color-candidate: #475569;
 
 html {
     box-sizing: border-box;
@@ -115,13 +116,21 @@ span {
     }
 }
 
+.footer {
+    width: 100%;
+    background-color: $login-body-color;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0.4em 1em;
+}
+
 .Header {
+    position: fixed;
+    top: 0;
     display: flex;
     justify-content: space-between;
     width: 100%;
     padding: 1em 2em;
     background-color: $login-body-color;
-    position: relative;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     .Navigation {
         width: 24em;
@@ -202,5 +211,58 @@ span {
         height: 100%;
         background: rgba(0, 0, 0, 0.5);
         z-index: 0;
+    }
+}
+
+.main {
+    margin-top: 6em;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    width: 80vw;
+    & > div {
+        min-height: 30em;
+        width: 100%;
+        background-color: $background-color-candidate;
+        margin: 2em;
+        padding: 2em;
+        border: solid 2px $border-color;
+        border-radius: 1em;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        h2 {
+            margin-top: 0;
+            font-size: 2em;
+        }
+        .searchbar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 1em;
+            input {
+                flex-grow: 1;
+                border-radius: 0.5em;
+                margin-right: 1em;
+            }
+            .search-button {
+                width: 5em;
+                button {
+                    width: 100%;
+                }
+            }
+        }
+        .Pagination {
+            display: flex;
+            justify-content: space-between;
+            padding: 1em 0;
+            width: 100%;
+            .buttons {
+                width: 5em;
+                display: flex;
+                justify-content: space-between;
+                button {
+                    width: 100%;
+                }
+            }
+        }
     }
 }

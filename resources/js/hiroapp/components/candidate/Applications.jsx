@@ -22,7 +22,7 @@ const Applications = () => {
     }, [search]);
 
     return (
-        <div>
+        <div className="applications">
             <Link to="/applications">
                 <h2>Applications</h2>
             </Link>

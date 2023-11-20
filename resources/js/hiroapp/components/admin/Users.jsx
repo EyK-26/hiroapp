@@ -32,7 +32,7 @@ const Users = () => {
     }, [search, department]);
 
     return (
-        <>
+        <div>
             {userDeleted && <p>User deleted successfully!</p>}
             <Link to="/users">
                 <h2>Active Users</h2>
@@ -63,7 +63,7 @@ const Users = () => {
                     </div>
                 ))}
             </div>
-        </>
+        </div>
     );
 };
 
