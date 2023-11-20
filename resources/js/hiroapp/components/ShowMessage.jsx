@@ -32,6 +32,7 @@ const ShowMessage = ({ selectedMsg, setIsMsgOpen }) => {
                     onClick={() => {
                         setIsMsgOpen(false);
                     }}
+                    className="close-btn"
                 >
                     Close
                 </button>

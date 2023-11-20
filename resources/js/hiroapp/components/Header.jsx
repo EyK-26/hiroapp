@@ -1,30 +1,43 @@
-import React, { useContext, useEffect, useState } from "react";
-import Context from "../context/Context";
+import React, { useEffect, useRef, useState } from "react";
 import UserProfile from "./UserProfile";
 import Navigation from "./Navigation";
 
 const Header = () => {
-    const { state } = useContext(Context);
     const [showProfile, setShowProfile] = useState(false);
+    const profileRef = useRef(null);
 
     const toggleProfile = () => {
-        setShowProfile(!showProfile);
+        setShowProfile((prev) => !prev);
+    };
+
+    const handleClickOutside = (ev) => {
+        const isModalClosed = ev.target.classList.contains("close-btn"); //close button from message close in ShowMessage
+        if (
+            profileRef.current &&
+            !profileRef.current.contains(ev.target) &&
+            !isModalClosed
+        ) {
+            setShowProfile(false);
+        }
     };
 
     useEffect(() => {
-        setShowProfile(false);
-    }, [state.user]);
+        document.addEventListener("click", handleClickOutside);
+        return () => {
+            document.removeEventListener("click", handleClickOutside);
+        };
+    }, []);
 
     return (
         <header className="Header">
-            <span className="page_titlex">HiroApp</span>
+            <span className="page_title">HiroApp</span>
             <Navigation />
-            {state.user && (
+            <div ref={profileRef}>
                 <a className="profile" onClick={toggleProfile}>
                     Profile
                 </a>
-            )}
-            {showProfile && <UserProfile />}
+                {showProfile && <UserProfile />}
+            </div>
         </header>
     );
 };
