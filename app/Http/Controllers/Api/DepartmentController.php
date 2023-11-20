@@ -10,7 +10,7 @@ class DepartmentController extends Controller
 {
     public function index(): Collection
     {
-        $departments = Department::all();
+        $departments = Department::query()->orderBy('name')->get();
         return $departments;
     }
 }

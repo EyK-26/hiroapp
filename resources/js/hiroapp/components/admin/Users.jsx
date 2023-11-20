@@ -10,7 +10,7 @@ const Users = () => {
     const [search, setSearch] = useState("");
     const [department, setDepartment] = useState(0);
     const [page, setPage] = useState(1);
-    const lastPage = Math.floor(users.length / 20);
+    const lastPage = Math.floor(users.length / 20) + 1;
     const startResults = 20 * (page - 1);
     const location = useLocation();
     const { userDeleted } = location.state || false;
