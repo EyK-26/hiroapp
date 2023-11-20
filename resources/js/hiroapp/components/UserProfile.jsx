@@ -15,7 +15,7 @@ const UserProfile = () => {
                 {state.user?.position?.department?.name}
             </span>
             {state.user?.notifications?.length > 0 ? (
-                <Inbox notifications={state.user?.notifications} />
+                <Inbox />
             ) : (
                 "Your Inbox is Empty"
             )}

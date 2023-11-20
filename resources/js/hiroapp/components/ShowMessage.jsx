@@ -1,6 +1,6 @@
 import React from "react";
 
-const ShowMessage = ({ notificationData, setIsDetailsOpen }) => {
+const ShowMessage = ({ selectedMsg, setIsMsgOpen }) => {
     return (
         <>
             <div className="modal-overlay"></div>
@@ -8,17 +8,17 @@ const ShowMessage = ({ notificationData, setIsDetailsOpen }) => {
                 <div className="message-header">
                     <span>
                         Message sent at:{" "}
-                        {notificationData.created_at
+                        {selectedMsg.created_at
                             .split(/T|\./)
                             .slice(0, -1)
                             .join(" ")}
                     </span>
-                    <span>From: {notificationData.data.from}</span>
-                    <span>Subject: {notificationData.data.subject}</span>
-                    {notificationData.read_at && (
+                    <span>From: {selectedMsg.data.from}</span>
+                    <span>Subject: {selectedMsg.data.subject}</span>
+                    {selectedMsg.read_at && (
                         <span>
                             Read at:{" "}
-                            {notificationData.read_at
+                            {selectedMsg.read_at
                                 .split(/T|\./)
                                 .slice(0, -1)
                                 .join(" ")}
@@ -26,14 +26,14 @@ const ShowMessage = ({ notificationData, setIsDetailsOpen }) => {
                     )}
                 </div>
                 <div className="message-body">
-                    <span>{notificationData.data.text}</span>
+                    <span>{selectedMsg.data.text}</span>
                 </div>
                 <button
                     onClick={() => {
-                        setIsDetailsOpen(false);
+                        setIsMsgOpen(false);
                     }}
                 >
-                    dismiss ←
+                    Close
                 </button>
             </div>
         </>
