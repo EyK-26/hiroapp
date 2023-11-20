@@ -90,15 +90,15 @@ const Router = ({ loadUserStatus }) => {
         <Routes>
             <Route path="/" element={<Layout />}>
                 {roleRoutes()}
-                {!state.user && (
-                    <Route
-                        path="/login"
-                        element={<Login loadUserStatus={loadUserStatus} />}
-                    />
-                )}
                 <Route path="/logout" element={<Logout />} />
                 <Route path="*" element={<Unauthorized />} />
             </Route>
+            {!state.user && (
+                <Route
+                    path="/login"
+                    element={<Login loadUserStatus={loadUserStatus} />}
+                />
+            )}
         </Routes>
     );
 };

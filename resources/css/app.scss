@@ -1,3 +1,268 @@
+$background-color: #334155;
+$font-color-login: #1f2937;
+$border-color: #1e293b;
+$login-body-color: #9ca3af;
+$button-text-color: #e5e7eb;
+$button-hover-color: #155f90;
+$links: #e5e7eb;
+$span-color: #111827;
+$background-color-candidate: #475569;
+
+html {
+    box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
 body {
-    background-color: white;
+    margin: 0;
+    padding: 0;
+    font-family: Arial;
+    line-height: 1.6;
+}
+
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $background-color;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bolder;
+    color: $links;
+    transition: color 0.5s ease;
+    &:hover {
+        color: $button-hover-color;
+    }
+}
+
+input {
+    border-radius: 1em;
+    border: solid 2px $border-color;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    &:focus {
+        outline: none;
+    }
+}
+
+button {
+    padding: 0.3em;
+    border-radius: 0.3em;
+    background-color: $background-color;
+    color: $button-text-color;
+    transition: background-color 0.3s ease;
+    border: solid 2px $border-color;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    &:hover {
+        background-color: $button-hover-color;
+    }
+}
+
+span {
+    color: $span-color;
+}
+
+.container {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    .Login {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: $login-body-color;
+        color: $font-color-login;
+        margin: auto;
+        border-radius: 1em;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        h1 {
+            padding-top: 1em;
+        }
+        form {
+            padding: 3em 2em;
+            label {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 1.6em;
+                input {
+                    padding: 0.6em;
+                    width: 26em;
+                }
+            }
+            button {
+                width: 100%;
+                padding: 0.8em;
+            }
+        }
+    }
+    .errors {
+        display: flex;
+        flex-direction: column;
+        color: #f97316;
+        padding-left: 2em;
+        padding-top: 1em;
+    }
+}
+
+.footer {
+    width: 100%;
+    background-color: $login-body-color;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0.4em 1em;
+}
+
+.Header {
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1em 2em;
+    background-color: $login-body-color;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    .Navigation {
+        width: 24em;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .profile {
+        color: $button-hover-color;
+        &:hover {
+            color: $links;
+            cursor: pointer;
+        }
+    }
+    .UserProfile {
+        position: absolute;
+        background-color: $login-body-color;
+        display: flex;
+        flex-direction: column;
+        right: 0;
+        top: 3.6rem;
+        padding: 1.2em;
+        min-width: 30em;
+        max-width: 40em;
+        line-height: 2;
+        font-size: 0.8rem;
+        font-weight: 500;
+        border-radius: 0 0 0 0.6em;
+        border-top: 1px solid $links;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        span {
+            line-height: 1.4;
+            padding-bottom: 0.4em;
+        }
+        .username {
+            font-weight: bold;
+        }
+        .department {
+            font-size: smaller;
+        }
+    }
+}
+
+.inbox {
+    .message {
+        width: 35em;
+        min-height: 20em;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: $login-body-color;
+        z-index: 1;
+        padding: 2em 4em;
+        border-radius: 1em;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        &-header {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 2em;
+        }
+        &-body {
+            padding-bottom: 2em;
+        }
+    }
+    .notification_preview {
+        display: flex;
+        flex-direction: column;
+        border-top: solid 1px $background-color;
+        cursor: pointer;
+    }
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 0;
+    }
+}
+
+.main {
+    margin-top: 6em;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    width: 80vw;
+    & > div {
+        min-height: 30em;
+        width: 100%;
+        background-color: $background-color-candidate;
+        margin: 2em;
+        padding: 2em;
+        border: solid 2px $border-color;
+        border-radius: 1em;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        h2 {
+            margin-top: 0;
+            font-size: 2em;
+        }
+        .searchbar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 1em;
+            input {
+                flex-grow: 1;
+                border-radius: 0.5em;
+                margin-right: 1em;
+            }
+            .search-button {
+                width: 5em;
+                button {
+                    width: 100%;
+                }
+            }
+        }
+        .Pagination {
+            display: flex;
+            justify-content: space-between;
+            padding: 1em 0;
+            width: 100%;
+            .buttons {
+                width: 5em;
+                display: flex;
+                justify-content: space-between;
+                button {
+                    width: 100%;
+                }
+            }
+        }
+    }
 }

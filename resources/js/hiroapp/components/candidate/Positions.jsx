@@ -43,7 +43,7 @@ const Positions = () => {
     }, [search]);
 
     return (
-        <div>
+        <div className="positions">
             <Link to="/positions">
                 <h2>Positions</h2>
             </Link>

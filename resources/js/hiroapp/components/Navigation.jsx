@@ -6,7 +6,7 @@ const Navigation = () => {
     const { state } = useContext(Context);
     return (
         <>
-            <nav>
+            <nav className="Navigation">
                 {state.user?.role_id === 1 && (
                     <>
                         <Link to="/">Home</Link>
