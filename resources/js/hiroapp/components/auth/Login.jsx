@@ -36,11 +36,9 @@ export default function Login({ loadUserStatus }) {
 
     return (
         <div className="Login">
-            <form
-                action="/login"
-                method="post"
-                onSubmit={handleSubmit}
-            >
+            <h1>Welcome To HiroApp</h1>
+            <small>Hire someone, make a change!</small>
+            <form action="/login" method="post" onSubmit={handleSubmit}>
                 <label htmlFor="email">
                     Email
                     <input
@@ -60,7 +58,9 @@ export default function Login({ loadUserStatus }) {
                         onChange={handleChange}
                     />
                 </label>
-                {state.errors?.password && <span>{state.errors?.password}</span>}
+                {state.errors?.password && (
+                    <span>{state.errors?.password}</span>
+                )}
 
                 <button>Login</button>
             </form>
