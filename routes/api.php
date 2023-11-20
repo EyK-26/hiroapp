@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApplicationController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\DepartmentController;
 use App\Http\Controllers\Api\PositionController;
 use App\Http\Controllers\Api\UserController;
@@ -39,3 +40,6 @@ Route::get('/departments', [DepartmentController::class, 'index'])->name('depart
 Route::post('/notify', [NotificationController::class, 'send'])->name('notifications.send');
 Route::get('/notify/get', [NotificationController::class, 'get_unread_count'])->name('notifications.getunreadcount');
 Route::post('/notify/markasread', [NotificationController::class, 'mark_as_read'])->name('notifications.markasread');
+
+Route::get('/dashboard/count', [DashboardController::class, 'getTotalNumberOfApplications'])->name('dashboard.totalapplicants');
+Route::get('/dashboard/data', [DashboardController::class, 'getTotalApplicantsDetail'])->name('dashboard.totalapplicantsdetail');

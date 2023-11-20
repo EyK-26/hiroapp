@@ -2,37 +2,34 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import Context from "../../context/Context";
 import InterviewForm from "../recruiter/InterviewForm";
+import Hire from "./popups/Hire";
+import Reject from "./popups/Reject";
 
 const ApplicationDetailStatus = ({
-    applicationStatus,
+    allStatuses,
+    application,
     setIsEnded,
     setMoveCount,
 }) => {
-    const { allStatuses, currentStatus, applicationId, position, applicant } =
-        applicationStatus;
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [isRejectPopupOpen, setIsRejectPopupOpen] = useState(false);
     const [isInterviewPopupOpen, setIsInterviewPopupOpen] = useState(null);
+    const [isHirePopupOpen, setIsHirePopupOpen] = useState(false);
     const [isInterviewSet, setIsInterviewSet] = useState(false);
+    const [isProcessingQuery, setIsProcessingQuery] = useState(false);
     const { state } = useContext(Context);
 
-    const handleClick = () => {
-        setIsPopupOpen(true);
-    };
-
-    const handleCancel = () => {
-        setIsPopupOpen(false);
-    };
-
     const handleMove = async () => {
-        if (currentStatus.id === 2 && !isInterviewSet) {
+        if (application.status.id === 2 && !isInterviewSet) {
             setIsInterviewPopupOpen(true);
             return;
-        } else if (currentStatus.id !== 2 || isInterviewSet) {
+        } else if (application.status.id !== 2 || isInterviewSet) {
             try {
                 const response = await axios.post(
-                    `/api/applications/${applicationId}/move`
+                    `/api/applications/${application.id}/move`
                 );
                 setMoveCount((prev) => prev + 1);
+                setIsHirePopupOpen(false);
+                setIsProcessingQuery(false);
             } catch (err) {
                 console.log(err.response);
             }
@@ -42,10 +39,11 @@ const ApplicationDetailStatus = ({
     const handleEnd = async () => {
         try {
             const response = await axios.post(
-                `/api/applications/${applicationId}/end`
+                `/api/applications/${application.id}/end`
             );
             setIsEnded(true);
-            setIsPopupOpen(false);
+            setIsRejectPopupOpen(false);
+            setIsProcessingQuery(false);
         } catch (err) {
             console.log(err.response);
         }
@@ -58,47 +56,69 @@ const ApplicationDetailStatus = ({
     }, [isInterviewSet]);
 
     const temporaryStyle = { backgroundColor: "green" };
-    const renderedAllStatuses = allStatuses.map((status) => (
-        <li
-            key={status.id}
-            style={status.id === currentStatus.id ? temporaryStyle : null}
-        >
-            {status.name}
-            {status.id === currentStatus.id &&
-                currentStatus.id < 5 &&
-                state.user.role_id !== 2 && (
-                    <button onClick={handleMove}>Move To Next Stage</button>
-                )}
-        </li>
-    ));
+    const renderedAllStatuses = allStatuses.map((status) => {
+        const isCurrent =
+            status.id === application.status.id && state.user.role_id !== 2;
+        const renderMoveBtn = isCurrent && application.status.id < 4;
+        const renderHireBtn = isCurrent && application.status.id === 4;
+
+        return (
+            <li
+                key={status.id}
+                style={
+                    status.id === application.status.id ? temporaryStyle : null
+                }
+            >
+                {status.name}
+                {isCurrent &&
+                    (renderMoveBtn ? (
+                        <button onClick={handleMove}>Move To Next Stage</button>
+                    ) : (
+                        renderHireBtn && (
+                            <button onClick={() => setIsHirePopupOpen(true)}>
+                                Hire
+                            </button>
+                        )
+                    ))}
+            </li>
+        );
+    });
 
     return (
         <div>
-            {currentStatus.id < 5 && (
-                <button onClick={handleClick}>
+            {application.status.id < 5 && (
+                <button onClick={() => setIsRejectPopupOpen(true)}>
                     {state.user.role_id === 2
                         ? "Retrieve Your Application"
                         : "Reject"}
                 </button>
             )}
-            {isPopupOpen && (
-                <div className="warning_retrieve">
-                    <span>
-                        {state.user.role_id === 2
-                            ? "Are you sure you want to retrieve your application? Do not worry, retrieving does not prevent you from applying again."
-                            : "Reject the candidate? Once rejected, you won't be able to revert it."}
-                    </span>
-                    <button onClick={handleEnd}>Confirm</button>
-                    <button onClick={handleCancel}>Cancel</button>
-                </div>
+            {isProcessingQuery && (
+                <span className="processing">"Processing..."</span>
             )}
-            {currentStatus.id === 2 && isInterviewPopupOpen && (
+            {isRejectPopupOpen && (
+                <Reject
+                    setIsProcessingQuery={setIsProcessingQuery}
+                    setIsRejectPopupOpen={setIsRejectPopupOpen}
+                    handleEnd={handleEnd}
+                />
+            )}
+            {isHirePopupOpen && (
+                <Hire
+                    setIsProcessingQuery={setIsProcessingQuery}
+                    setIsHirePopupOpen={setIsHirePopupOpen}
+                    handleMove={handleMove}
+                    application={application}
+                />
+            )}
+            {application.status.id === 2 && isInterviewPopupOpen && (
                 <div className="invitation_interview">
                     <InterviewForm
-                        applicant={applicant}
-                        position={position}
+                        applicant={application.user}
+                        position={application.position}
                         setIsInterviewPopupOpen={setIsInterviewPopupOpen}
                         setIsInterviewSet={setIsInterviewSet}
+                        setIsProcessingQuery={setIsProcessingQuery}
                     />
                 </div>
             )}

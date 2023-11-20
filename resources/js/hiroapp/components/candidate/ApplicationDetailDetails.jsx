@@ -3,7 +3,6 @@ import Context from "../../context/Context";
 import { Link } from "react-router-dom";
 
 const ApplicationDetailDetails = ({ application }) => {
-    const { position, applicationData, applicant } = application;
     const { state } = useContext(Context);
     return (
         <>
@@ -13,16 +12,18 @@ const ApplicationDetailDetails = ({ application }) => {
                     : "Manage Application"}
             </h3>
             <div>
-                <h4>Position name: {position.name}</h4>
+                <h4>Position title: {application.position.name}</h4>
+                <h5>Department: {application.position?.department.name}</h5>
                 <p>
                     Details of the Position:
-                    {position.description}
+                    {application.position.description}
                 </p>
                 {state.user.role_id === 3 && (
                     <h5>
                         Applicant:
-                        <Link to={`/users/${applicant.id}`}>
-                            {applicant.first_name} {applicant.last_name}
+                        <Link to={`/users/${application.user.id}`}>
+                            {application.user.first_name}{" "}
+                            {application.user.last_name}
                         </Link>
                     </h5>
                 )}
@@ -30,12 +31,12 @@ const ApplicationDetailDetails = ({ application }) => {
                 <ul>
                     <li>
                         <span>Your motivation text:</span>
-                        <p>{applicationData.attachment_text}</p>
+                        <p>{application.attachment_text}</p>
                     </li>
                     <li>
                         <span>submitted url</span>
                         <a
-                            href={applicationData.attachment_file}
+                            href={application.attachment_file}
                             target="_blank"
                             rel="noopener noreferrer"
                         >

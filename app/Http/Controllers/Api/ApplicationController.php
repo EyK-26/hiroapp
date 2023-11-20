@@ -48,25 +48,16 @@ class ApplicationController extends Controller
 
     public function show(string $id): array
     {
-        $authenticated_user_id = Auth::user()->id;
-        $authenticated_user_role_id = Auth::user()->role_id;
-        $application = Application::findOrFail($id);
-        $user = User::findOrFail($application->user_id);
-        $position = Position::findOrFail($application->position_id);
-        $status = Status::findOrFail($application->status_id);
+        $application = Application::with(['user', 'position.department', 'status'])->findOrFail($id);
         $all_statuses = Status::all();
-        return $authenticated_user_id === $user->id || $authenticated_user_role_id === 3 ?
+        return
             compact(
                 'application',
-                'user',
-                'position',
-                'status',
                 'all_statuses'
-            )
-            : ['message' => '404 not authorized'];
+            );
     }
 
-    public function end(string $id): mixed
+    public function end(string $id)
     {
         $application = Application::findOrFail($id);
         if ($application->status_id !== 6) {
@@ -84,14 +75,14 @@ class ApplicationController extends Controller
         }
     }
 
-    public function move(string $id): mixed
+    public function move(string $id)
     {
         $application = Application::findOrFail($id);
         $current_status = $application->status_id;
         if ($current_status < 4) {
             $application->status_id = $current_status + 1;
             $application->save();
-        } else if ($current_status == 4) {
+        } else if ($current_status === 4) {
 
             // changes application status to hired
             $application->status_id = $current_status + 1;
