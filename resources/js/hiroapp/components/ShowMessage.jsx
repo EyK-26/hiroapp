@@ -2,27 +2,32 @@ import React from "react";
 
 const ShowMessage = ({ notificationData, setIsDetailsOpen }) => {
     return (
-        <div>
-            <ul>
-                <li>
-                    Message sent at:{" "}
-                    {notificationData.created_at
-                        .split(/T|\./)
-                        .slice(0, -1)
-                        .join(" ")}
-                </li>
-                <li>From: {notificationData.data.from}</li>
-                <li>Subject: {notificationData.data.subject}</li>
-                {notificationData.read_at && (
-                    <li>
-                        Read at:{" "}
-                        {notificationData.read_at
+        <>
+            <div className="modal-overlay"></div>
+            <div className="message">
+                <div className="message-header">
+                    <span>
+                        Message sent at:{" "}
+                        {notificationData.created_at
                             .split(/T|\./)
                             .slice(0, -1)
                             .join(" ")}
-                    </li>
-                )}
-                <li>{notificationData.data.text}</li>
+                    </span>
+                    <span>From: {notificationData.data.from}</span>
+                    <span>Subject: {notificationData.data.subject}</span>
+                    {notificationData.read_at && (
+                        <span>
+                            Read at:{" "}
+                            {notificationData.read_at
+                                .split(/T|\./)
+                                .slice(0, -1)
+                                .join(" ")}
+                        </span>
+                    )}
+                </div>
+                <div className="message-body">
+                    <span>{notificationData.data.text}</span>
+                </div>
                 <button
                     onClick={() => {
                         setIsDetailsOpen(false);
@@ -30,8 +35,8 @@ const ShowMessage = ({ notificationData, setIsDetailsOpen }) => {
                 >
                     dismiss ←
                 </button>
-            </ul>
-        </div>
+            </div>
+        </>
     );
 };
 

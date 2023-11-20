@@ -25,7 +25,7 @@ const Inbox = ({ notifications }) => {
     }, [readCount]);
 
     return (
-        <div className="inbox_preview">
+        <div className="inbox">
             <div className="logo_with_number" onClick={handleClick}>
                 Inbox: {unreadMsgCount > 0 && unreadMsgCount}
             </div>

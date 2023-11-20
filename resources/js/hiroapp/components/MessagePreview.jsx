@@ -24,31 +24,26 @@ const MessagePreview = ({ notifications, setReadCount }) => {
     };
 
     const renderedNotifications = notifications.map((notification) => (
-        <div key={notification.id}>
-            <ul>
-                <li>From: {notification?.data.from}</li>
-                <li>Subject: {notification?.data.subject}</li>
-            </ul>
-            {!isDetailsOpen && (
-                <button onClick={handleExpand.bind(null, notification)}>
-                    Open ↓
-                </button>
-            )}
+        <div
+            className="notification_preview"
+            key={notification.id}
+            onClick={handleExpand.bind(null, notification)}
+        >
+            <span>From: {notification?.data.from}</span>
+            <span>Subject: {notification?.data.subject}</span>
         </div>
     ));
 
     return (
-        <div>
-            <div>{renderedNotifications}</div>
-            <div>
-                {isDetailsOpen && (
-                    <ShowMessage
-                        notificationData={notificationData}
-                        setIsDetailsOpen={setIsDetailsOpen}
-                    />
-                )}
-            </div>
-        </div>
+        <>
+            {isDetailsOpen && (
+                <ShowMessage
+                    notificationData={notificationData}
+                    setIsDetailsOpen={setIsDetailsOpen}
+                />
+            )}
+            {renderedNotifications}
+        </>
     );
 };
 
