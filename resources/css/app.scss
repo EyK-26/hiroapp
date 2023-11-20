@@ -33,44 +33,55 @@ h1 {
     padding: 0;
 }
 
-.Login {
+.container {
+    margin: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: $login-body-color;
-    color: $font-color-login;
-    margin: auto;
-    border-radius: 1em;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    h1 {
-        padding-top: 1em;
-    }
-    form {
-        padding: 3em 2em;
-        label {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 1.6em;
-            input {
-                padding: 0.6em;
-                width: 26em;
+    .Login {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: $login-body-color;
+        color: $font-color-login;
+        margin: auto;
+        border-radius: 1em;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        h1 {
+            padding-top: 1em;
+        }
+        form {
+            padding: 3em 2em;
+            label {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 1.6em;
+                input {
+                    padding: 0.6em;
+                    width: 26em;
+                    border-radius: 0.3em;
+                    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+                }
+            }
+            button {
+                width: 100%;
+                padding: 0.5em;
                 border-radius: 0.3em;
-                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+                background-color: $background-color;
+                color: $button-text-color;
+                transition: background-color 0.3s ease; // Smooth transition on hover
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                &:hover {
+                    background-color: $button-hover-color; // Change background color on hover
+                }
             }
         }
-        button {
-            width: 100%;
-            padding: 0.5em;
-            border-radius: 0.3em;
-            background-color: $background-color;
-            color: $button-text-color;
-            transition: background-color 0.3s ease; // Smooth transition on hover
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-            &:hover {
-                background-color: $button-hover-color; // Change background color on hover
-            }
-        }
+    }
+    .errors {
+        display: flex;
+        flex-direction: column;
+        color: #f97316;
+        padding-left: 2em;
+        padding-top: 1em;
     }
 }

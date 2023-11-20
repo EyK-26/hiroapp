@@ -35,35 +35,38 @@ export default function Login({ loadUserStatus }) {
     };
 
     return (
-        <div className="Login">
-            <h1>Welcome To HiroApp</h1>
-            <small>Hire someone, make a change!</small>
-            <form action="/login" method="post" onSubmit={handleSubmit}>
-                <label htmlFor="email">
-                    Email
-                    <input
-                        type="email"
-                        name="email"
-                        value={values.email}
-                        onChange={handleChange}
-                    />
-                </label>
+        <div className="container">
+            <div className="Login">
+                <h1>Welcome To HiroApp</h1>
+                <small>Hire someone, make a change!</small>
+                <form action="/login" method="post" onSubmit={handleSubmit}>
+                    <label htmlFor="email">
+                        Email
+                        <input
+                            type="email"
+                            name="email"
+                            value={values.email}
+                            onChange={handleChange}
+                        />
+                    </label>
+                    <label htmlFor="password">
+                        Password
+                        <input
+                            type="password"
+                            name="password"
+                            value={values.password}
+                            onChange={handleChange}
+                        />
+                    </label>
+                    <button>Login</button>
+                </form>
+            </div>
+            <div className="errors">
                 {state.errors?.email && <span>{state.errors?.email}</span>}
-                <label htmlFor="password">
-                    Password
-                    <input
-                        type="password"
-                        name="password"
-                        value={values.password}
-                        onChange={handleChange}
-                    />
-                </label>
                 {state.errors?.password && (
                     <span>{state.errors?.password}</span>
                 )}
-
-                <button>Login</button>
-            </form>
+            </div>
         </div>
     );
 }
