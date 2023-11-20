@@ -35,24 +35,35 @@ export default function Login({ loadUserStatus }) {
     };
 
     return (
-        <form action="/login" method="post" onSubmit={handleSubmit}>
-            <input
-                type="email"
-                name="email"
-                value={values.email}
-                onChange={handleChange}
-            />
-            {state.errors?.email && <span>{state.errors?.email}</span>}
+        <div className="Login">
+            <form
+                action="/login"
+                method="post"
+                onSubmit={handleSubmit}
+            >
+                <label htmlFor="email">
+                    Email
+                    <input
+                        type="email"
+                        name="email"
+                        value={values.email}
+                        onChange={handleChange}
+                    />
+                </label>
+                {state.errors?.email && <span>{state.errors?.email}</span>}
+                <label htmlFor="password">
+                    Password
+                    <input
+                        type="password"
+                        name="password"
+                        value={values.password}
+                        onChange={handleChange}
+                    />
+                </label>
+                {state.errors?.password && <span>{state.errors?.password}</span>}
 
-            <input
-                type="password"
-                name="password"
-                value={values.password}
-                onChange={handleChange}
-            />
-            {state.errors?.password && <span>{state.errors?.password}</span>}
-
-            <button>Login</button>
-        </form>
+                <button>Login</button>
+            </form>
+        </div>
     );
 }
