@@ -23,6 +23,22 @@ body {
     line-height: 1.6;
 }
 
+::-webkit-scrollbar {
+    width: 3px;
+}
+::-webkit-scrollbar-track {
+    background: none;
+}
+::-webkit-scrollbar-track:hover {
+    background: #262626;
+}
+
+::-webkit-scrollbar-thumb {
+    background: darkgray;
+    border-radius: 2em;
+    width: 1px;
+}
+
 #root {
     min-height: 100vh;
     display: flex;
@@ -382,21 +398,108 @@ span {
             flex-direction: column;
             .info-text {
                 padding-left: 1em;
+                overflow: auto;
+                max-height: 15em;
+                padding: 0.5em 0;
             }
         }
         .info-name {
             font-weight: bold;
             color: #cbd5e1;
+            padding: 0.5em 0;
         }
         span {
             font-size: 1.2em;
             color: #94a3b8;
+            padding: 0.5em 0;
         }
         .pageType,
         .SubmittedInformation {
             font-size: 1.6em;
             font-weight: bold;
             color: #cbd5e1;
+        }
+    }
+    &Status {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: end;
+        .interactivePart {
+            height: 7em;
+        }
+        .progress {
+            span {
+                font-size: 1.2em;
+                color: #94a3b8;
+            }
+            width: 13em;
+            display: flex;
+            flex-direction: column;
+            .status {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.2em 0.5em 0.2em 1em;
+                .circle {
+                    width: 1.2em;
+                    height: 1.2em;
+                    border-radius: 50%;
+                    border: none;
+                    z-index: 2;
+                }
+                .line {
+                    position: absolute;
+                    width: 0.4em;
+                    height: 2.32em;
+                    border: none;
+                    transform: translate(0.4em, 0);
+                    z-index: 1;
+                }
+                .first {
+                    transform: translate(0.4em, 0);
+                    height: 4em;
+                    z-index: 0;
+                }
+                .last {
+                    transform: translate(0.4em, -1em);
+                    z-index: 0;
+                }
+
+                &-ended {
+                    span {
+                        color: #334155;
+                    }
+                    .circle,
+                    .line {
+                        background-color: #334155;
+                    }
+                }
+                &-done {
+                    span {
+                        color: #334155;
+                    }
+                    .circle,
+                    .line {
+                        background-color: #334155;
+                    }
+                }
+                &-active {
+                    background-color: #059669;
+                    border-radius: 1em;
+                    .circle,
+                    .line {
+                        background-color: #047857;
+                    }
+                }
+                &-future {
+                    .circle,
+                    .line {
+                        background-color: #94a3b8;
+                    }
+                }
+            }
         }
     }
 }
