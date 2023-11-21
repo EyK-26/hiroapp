@@ -71,7 +71,6 @@ a {
 
 input {
     border-radius: 1em;
-    border: solid 2px $border-color;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
     background-color: #cbd5e1;
     &:focus {
@@ -94,6 +93,15 @@ button {
 
 span {
     color: $span-color;
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 0;
 }
 
 .container {
@@ -133,9 +141,11 @@ span {
     .errors {
         display: flex;
         flex-direction: column;
-        color: #f97316;
         padding-left: 2em;
         padding-top: 1em;
+        span {
+            color: #f97316;
+        }
     }
 }
 
@@ -205,7 +215,7 @@ span {
         left: 50%;
         transform: translate(-50%, -50%);
         background-color: $login-body-color;
-        z-index: 1;
+        z-index: 10;
         padding: 2em 4em;
         border-radius: 1em;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -229,15 +239,6 @@ span {
             background-color: rgb(92, 92, 92, 0.5);
         }
     }
-    .modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 0;
-    }
 }
 
 .main {
@@ -252,7 +253,6 @@ span {
         background-color: $background-color-candidate;
         margin: 2em;
         padding: 2em;
-        border: solid 2px $border-color;
         border-radius: 1em;
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
         .searchbar {
@@ -360,7 +360,6 @@ span {
         textarea {
             resize: none;
             border-radius: 1em;
-            border: solid 2px $border-color;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
             padding: 1em;
             &:focus {
@@ -425,8 +424,35 @@ span {
         flex-direction: column;
         justify-content: space-evenly;
         align-items: end;
+        .topPart {
+            height: 4em;
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            .processing {
+                font-size: 1.2em;
+                color: #f97316;
+            }
+        }
         .interactivePart {
             height: 7em;
+            max-width: 30em;
+
+            .Reject,
+            .Hire {
+                display: flex;
+                flex-direction: column;
+                align-items: end;
+                .text {
+                    width: 100%;
+                }
+                .buttons {
+                    padding-top: 1em;
+                    width: 7.5em;
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
         }
         .progress {
             span {
@@ -434,6 +460,9 @@ span {
                 color: #94a3b8;
             }
             width: 13em;
+            &.hasButton {
+                width: 20em;
+            }
             display: flex;
             flex-direction: column;
             .status {
@@ -486,11 +515,21 @@ span {
                     }
                 }
                 &-active {
+                    span {
+                        color: #047857;
+                        font-weight: bold;
+                    }
                     background-color: #059669;
                     border-radius: 1em;
                     .circle,
                     .line {
                         background-color: #047857;
+                    }
+                    &.ended {
+                        background-color: #7f1d1d;
+                        .circle {
+                            background-color: #991b1b;
+                        }
                     }
                 }
                 &-future {
@@ -500,6 +539,55 @@ span {
                     }
                 }
             }
+        }
+    }
+}
+
+// modal window
+.InterviewForm {
+    width: 50em;
+    min-height: 25em;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $login-body-color;
+    z-index: 10;
+    padding: 2em 4em;
+    border-radius: 0.5em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        label {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 1em;
+            input,
+            select {
+                border-radius: 0.5em;
+                width: 25em;
+                background-color: #cbd5e1;
+                padding: 0.2em;
+            }
+            textarea {
+                resize: none;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+                padding: 1em;
+                font-size: 1.2em;
+                border-radius: 0.5em;
+                &:focus {
+                    outline: none;
+                }
+                background-color: #cbd5e1;
+            }
+        }
+        .buttons {
+            width: 7.5em;
+            display: flex;
+            justify-content: space-between;
         }
     }
 }

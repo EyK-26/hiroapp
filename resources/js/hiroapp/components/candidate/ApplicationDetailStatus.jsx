@@ -61,17 +61,20 @@ const ApplicationDetailStatus = ({
         const renderMoveBtn = isCurrent && application.status.id < 4;
         const renderHireBtn = isCurrent && application.status.id === 4;
 
+        let className = "status";
+        if (status.id === 6) {
+            className += " ended";
+        }
+        if (status.id < application.status.id) {
+            className += " status-done";
+        } else if (status.id === application.status.id) {
+            className += " status-active";
+        } else {
+            className += " status-future";
+        }
+
         return (
-            <div
-                key={status.id}
-                className={
-                    status.id < application.status.id
-                        ? "status status-done"
-                        : status.id === application.status.id
-                        ? "status status-active"
-                        : "status status-future"
-                }
-            >
+            <div key={status.id} className={className}>
                 {status.id !== 1 && status.id < 6 ? (
                     <div
                         className={
@@ -103,17 +106,21 @@ const ApplicationDetailStatus = ({
 
     return (
         <div className="ApplicationDetailStatus">
-            <div className="interactivePart">
+            <div className="topPart">
                 {application.status.id < 5 && (
-                    <button onClick={() => setIsRejectPopupOpen(true)}>
+                    <button
+                        onClick={() => setIsRejectPopupOpen(!isRejectPopupOpen)}
+                    >
                         {state.user.role_id === 2
                             ? "Retrieve Your Application"
                             : "Reject"}
                     </button>
                 )}
                 {isProcessingQuery && (
-                    <span className="processing">"Processing..."</span>
+                    <span className="processing">Processing...</span>
                 )}
+            </div>
+            <div className="interactivePart">
                 {isRejectPopupOpen && (
                     <Reject
                         setIsProcessingQuery={setIsProcessingQuery}
@@ -130,7 +137,6 @@ const ApplicationDetailStatus = ({
                     />
                 )}
                 {application.status.id === 2 && isInterviewPopupOpen && (
-                    <div className="invitation_interview">
                         <InterviewForm
                             applicant={application.user}
                             position={application.position}
@@ -138,10 +144,15 @@ const ApplicationDetailStatus = ({
                             setIsInterviewSet={setIsInterviewSet}
                             setIsProcessingQuery={setIsProcessingQuery}
                         />
-                    </div>
                 )}
             </div>
-            <div className="progress">{renderedAllStatuses}</div>
+            <div
+                className={
+                    state.user.role_id !== 2 ? "progress hasButton" : "progress"
+                }
+            >
+                {renderedAllStatuses}
+            </div>
         </div>
     );
 };
