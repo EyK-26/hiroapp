@@ -292,6 +292,9 @@ span {
                     background-color: $login-body-color;
                     border-radius: 0.2em;
                     transform: scale(1.05);
+                    span {
+                        color: #334155;
+                    }
                 }
                 span {
                     font-size: 1.2em;
@@ -360,6 +363,40 @@ span {
             width: 5em;
             font-size: 1.2rem;
             font-weight: bold;
+        }
+    }
+}
+
+.ApplicationDetail {
+    .body {
+        display: flex;
+        justify-content: space-between;
+        padding: 2em;
+    }
+    &Details {
+        display: flex;
+        flex-direction: column;
+        max-width: 30rem;
+        .info-details {
+            display: flex;
+            flex-direction: column;
+            .info-text {
+                padding-left: 1em;
+            }
+        }
+        .info-name {
+            font-weight: bold;
+            color: #cbd5e1;
+        }
+        span {
+            font-size: 1.2em;
+            color: #94a3b8;
+        }
+        .pageType,
+        .SubmittedInformation {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #cbd5e1;
         }
     }
 }
