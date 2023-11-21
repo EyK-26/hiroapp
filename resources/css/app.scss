@@ -599,3 +599,196 @@ span {
         }
     }
 }
+
+.HomeRecruiter {
+    display: flex;
+    flex-direction: column;
+    .HomeRecruiter_links {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.YourHirings {
+    padding: 4em;
+    border-radius: 2em;
+    box-shadow: 0 0 2em rgba(0, 0, 0, 0.1);
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    button {
+        font-size: 1em;
+        margin-bottom: 2em;
+    }
+
+    .hirings_container {
+        display: grid;
+        gap: 1.6em;
+        max-height: 50vh;
+        overflow: auto;
+        div {
+            background-color: $bg-7;
+            padding: 1em;
+            border-radius: 1em;
+            margin-right: 1em;
+
+            h4 {
+                margin: 0;
+                color: #333;
+            }
+
+            p {
+                margin: 5px 0;
+                color: #666;
+            }
+
+            a {
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
+
+.CreatePosition {
+    border-radius: 2em;
+    box-shadow: 0 0 2em rgba(0, 0, 0, 0.1);
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    button {
+        font-size: 1em;
+        margin-bottom: 2em;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        label {
+            margin: 0.8em 0;
+            display: flex;
+            flex-direction: column;
+
+            select,
+            textarea,
+            input {
+                padding: 8px;
+                margin-top: 5px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                width: 100%;
+                resize: none;
+            }
+        }
+    }
+}
+
+.TotalApplicants {
+    border-radius: 2em;
+    h3 {
+        color: #333;
+    }
+
+    div {
+        margin-top: 2em;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.Dashboard {
+    .Dashboard_close {
+        margin: 1em;
+        font-size: 1em;
+    }
+
+    .Applicants {
+        border-radius: 1em;
+        margin-top: 1em;
+        background-color: $bg-7;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .dashboard_number {
+            font-size: 2.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        h3 {
+            color: #333;
+            margin-bottom: 0;
+        }
+
+        .ApplicantDetail_container {
+            max-height: 50vh;
+            overflow: auto;
+            .ApplicantsDetail {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                margin: 1em;
+                background-color: $bg-2;
+                border-radius: 8px;
+                padding: 10px;
+                .ApplicantDetail_candidate {
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
+        }
+    }
+}
+
+.UserDetail {
+    display: flex;
+    flex-direction: column;
+    span {
+        color: $bg-4;
+    }
+}
+
+.ContactUser {
+    width: 50em;
+    min-height: 25em;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $bg-3;
+    z-index: 10;
+    padding: 2em 4em;
+    border-radius: 0.5em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    form {
+        display: flex;
+        flex-direction: column;
+        button,
+        input {
+            margin: 0.5em;
+        }
+    }
+    textarea {
+        resize: none;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        padding: 1em;
+        font-size: 1.2em;
+        border-radius: 0.5em;
+        &:focus {
+            outline: none;
+        }
+        background-color: $bg-6;
+    }
+}

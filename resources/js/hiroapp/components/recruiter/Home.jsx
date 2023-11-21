@@ -6,21 +6,22 @@ const Home = () => {
     const [toggleDashboard, setToggleDashboard] = useState(false);
 
     return (
-        <>
-            <h1>Welcome Recruiter</h1>
-            <div>
-                <span
+        <div className="HomeRecruiter">
+            <div className="HomeRecruiter_links">
+                <Link to="/hirings">Your hirings</Link>
+                <a
                     onClick={() => {
                         setToggleDashboard((prev) => !prev);
                     }}
                 >
-                    Click to Toggle Dashboard
-                </span>
-                {toggleDashboard && <Dashboard />}
-                <Link to="/hirings">Your hirings</Link>
+                    Dashboard
+                </a>
                 <Link to="/position/create">Create a Position</Link>
             </div>
-        </>
+            {toggleDashboard && (
+                <Dashboard setToggleDashboard={setToggleDashboard} />
+            )}
+        </div>
     );
 };
 

@@ -54,7 +54,7 @@ const Applicants = (props) => {
     }, [isDetailDataExpanded]);
 
     return (
-        <div>
+        <div className="Applicants">
             <h3>
                 {props.isMonthRestricted
                     ? "Candidates Applied This Month"
@@ -69,18 +69,18 @@ const Applicants = (props) => {
                     : "Total Number of Candidates"}
             </h3>
             {data && (
-                <div>
-                    {data}{" "}
-                    <span
-                        onClick={() => setIsDetailDataExpanded((prev) => !prev)}
-                    >
-                        click to expand
-                    </span>
-                </div>
+                <span
+                    className="dashboard_number"
+                    onClick={() => setIsDetailDataExpanded((prev) => !prev)}
+                >
+                    {data}
+                </span>
             )}
-            {detailData && isDetailDataExpanded && (
-                <ApplicantsDetail detailData={detailData} />
-            )}
+            <div className="ApplicantDetail_container">
+                {detailData && isDetailDataExpanded && (
+                    <ApplicantsDetail detailData={detailData} />
+                )}
+            </div>
         </div>
     );
 };

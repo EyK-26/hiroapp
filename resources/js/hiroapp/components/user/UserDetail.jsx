@@ -42,7 +42,7 @@ const UserDetail = () => {
     return (
         <>
             {userData && (
-                <>
+                <div className="UserDetail">
                     {state.user.role_id === 1 && (
                         <button onClick={() => setisDeletePopupOpen(true)}>
                             Delete user
@@ -62,18 +62,17 @@ const UserDetail = () => {
                             </button>
                         </div>
                     )}
-                    <ul>
-                        <li>
-                            Name: {userData.user.first_name}
-                            {userData.user.last_name}
-                        </li>
-                        <li>Email: {userData.user.email}</li>
-                        <button onClick={() => setIsEmailPopupOpen(true)}>
-                            Contact User
-                        </button>
-                        <li>Position: {userData.position_name}</li>
-                        <li>Department: {userData.department_name}</li>
-                    </ul>
+
+                    <span>
+                        Name: {userData.user.first_name}
+                        {userData.user.last_name}
+                    </span>
+                    <span>Email: {userData.user.email}</span>
+                    <span>Position: {userData.position_name}</span>
+                    <span>Department: {userData.department_name}</span>
+                    <button onClick={() => setIsEmailPopupOpen(true)}>
+                        Contact User
+                    </button>
                     <div className="email_container">
                         {isEmailPopupOpen && (
                             <ContactUser
@@ -84,7 +83,7 @@ const UserDetail = () => {
                         )}
                         {isSent && <span>message successfully sent</span>}
                     </div>
-                </>
+                </div>
             )}
         </>
     );

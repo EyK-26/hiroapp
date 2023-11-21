@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ApplicantList from "./ApplicantList";
 import PositionDetailDetails from "./PositionDetailDetails";
 import Context from "../../context/Context";
@@ -10,6 +10,7 @@ const PositionDetail = () => {
     const { state } = useContext(Context);
     const [positionData, setPositionData] = useState([]);
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const fetchPositionDetail = async () => {
         try {
@@ -26,6 +27,7 @@ const PositionDetail = () => {
 
     return (
         <>
+            <button onClick={() => navigate(-1)}>back</button>
             <div>
                 <h2>Position Details</h2>
                 {state.user.role_id === 1 && <DeletePosition />}

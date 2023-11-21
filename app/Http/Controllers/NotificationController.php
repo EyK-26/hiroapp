@@ -24,7 +24,8 @@ class NotificationController extends Controller
 
     public function get_unread_count(): DatabaseNotificationCollection
     {
-        return Auth::user()->notifications ?? null;
+        $notifications = Auth::user()->notifications;
+        return $notifications->sortByDesc('created_at') ?? null;
     }
 
     public function mark_as_read(Request $request): array
