@@ -49,6 +49,9 @@ const Applications = () => {
                     <span>No applications</span>
                 )}
             </div>
+            {applications.length > 20 && (
+                <Pagination page={page} setPage={setPage} lastPage={lastPage} />
+            )}
         </div>
     );
 };

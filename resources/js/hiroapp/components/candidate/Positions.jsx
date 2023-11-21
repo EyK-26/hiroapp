@@ -69,12 +69,8 @@ const Positions = () => {
                     <span>No positions</span>
                 )}
             </div>
-            {positions.length >= 20 && (
-                <Pagination
-                    page={page}
-                    setPage={setPage}
-                    lastPage={Math.floor(positions.length / 20)}
-                />
+            {positions.length > 20 && (
+                <Pagination page={page} setPage={setPage} lastPage={lastPage} />
             )}
         </div>
     );
