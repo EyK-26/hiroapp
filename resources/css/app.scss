@@ -202,6 +202,9 @@ span {
         flex-direction: column;
         border-top: solid 1px $background-color;
         cursor: pointer;
+        &.message_read {
+            background-color: rgb(92, 92, 92, 0.5);
+        }
     }
     .modal-overlay {
         position: fixed;

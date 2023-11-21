@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Notifications\ContactUser;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
@@ -21,9 +22,9 @@ class NotificationController extends Controller
         Notification::send($user, new ContactUser($from, $to, $text, $subject));
     }
 
-    public function get_unread_count(): int
+    public function get_unread_count(): DatabaseNotificationCollection
     {
-        return Auth::user()->notifications->where('read_at', null)->count() ?? 0;
+        return Auth::user()->notifications ?? null;
     }
 
     public function mark_as_read(Request $request): array

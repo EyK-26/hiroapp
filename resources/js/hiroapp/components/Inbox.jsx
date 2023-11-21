@@ -2,36 +2,37 @@ import React, { useEffect, useState } from "react";
 import MessagePreview from "./MessagePreview";
 import axios from "axios";
 
-const Inbox = ({ notifications }) => {
+const Inbox = () => {
     const [isInboxOpen, setInboxOpen] = useState(false);
-    const [unreadMsgCount, setUnreadMsgCount] = useState(0);
+    const [messages, setMessages] = useState([]);
     const [readCount, setReadCount] = useState(0);
 
-    const getUnreadMsgCount = async () => {
+    const getMsg = async () => {
         try {
             const response = await axios.get("/api/notify/get");
-            setUnreadMsgCount(response.data);
+            setMessages(response.data);
         } catch (err) {
             console.log(err.response);
         }
     };
 
-    const handleClick = () => {
-        setInboxOpen((prev) => !prev);
-    };
-
     useEffect(() => {
-        getUnreadMsgCount();
+        getMsg();
     }, [readCount]);
+
+    const filterMsg = messages.filter((el) => el.read_at === null);
 
     return (
         <div className="inbox">
-            <div className="logo_with_number" onClick={handleClick}>
-                Inbox: {unreadMsgCount > 0 && unreadMsgCount}
+            <div
+                className="logo_with_number"
+                onClick={() => setInboxOpen((prev) => !prev)}
+            >
+                Inbox: {filterMsg.length > 0 && filterMsg.length}
             </div>
             {isInboxOpen && (
                 <MessagePreview
-                    notifications={notifications}
+                    messages={messages}
                     setReadCount={setReadCount}
                 />
             )}

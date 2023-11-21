@@ -2,44 +2,53 @@ import React, { useState } from "react";
 import ShowMessage from "./ShowMessage";
 import axios from "axios";
 
-const MessagePreview = ({ notifications, setReadCount }) => {
-    const [isDetailsOpen, setIsDetailsOpen] = useState(false);
-    const [notificationData, setNotificationData] = useState(null);
+const MessagePreview = ({ messages, setReadCount }) => {
+    const [isMsgOpen, setIsMsgOpen] = useState(false);
+    const [selectedMsg, setSelectedMsg] = useState(null);
 
     const markAsRead = async (id) => {
-        try {
-            const response = await axios.post("/api/notify/markasread", { id });
-            if (response.data.message === "success") {
-                setReadCount((prev) => prev + 1);
+        const selectedMsg = messages.find((el) => el.id === id);
+        if (!selectedMsg.read_at) {
+            try {
+                const response = await axios.post("/api/notify/markasread", {
+                    id,
+                });
+                if (response.data.message === "success") {
+                    setReadCount((prev) => prev + 1);
+                }
+            } catch (err) {
+                console.log(err.response);
             }
-        } catch (err) {
-            console.log(err.response);
         }
     };
 
-    const handleExpand = (data) => {
-        markAsRead(data.id);
-        setIsDetailsOpen(true);
-        setNotificationData(data);
+    const handleExpand = (msg) => {
+        markAsRead(msg.id);
+        setIsMsgOpen(true);
+        setSelectedMsg(msg);
     };
 
-    const renderedNotifications = notifications.map((notification) => (
+    const renderedNotifications = messages.map((msg) => (
         <div
-            className="notification_preview"
-            key={notification.id}
-            onClick={handleExpand.bind(null, notification)}
+            className={
+                msg.read_at
+                    ? "notification_preview message_read"
+                    : "notification_preview"
+            }
+            key={msg.id}
+            onClick={handleExpand.bind(null, msg)}
         >
-            <span>From: {notification?.data.from}</span>
-            <span>Subject: {notification?.data.subject}</span>
+            <span>From: {msg?.data.from}</span>
+            <span>Subject: {msg?.data.subject}</span>
         </div>
     ));
 
     return (
         <>
-            {isDetailsOpen && (
+            {isMsgOpen && (
                 <ShowMessage
-                    notificationData={notificationData}
-                    setIsDetailsOpen={setIsDetailsOpen}
+                    selectedMsg={selectedMsg}
+                    setIsMsgOpen={setIsMsgOpen}
                 />
             )}
             {renderedNotifications}
