@@ -51,7 +51,7 @@ const Positions = () => {
             {positions.length > 20 && (
                 <Pagination page={page} setPage={setPage} lastPage={lastPage} />
             )}
-            <div>
+            <div className="list">
                 {positions.length !== 0 ? (
                     positions
                         .slice(startResults, startResults + 20)
@@ -60,7 +60,7 @@ const Positions = () => {
                                 to={"/positions/" + position.id}
                                 key={position.id}
                             >
-                                <div>
+                                <div className="list-item">
                                     <span>{position.name}</span>
                                 </div>
                             </Link>

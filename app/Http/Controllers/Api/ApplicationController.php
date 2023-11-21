@@ -40,7 +40,7 @@ class ApplicationController extends Controller
         $application->position_id = $request->input('position_id');
         $application->status_id = 1;
         $application->attachment_text = $request->input('attachment_text') ?? null;
-        $application->attachment_file = $request->input('position_id') ?? null;
+        $application->attachment_file = $request->input('attachment_file') ?? null;
         $application->save();
 
         return $application->id;

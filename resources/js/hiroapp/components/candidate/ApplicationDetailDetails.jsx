@@ -5,47 +5,69 @@ import { Link } from "react-router-dom";
 const ApplicationDetailDetails = ({ application }) => {
     const { state } = useContext(Context);
     return (
-        <>
-            <h3>
+        <div className="ApplicationDetailDetails">
+            <span className="pageType">
                 {state.user.role_id === 2
                     ? "Details of your application:"
                     : "Manage Application"}
-            </h3>
+            </span>
             <div>
-                <h4>Position title: {application.position.name}</h4>
-                <h5>Department: {application.position?.department.name}</h5>
-                <p>
-                    Details of the Position:
+                <span className="info-name">Position title: </span>
+                <span>{application.position.name}</span>
+            </div>
+            <div>
+                <span className="info-name">Department: </span>
+                <span> {application.position?.department.name}</span>
+            </div>
+            <div className="info-details">
+                <span className="info-name">Details of the Position: </span>
+                <span className="info-text">
                     {application.position.description}
-                </p>
-                {state.user.role_id === 3 && (
-                    <h5>
-                        Applicant:
-                        <Link to={`/users/${application.user.id}`}>
+                </span>
+            </div>
+            {state.user.role_id === 3 && (
+                <div>
+                    <span className="info-name">Applicant: </span>
+                    <Link to={`/users/${application.user.id}`}>
+                        <span>
                             {application.user.first_name}{" "}
                             {application.user.last_name}
-                        </Link>
-                    </h5>
+                        </span>
+                    </Link>
+                </div>
+            )}
+            <div>
+                {application.attachment_text || application.attachment_file ? (
+                    <span className="SubmittedInformation">
+                        Submitted Information
+                    </span>
+                ) : (
+                    ""
                 )}
-                <span>Submitted Information</span>
-                <ul>
-                    <li>
-                        <span>Your motivation text:</span>
-                        <p>{application.attachment_text}</p>
-                    </li>
-                    <li>
-                        <span>submitted url</span>
+                {application.attachment_text && (
+                    <div className="info-details">
+                        <span className="info-name">
+                            Your motivation text:{" "}
+                        </span>
+                        <span className="info-text">
+                            {application.attachment_text}
+                        </span>
+                    </div>
+                )}
+                {application.attachment_file && (
+                    <div>
+                        <span className="info-name">submitted url: </span>
                         <a
                             href={application.attachment_file}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            URL
+                            {application.attachment_file}
                         </a>
-                    </li>
-                </ul>
+                    </div>
+                )}
             </div>
-        </>
+        </div>
     );
 };
 

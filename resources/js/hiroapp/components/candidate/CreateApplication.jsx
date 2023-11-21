@@ -35,29 +35,30 @@ const CreateApplication = () => {
     };
 
     return (
-        <>
+        <div className="CreateApplication">
             <form onSubmit={handleSubmit}>
-                <label htmlFor="motivation-text">
-                    Please share few words about you and your application.
-                </label>
-                <input
-                    type="text"
-                    name="attachment_text"
-                    value={values.attachment_text}
-                    onChange={handleChange}
-                />
-                <label htmlFor="talenthub-url">
-                    Please share the link to your talent profile:
-                </label>
-                <input
-                    type="url"
-                    name="attachment_file"
-                    value={values.attachment_file}
-                    onChange={handleChange}
-                />
+                <div>
+                    <label htmlFor="motivation-text">
+                        Please share few words about you and your application.
+                        <textarea
+                            name="attachment_text"
+                            value={values.attachment_text}
+                            onChange={handleChange}
+                        />
+                    </label>
+                    <label htmlFor="talenthub-url">
+                        Please share the link to your talent profile:
+                        <input
+                            type="url"
+                            name="attachment_file"
+                            value={values.attachment_file}
+                            onChange={handleChange}
+                        />
+                    </label>
+                </div>
                 <button>Apply</button>
             </form>
-        </>
+        </div>
     );
 };
 

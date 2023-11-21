@@ -24,20 +24,20 @@ const Position = () => {
     }, []);
 
     return (
-        <div>
+        <div className="Position">
             {position ? (
                 <>
-                    <h2>{position.name}</h2>
-                    <div>
-                        <div>
-                            <span>Department: {position.department.name}</span>
-                            <span>Grade : {position.grade.name}</span>
-                        </div>
-                        <p>{position.description}</p>
+                    <div className="position-header">
+                        <h2>{position.name}</h2>
+                        <Link to={"/apply/" + id}>
+                            <button>Apply</button>
+                        </Link>
                     </div>
-                    <Link to={"/apply/" + id}>
-                        <button>Apply</button>
-                    </Link>
+                    <div className="position-info">
+                        <span>Department: {position.department.name}</span>
+                        <span>Grade : {position.grade.name}</span>
+                        <span>{position.description}</span>
+                    </div>
                 </>
             ) : (
                 <span>Position does not exist</span>

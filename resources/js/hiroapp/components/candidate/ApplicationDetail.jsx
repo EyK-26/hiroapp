@@ -29,20 +29,22 @@ const ApplicationDetail = () => {
     return (
         <>
             {appData && (
-                <div>
-                    {applied && <p>Application Submitted!</p>}
+                <div className="ApplicationDetail">
+                    {applied && <span>Application Submitted!</span>}
                     <ApplicationDetailHeader
                         applicant={appData.application.user}
                     />
-                    <ApplicationDetailDetails
-                        application={appData.application}
-                    />
-                    <ApplicationDetailStatus
-                        allStatuses={appData.all_statuses}
-                        application={appData.application}
-                        setIsEnded={setIsEnded}
-                        setMoveCount={setMoveCount}
-                    />
+                    <div className="body">
+                        <ApplicationDetailDetails
+                            application={appData.application}
+                        />
+                        <ApplicationDetailStatus
+                            allStatuses={appData.all_statuses}
+                            application={appData.application}
+                            setIsEnded={setIsEnded}
+                            setMoveCount={setMoveCount}
+                        />
+                    </div>
                 </div>
             )}
         </>

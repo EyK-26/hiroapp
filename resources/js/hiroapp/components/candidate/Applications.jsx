@@ -30,7 +30,7 @@ const Applications = () => {
             {applications.length > 20 && (
                 <Pagination page={page} setPage={setPage} lastPage={lastPage} />
             )}
-            <div>
+            <div className="list">
                 {applications.length !== 0 ? (
                     applications
                         .slice(startResults, startResults + 20)
@@ -39,7 +39,15 @@ const Applications = () => {
                                 to={"/applications/" + application.id}
                                 key={application.id}
                             >
-                                <div>
+                                <div
+                                    className={
+                                        application.status_id === 6
+                                            ? "list-item status-ended"
+                                            : application.status_id === 5
+                                            ? "list-item status-hired"
+                                            : "list-item"
+                                    }
+                                >
                                     <span>{application.position.name}</span>
                                     <span>{application.status.name}</span>
                                 </div>
