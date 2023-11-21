@@ -526,9 +526,13 @@ span {
                         background-color: #047857;
                     }
                     &.ended {
-                        background-color: #7f1d1d;
+                        background-color: #823442;
                         .circle {
-                            background-color: #991b1b;
+                            background-color: #3f161e;
+                        }
+                        span {
+                            color: #3f161e;
+                            font-weight: bold;
                         }
                     }
                 }

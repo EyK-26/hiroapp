@@ -95,7 +95,12 @@ const ApplicationDetailStatus = ({
                         <button onClick={handleMove}>Move To Next Stage</button>
                     ) : (
                         renderHireBtn && (
-                            <button onClick={() => setIsHirePopupOpen(true)}>
+                            <button
+                                onClick={() => {
+                                    setIsHirePopupOpen(true);
+                                    setIsRejectPopupOpen(false);
+                                }}
+                            >
                                 Hire
                             </button>
                         )
@@ -109,7 +114,10 @@ const ApplicationDetailStatus = ({
             <div className="topPart">
                 {application.status.id < 5 && (
                     <button
-                        onClick={() => setIsRejectPopupOpen(!isRejectPopupOpen)}
+                        onClick={() => {
+                            setIsRejectPopupOpen(true);
+                            setIsHirePopupOpen(false);
+                        }}
                     >
                         {state.user.role_id === 2
                             ? "Retrieve Your Application"
@@ -137,13 +145,13 @@ const ApplicationDetailStatus = ({
                     />
                 )}
                 {application.status.id === 2 && isInterviewPopupOpen && (
-                        <InterviewForm
-                            applicant={application.user}
-                            position={application.position}
-                            setIsInterviewPopupOpen={setIsInterviewPopupOpen}
-                            setIsInterviewSet={setIsInterviewSet}
-                            setIsProcessingQuery={setIsProcessingQuery}
-                        />
+                    <InterviewForm
+                        applicant={application.user}
+                        position={application.position}
+                        setIsInterviewPopupOpen={setIsInterviewPopupOpen}
+                        setIsInterviewSet={setIsInterviewSet}
+                        setIsProcessingQuery={setIsProcessingQuery}
+                    />
                 )}
             </div>
             <div
