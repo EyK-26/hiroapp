@@ -3,43 +3,43 @@ import Context from "../../context/Context";
 import axios from "axios";
 
 const ContactUser = ({ userData, setIsEmailPopupOpen, setIsSent }) => {
-    const { state } = useContext(Context);
-    const recipient = userData.email;
-    const sender = state.user.email;
-    const [values, setValues] = useState({
-        subject: "",
-        text: "",
-    });
+	const { state } = useContext(Context);
+	const recipient = userData.email;
+	const sender = state.user.email;
+	const [values, setValues] = useState({
+		subject: "",
+		text: "",
+	});
 
-    const handleChange = (ev) => {
-        setValues((prev) => {
-            return {
-                ...prev,
-                [ev.target.name]: ev.target.value,
-            };
-        });
-    };
+	const handleChange = (ev) => {
+		setValues((prev) => {
+			return {
+				...prev,
+				[ev.target.name]: ev.target.value,
+			};
+		});
+	};
 
-    const handleSend = async (ev) => {
-        ev.preventDefault();
-        try {
-            const response = await axios.post(`/api/notify`, {
-                ...values,
-                to: recipient,
-                from: sender,
-            });
-            if (Math.floor(response.status / 100) === 2) {
-                setIsEmailPopupOpen(false);
-                setIsSent(true);
-            }
-        } catch (err) {
-            console.log(err.response);
-        }
-    };
+	const handleSend = async (ev) => {
+		ev.preventDefault();
+		try {
+			const response = await axios.post(`/api/notify`, {
+				...values,
+				to: recipient,
+				from: sender,
+			});
+			if (Math.floor(response.status / 100) === 2) {
+				setIsEmailPopupOpen(false);
+				setIsSent(true);
+			}
+		} catch (err) {
+			console.log(err.response);
+		}
+	};
 
-    const handleDiscard = () => {
-        setIsEmailPopupOpen(false);
-    };
+	const handleDiscard = () => {
+		setIsEmailPopupOpen(false);
+	};
 
     return (
         <>
