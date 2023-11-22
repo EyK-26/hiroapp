@@ -8,7 +8,7 @@ export default ({ mode }) => {
     return defineConfig({
         plugins: [
             laravel({
-                input: ["resources/css/app.scss", "resources/js/app.js"],
+                input: ["resources/css/app.scss", "resources/js/HiroApp.jsx"],
 
                 refresh: true,
             }),
@@ -29,7 +29,7 @@ export default ({ mode }) => {
                         return {
                             code: code.replaceAll(
                                 /url\(([\'\"]?)(\/[^\)\'\"]+)\1\)/g,
-                                `url($1${APP_URL}$2$1)`
+                                `url($1${APP_URL}$2$1)`,
                             ),
                         };
                     }
