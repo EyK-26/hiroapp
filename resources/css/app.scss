@@ -265,10 +265,16 @@ span {
     .notification_preview {
         display: flex;
         flex-direction: column;
-        border-top: solid 1px $bg-1;
         cursor: pointer;
+        span {
+            color: $bg-1;
+            font-weight: bold;
+        }
         &.message_read {
-            background-color: rgb(92, 92, 92, 0.5);
+            span {
+                color: $bg-2;
+                font-weight: normal;
+            }
         }
     }
 }
