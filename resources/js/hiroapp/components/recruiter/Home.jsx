@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Dashboard from "./dashboard/Dashboard";
 
 const Home = () => {
-    const [toggleDashboard, setToggleDashboard] = useState(false);
+    const [toggleDashboard, setToggleDashboard] = useState(true);
 
     return (
         <div className="HomeRecruiter">
