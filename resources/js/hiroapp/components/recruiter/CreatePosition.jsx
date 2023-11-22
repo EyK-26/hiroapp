@@ -49,9 +49,9 @@ const CreatePosition = () => {
     }, []);
 
     return (
-        <>
+        <div className="CreatePosition">
             <h2>Create new position</h2>
-
+            <button onClick={() => navigate(-1)}>back</button>
             <form action="/" method="post" onSubmit={handleSubmit}>
                 <label>
                     Name:
@@ -125,7 +125,7 @@ const CreatePosition = () => {
 
                 <button>Create</button>
             </form>
-        </>
+        </div>
     );
 };
 

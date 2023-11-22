@@ -41,35 +41,39 @@ const ContactUser = ({ userData, setIsEmailPopupOpen, setIsSent }) => {
 		setIsEmailPopupOpen(false);
 	};
 
-	return (
-		<>
-			<div className="modal-overlay"></div>
-			<form action="/">
-				<label htmlFor="to">To</label>
-				<input type="email" id="to" value={recipient} disabled />
-				<label htmlFor="from">From</label>
-				<input type="email" id="from" value={sender} disabled />
-				<label htmlFor="subject">Subject</label>
-				<input
-					type="text"
-					id="subject"
-					name="subject"
-					onChange={handleChange}
-					value={values.subject}
-				/>
-				<textarea
-					name="text"
-					id="text"
-					cols="40"
-					rows="20"
-					onChange={handleChange}
-					value={values.text}
-				/>
-				<button onClick={handleSend}>Send</button>
-				<button onClick={handleDiscard}>Discard</button>
-			</form>
-		</>
-	);
+    return (
+        <>
+            <div className="modal-overlay"></div>
+            <div className="ContactUser">
+                <form action="/">
+                    <label htmlFor="to">To</label>
+                    <input type="email" id="to" value={recipient} disabled />
+                    <label htmlFor="from">From</label>
+                    <input type="email" id="from" value={sender} disabled />
+                    <label htmlFor="subject">Subject</label>
+                    <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        required
+                        onChange={handleChange}
+                        value={values.subject}
+                    />
+                    <textarea
+                        name="text"
+                        id="text"
+                        cols="40"
+                        rows="20"
+                        required
+                        onChange={handleChange}
+                        value={values.text}
+                    />
+                    <button onClick={handleSend}>Send</button>
+                    <button onClick={handleDiscard}>Discard</button>
+                </form>
+            </div>
+        </>
+    );
 };
 
 export default ContactUser;
