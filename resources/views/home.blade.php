@@ -7,7 +7,7 @@
     <link rel="icon" type="image/x-icon" href="#">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite('resources/css/app.scss')
-    <title>Document</title>
+    <title>HiroApp</title>
 </head>
 
 <body>
