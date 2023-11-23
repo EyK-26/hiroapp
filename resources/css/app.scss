@@ -193,6 +193,9 @@ span {
     background-color: $bg-3;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 0.4em 1em;
+    display: flex;
+    justify-content: end;
+    align-items: center;
 }
 
 .Header {
@@ -291,7 +294,6 @@ span {
     display: flex;
     justify-content: space-between;
     align-items: start;
-    width: 80%;
     & > div {
         min-height: 30em;
         width: 100%;
@@ -488,6 +490,7 @@ span {
             .Hire {
                 display: flex;
                 flex-direction: column;
+                flex-wrap: wrap;
                 align-items: end;
                 .text {
                     width: 100%;
