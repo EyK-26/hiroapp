@@ -294,6 +294,7 @@ span {
     display: flex;
     justify-content: space-between;
     align-items: start;
+    width: 80%;
     & > div {
         min-height: 30em;
         width: 100%;
@@ -483,9 +484,9 @@ span {
             }
         }
         .interactivePart {
-            height: 7em;
+            min-height: 7em;
             max-width: 30em;
-
+            margin-bottom: 1em;
             .Reject,
             .Hire {
                 display: flex;
@@ -912,7 +913,6 @@ span {
             }
 
             input,
-
             select {
                 margin-bottom: 0.4em;
             }
