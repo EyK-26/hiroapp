@@ -220,6 +220,9 @@ span {
         }
     }
     .UserProfile {
+        .NavigationMobile {
+            display: none;
+        }
         position: absolute;
         background-color: $bg-3;
         display: flex;
@@ -937,8 +940,14 @@ span {
 }
 
 @media only screen and (max-width: 700px) {
-    .Header .Navigation {
+    .Header > .Navigation {
         display: none;
+    }
+    .NavigationMobile {
+        display: block !important;
+        .Navigation {
+            flex-direction: column;
+        }
     }
     .main {
         width: 100%;
