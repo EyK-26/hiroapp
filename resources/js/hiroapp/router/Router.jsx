@@ -38,6 +38,10 @@ const Router = ({ loadUserStatus }) => {
                             path="/positions/:id"
                             element={<PositionDetail />}
                         />
+                        <Route
+                            path="/applications/:id"
+                            element={<ApplicationDetail />}
+                        />
                     </>
                 );
             case 2:
